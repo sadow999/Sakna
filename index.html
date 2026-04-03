@@ -55,8 +55,8 @@ h2.section-title em{font-style:italic;color:var(--nile)}
 /* ==========================================
    5. CONTENT SECTIONS
    ========================================== */
-/* Origin */
-.origin{background:var(--ink);color:var(--sand')}
+/* Origin — FIX: removed stray quote from color:var(--sand') */
+.origin{background:var(--ink);color:var(--sand)}
 .origin .section-label,.origin h2.section-title em{color:var(--clay)}
 .origin h2.section-title{color:var(--sand)}
 .origin-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem;align-items:start}
@@ -134,10 +134,10 @@ h2.section-title em{font-style:italic;color:var(--nile)}
 .wefe-stat-box .num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--clay);display:block;line-height:1}
 .wefe-stat-box .label{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(242,237,223,0.45);margin-top:0.3rem}
 
-/* Projects */
+/* Projects — FIX: removed stray quote from background:var(--white') */
 .projects{background:var(--parchment)}
 .projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem}
-.project-card{border-radius:4px;overflow:hidden;border:1px solid rgba(26,24,20,0.1);background:var(--white')}
+.project-card{border-radius:4px;overflow:hidden;border:1px solid rgba(26,24,20,0.1);background:var(--white)}
 .project-header{padding:2rem 2rem 1.5rem;position:relative}
 .project-card.oases .project-header{background:linear-gradient(135deg,#1a3d52 0%,#2a6040 100%)}
 .project-card.mangroves .project-header{background:linear-gradient(135deg,#1a3d52 0%,#1d6a5a 100%)}
@@ -157,7 +157,8 @@ h2.section-title em{font-style:italic;color:var(--nile)}
 
 /* Leaflet Map */
 .map-frame{margin-top:1.5rem;border-radius:4px;overflow:hidden;border:1px solid rgba(26,24,20,0.12)}
-#map-oases,#map-mangroves{height:320px}
+/* FIX: explicit height on map containers so Leaflet can initialize correctly */
+#map-oases,#map-mangroves{height:320px;width:100%}
 .leaflet-popup-content h4{font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:700;color:#1a3d52;margin-bottom:6px}
 .leaflet-popup-content .challenge{font-size:0.72rem;color:#c44a3e;font-weight:600;margin-bottom:4px}
 .leaflet-popup-content .action{font-size:0.7rem;color:#333;line-height:1.5}
@@ -173,7 +174,7 @@ h2.section-title em{font-style:italic;color:var(--nile)}
 .pillar-num{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:rgba(196,149,106,0.3);line-height:1;margin-bottom:0.5rem}
 .pillar h4{font-size:0.8rem;font-weight:600;color:var(--ink);margin-bottom:0.25rem}
 .pillar p{font-size:0.7rem;color:var(--ink-muted);line-height:1.6}
-.oasis-types{margin-top:1.5rem;display:flex;flex-direction:column;gap: 0.5rem}
+.oasis-types{margin-top:1.5rem;display:flex;flex-direction:column;gap:0.5rem}
 .oasis-type{display:flex;align-items:center;gap:1rem;padding:0.75rem 1rem;background:var(--white);border-radius:3px;border:1px solid rgba(26,24,20,0.06)}
 .oasis-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .oasis-type h5{font-size:0.78rem;font-weight:600;margin-bottom:0.1rem}
@@ -231,7 +232,7 @@ h2.section-title em{font-style:italic;color:var(--nile)}
 .people-card-info .tag{display:inline-block;font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;background:rgba(196,149,106,0.2);color:var(--clay);padding:3px 8px;border-radius:2px;margin-bottom:0.5rem}
 
 /* Research Section */
-.research-section{background:var(--sand-dark,#e8e1ce)}
+.research-section{background:var(--sand-dark)}
 .thesis-card{background:var(--nile-deep);color:var(--sand);padding:2rem;border-radius:4px;margin-bottom:2rem}
 .thesis-card .tag{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--clay);margin-bottom:0.75rem}
 .thesis-card h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;line-height:1.4;color:var(--sand);margin-bottom:1.5rem}
@@ -249,7 +250,8 @@ h2.section-title em{font-style:italic;color:var(--nile)}
 .chart-row{display:flex;align-items:center;gap:1rem}
 .chart-label{width:80px;font-size:0.7rem;color:var(--ink-muted);text-align:right}
 .bar-container{flex:1;height:24px;background:rgba(26,24,20,0.05);border-radius:2px;position:relative;overflow:hidden}
-.bar{height:100%;border-radius:2px;position:absolute;left:0;top:0;transition:width 1s ease-out}
+/* FIX: bars default to width:0 so the JS animation works correctly */
+.bar{height:100%;border-radius:2px;position:absolute;left:0;top:0;width:0;transition:width 1s ease-out}
 .bar.winter{background:var(--nile)}
 .bar.summer{background:var(--red-sea)}
 .bar.neutral{background:var(--clay)}
@@ -627,7 +629,7 @@ h2.section-title em{font-style:italic;color:var(--nile)}
     </div>
   </div>
 
-  <!-- UHF PDF GALLERY (ADDED HERE) -->
+  <!-- UHF PDF GALLERY -->
   <div class="uhf-pdf-section">
     <h3>Thematic Map Documents</h3>
     <div class="pdf-grid">
@@ -673,7 +675,6 @@ h2.section-title em{font-style:italic;color:var(--nile)}
       </a>
     </div>
   </div>
-
 </section>
 
 <!-- PEOPLE & PARTNERSHIPS -->
@@ -790,7 +791,6 @@ h2.section-title em{font-style:italic;color:var(--nile)}
     <div class="dashboard-chart">
       <div class="chart-title">Projected Crop Water Consumption (SSP5-8.5 · 2099)</div>
       <div class="chart-container">
-        <!-- Winter Crops -->
         <div class="chart-row">
           <div class="chart-label">Wheat</div>
           <div class="bar-container"><div class="bar winter" data-width="66%"></div></div>
@@ -806,7 +806,6 @@ h2.section-title em{font-style:italic;color:var(--nile)}
           <div class="bar-container"><div class="bar neutral" data-width="42%"></div></div>
           <div class="chart-value up">+4.2%</div>
         </div>
-        <!-- Summer Crops -->
         <div class="chart-row">
           <div class="chart-label">Rice</div>
           <div class="bar-container"><div class="bar summer" data-width="63%"></div></div>
@@ -818,7 +817,7 @@ h2.section-title em{font-style:italic;color:var(--nile)}
           <div class="chart-value down">-4.0%</div>
         </div>
       </div>
-      <div class="impl-note" style="margin-top:1rem; font-size:0.65rem;">
+      <div class="impl-note" style="margin-top:1rem;font-size:0.65rem;">
         <strong>Counter-Intuitive Result:</strong> Winter crops show increasing demand due to warmer winters. Summer crops show decreasing demand, likely due to humidity/radiation changes.
       </div>
     </div>
@@ -834,7 +833,7 @@ h2.section-title em{font-style:italic;color:var(--nile)}
         <div class="scenario-label">Climate + Expansion</div>
         <div class="scenario-val highlight">+13.5%</div>
       </div>
-      <p style="font-size:0.7rem; color:var(--ink-muted); margin-top:1rem; line-height:1.6;">
+      <p style="font-size:0.7rem;color:var(--ink-muted);margin-top:1rem;line-height:1.6;">
         <strong>Conclusion:</strong> National land-use policy is a substantially more powerful driver of water demand than direct climate impacts. <a href="assets/docs/manuscript_revised.pdf" style="color:var(--nile);">Read Manuscript →</a>
       </p>
     </div>
@@ -843,21 +842,15 @@ h2.section-title em{font-style:italic;color:var(--nile)}
   <!-- Publication List -->
   <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin:3rem 0 1rem">Publication Record</h3>
   <div class="pubs-list">
-    
-    <!-- 1. Thesis -->
     <div class="pub-item review">
       <span class="pub-badge review">Under Review · 2026</span>
       <p>Sakna, A., Mul, M., Tran, B., &amp; Seyoum, S. "Assessing the Impact of Climate Change on Water Consumption Using Remote Sensing Data and Machine Learning: A Case Study of the Nile Delta, Egypt."</p>
     </div>
-
-    <!-- 2. Soil Moisture Paper -->
     <div class="pub-item">
       <span class="pub-badge published">Published · 2026</span>
       <p>Abdelal, Q., Al-Kilani, M.R., Al-Bakri, J., Keblouti, M., &amp; <strong>Sakna, A.</strong> "Reduced Frequency of Soil Moisture Measurements for Cost-effective Irrigation Management in Arid Regions." <em>Journal of Agrometeorology</em>, 28(1), 100–103.</p>
       <a href="assets/docs/Short Comm 04 ABDELAL 106-109 (3254).pdf" target="_blank">doi:10.54386/jam.v28i1.3254 →</a>
     </div>
-
-    <!-- 3. Construction Papers -->
     <div class="pub-item construction">
       <span class="pub-badge construction">Published · 2022</span>
       <p>Galishnikova, V.V., Elroba, S.M., Dayoub, N., &amp; <strong>Sakna, A.</strong> "Use of natural compounds as nutrition for bacteria in self-healing mortar." <em>Structural Mechanics of Engineering Constructions and Buildings</em>, 18(1), 54–63.</p>
@@ -898,53 +891,54 @@ h2.section-title em{font-style:italic;color:var(--nile)}
 // ==========================================
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(el => {
-    if (el.isIntersecting) { 
-      el.target.style.opacity='1'; 
-      el.target.style.transform='translateY(0)'; 
+    if (el.isIntersecting) {
+      el.target.style.opacity = '1';
+      el.target.style.transform = 'translateY(0)';
     }
   });
-}, {threshold:0.08});
+}, { threshold: 0.08 });
 
 document.querySelectorAll('section:not(.hero)').forEach(sec => {
-  sec.style.opacity='0'; 
-  sec.style.transform='translateY(20px)';
-  sec.style.transition='opacity 0.7s ease, transform 0.7s ease';
+  sec.style.opacity = '0';
+  sec.style.transform = 'translateY(20px)';
+  sec.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
   observer.observe(sec);
 });
 
 // ==========================================
 // 2. LIGHTBOX FUNCTIONALITY
 // ==========================================
-function openLightbox(src, caption){
+function openLightbox(src, caption) {
   document.getElementById('lightbox-img').src = src;
   document.getElementById('lightbox-caption').textContent = caption;
   document.getElementById('lightbox').classList.add('active');
-  document.body.style.overflow = 'hidden'; 
+  document.body.style.overflow = 'hidden';
 }
 
-function closeLightbox(){
+function closeLightbox() {
   document.getElementById('lightbox').classList.remove('active');
   document.body.style.overflow = 'auto';
 }
 
 document.addEventListener('keydown', e => {
-  if(e.key === 'Escape') closeLightbox();
+  if (e.key === 'Escape') closeLightbox();
 });
 
 // ==========================================
 // 3. ANIMATE CHART BARS ON SCROLL
+// FIX: bars default to width:0 in CSS, set to target width when intersecting
 // ==========================================
 const chartObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      const bars = entry.target.querySelectorAll('.bar');
-      bars.forEach(bar => {
-        const width = bar.getAttribute('data-width');
-        bar.style.width = width;
+      entry.target.querySelectorAll('.bar').forEach(bar => {
+        bar.style.width = bar.getAttribute('data-width');
       });
+      // Unobserve after animating so it doesn't re-trigger
+      chartObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.5 });
+}, { threshold: 0.3 });
 
 document.querySelectorAll('.chart-container').forEach(chart => {
   chartObserver.observe(chart);
@@ -952,94 +946,127 @@ document.querySelectorAll('.chart-container').forEach(chart => {
 
 // ==========================================
 // 4. LEAFLET MAPS
+// FIX: call invalidateSize() after maps are visible to fix tile rendering
 // ==========================================
+
 // --- OASES MAP ---
-const oasesMap = L.map('map-oases').setView([26.5, 28.5], 6);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
-  attribution:'© OpenStreetMap © CARTO', maxZoom:18
+const oasesMap = L.map('map-oases', { scrollWheelZoom: false }).setView([26.5, 28.5], 6);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+  maxZoom: 18
 }).addTo(oasesMap);
 
 const oasisIcon = L.divIcon({
-  className:'',
-  html:`<div style="width:14px;height:14px;background:#1a3d52;border:2px solid #c4956a;border-radius:50%"></div>`,
-  iconAnchor:[7,7]
+  className: '',
+  html: '<div style="width:14px;height:14px;background:#1a3d52;border:2px solid #c4956a;border-radius:50%"></div>',
+  iconAnchor: [7, 7]
 });
 const siwaIcon = L.divIcon({
-  className:'',
-  html:`<div style="width:16px;height:16px;background:#c44a3e;border:2px solid #fff;border-radius:50%"></div>`,
-  iconAnchor:[8,8]
+  className: '',
+  html: '<div style="width:16px;height:16px;background:#c44a3e;border:2px solid #fff;border-radius:50%"></div>',
+  iconAnchor: [8, 8]
+});
+const drcIcon = L.divIcon({
+  className: '',
+  html: '<div style="width:12px;height:12px;background:#3d7a5f;border:2px solid #fff;border-radius:2px"></div>',
+  iconAnchor: [6, 6]
 });
 
 const oasesSites = [
-  { lat:29.20, lng:25.52, name:"Siwa Oasis", icon:siwaIcon,
-    badge:"€535,000 · Salinity Management",
-    challenge:"Rising salty groundwater poisoning crops and threatening the ancient mud-brick Shali heritage site.",
-    action:"8ha salt-tolerant heritage crops · 150 agroforestry windbreak trees · 2 wetland strips." },
-  { lat:29.31, lng:30.84, name:"Fayoum Oasis", icon:oasisIcon,
-    badge:"Agro-Innovation Pilot",
-    challenge:"Severe soil depletion and loss of heritage farming efficiency.",
-    action:"Ramad Farm Model across 10ha · Ancient Fallow Irrigation revived · Bio-polymers for soil water retention." },
-  { lat:25.44, lng:30.56, name:"Kharga Oasis", icon:oasisIcon,
-    badge:"Eco-Tourism & TVET",
-    challenge:"Lack of green economic opportunities drives youth migration.",
-    action:"Historic 1960s Administrative Complex restored as School of Traditional Crafts." },
-  { lat:25.49, lng:28.98, name:"Dakhla Oasis", icon:oasisIcon,
-    badge:"Water Harvesting",
-    challenge:"The ancient Nubian Aquifer is fading, drying up life-giving irrigation channels.",
-    action:"2–3 traditional wells rehabilitated · 2 sand dams + recharge trench constructed." },
-  { lat:26.07, lng:28.21, name:"Desert Research Center", icon:L.divIcon({className:'',html:`<div style="width:12px;height:12px;background:#3d7a5f;border:2px solid #fff;border-radius:2px"></div>`,iconAnchor:[6,6]}),
-    badge:"The Genetic Ark",
-    challenge:"Heritage date varieties at risk of extinction.",
-    action:"Tissue Culture Lab reactivated · 50,000 seedlings of endangered varieties." }
+  { lat: 29.20, lng: 25.52, name: "Siwa Oasis", icon: siwaIcon,
+    badge: "€535,000 · Salinity Management",
+    challenge: "Rising salty groundwater poisoning crops and threatening the ancient mud-brick Shali heritage site.",
+    action: "8ha salt-tolerant heritage crops · 150 agroforestry windbreak trees · 2 wetland strips." },
+  { lat: 29.31, lng: 30.84, name: "Fayoum Oasis", icon: oasisIcon,
+    badge: "Agro-Innovation Pilot",
+    challenge: "Severe soil depletion and loss of heritage farming efficiency.",
+    action: "Ramad Farm Model across 10ha · Ancient Fallow Irrigation revived · Bio-polymers for soil water retention." },
+  { lat: 25.44, lng: 30.56, name: "Kharga Oasis", icon: oasisIcon,
+    badge: "Eco-Tourism & TVET",
+    challenge: "Lack of green economic opportunities drives youth migration.",
+    action: "Historic 1960s Administrative Complex restored as School of Traditional Crafts." },
+  { lat: 25.49, lng: 28.98, name: "Dakhla Oasis", icon: oasisIcon,
+    badge: "Water Harvesting",
+    challenge: "The ancient Nubian Aquifer is fading, drying up life-giving irrigation channels.",
+    action: "2–3 traditional wells rehabilitated · 2 sand dams + recharge trench constructed." },
+  { lat: 26.07, lng: 28.21, name: "Desert Research Center", icon: drcIcon,
+    badge: "The Genetic Ark",
+    challenge: "Heritage date varieties at risk of extinction.",
+    action: "Tissue Culture Lab reactivated · 50,000 seedlings of endangered varieties." }
 ];
 
 oasesSites.forEach(s => {
-  L.marker([s.lat,s.lng],{icon:s.icon}).addTo(oasesMap)
+  L.marker([s.lat, s.lng], { icon: s.icon }).addTo(oasesMap)
     .bindPopup(`<div style="max-width:220px"><div class="badge">${s.badge}</div><h4>${s.name}</h4><div class="challenge">⚠ Challenge: ${s.challenge}</div><div class="action">✓ Action: ${s.action}</div></div>`);
 });
 
 // --- MANGROVES MAP ---
-const mangrovesMap = L.map('map-mangroves').setView([23.5, 35.5], 8);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{
-  attribution:'© OpenStreetMap © CARTO', maxZoom:18
+const mangrovesMap = L.map('map-mangroves', { scrollWheelZoom: false }).setView([23.5, 35.5], 8);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+  maxZoom: 18
 }).addTo(mangrovesMap);
 
 const mangroveIcon = L.divIcon({
-  className:'',
-  html:`<div style="width:14px;height:14px;background:#3d7a5f;border:2px solid #fff;border-radius:50%"></div>`,
-  iconAnchor:[7,7]
+  className: '',
+  html: '<div style="width:14px;height:14px;background:#3d7a5f;border:2px solid #fff;border-radius:50%"></div>',
+  iconAnchor: [7, 7]
 });
 const communityIcon = L.divIcon({
-  className:'',
-  html:`<div style="width:14px;height:14px;background:#d4943a;border:2px solid #fff;border-radius:50%"></div>`,
-  iconAnchor:[7,7]
+  className: '',
+  html: '<div style="width:14px;height:14px;background:#d4943a;border:2px solid #fff;border-radius:50%"></div>',
+  iconAnchor: [7, 7]
+});
+const tvetIcon = L.divIcon({
+  className: '',
+  html: '<div style="width:12px;height:12px;background:#c4956a;border:2px solid #fff;border-radius:2px"></div>',
+  iconAnchor: [6, 6]
 });
 
 const mangroveSites = [
-  { lat:23.93, lng:35.29, name:"Wadi El Gemal", icon:mangroveIcon,
-    badge:"Core Restoration Zone",
-    challenge:"30% mangrove cover lost. Camel overgrazing destroys young shoots.",
-    action:"10,000 trees/year · Local nursery established · Camel-proof fencing installed." },
-  { lat:23.63, lng:35.66, name:"Hamata", icon:mangroveIcon,
-    badge:"Secondary Restoration Zone",
-    challenge:"Urban encroachment and degraded tidal channels.",
-    action:"Second local nursery · Tidal channel hydrological restoration." },
-  { lat:24.10, lng:35.10, name:"Ababda Bedouin Territory", icon:communityIcon,
-    badge:"Indigenous Knowledge Hub",
-    challenge:"Traditional Ecological Knowledge (TEK) not integrated into restoration science.",
-    action:"Ababda community certified as central custodians of the CMSC." },
-  { lat:24.35, lng:35.48, name:"TVET Training Center", icon:L.divIcon({className:'',html:`<div style="width:12px;height:12px;background:#c4956a;border:2px solid #fff;border-radius:2px"></div>`,iconAnchor:[6,6]}),
-    badge:"Green Skills",
-    challenge:"Local communities lack sustainable economic alternatives.",
-    action:"Formal TVET vocational training for 60 local youth and women." }
+  { lat: 23.93, lng: 35.29, name: "Wadi El Gemal", icon: mangroveIcon,
+    badge: "Core Restoration Zone",
+    challenge: "30% mangrove cover lost. Camel overgrazing destroys young shoots.",
+    action: "10,000 trees/year · Local nursery established · Camel-proof fencing installed." },
+  { lat: 23.63, lng: 35.66, name: "Hamata", icon: mangroveIcon,
+    badge: "Secondary Restoration Zone",
+    challenge: "Urban encroachment and degraded tidal channels.",
+    action: "Second local nursery · Tidal channel hydrological restoration." },
+  { lat: 24.10, lng: 35.10, name: "Ababda Bedouin Territory", icon: communityIcon,
+    badge: "Indigenous Knowledge Hub",
+    challenge: "Traditional Ecological Knowledge (TEK) not integrated into restoration science.",
+    action: "Ababda community certified as central custodians of the CMSC." },
+  { lat: 24.35, lng: 35.48, name: "TVET Training Center", icon: tvetIcon,
+    badge: "Green Skills",
+    challenge: "Local communities lack sustainable economic alternatives.",
+    action: "Formal TVET vocational training for 60 local youth and women." }
 ];
 
 mangroveSites.forEach(s => {
-  L.marker([s.lat,s.lng],{icon:s.icon}).addTo(mangrovesMap)
+  L.marker([s.lat, s.lng], { icon: s.icon }).addTo(mangrovesMap)
     .bindPopup(`<div style="max-width:220px"><div class="badge" style="background:#3d7a5f">${s.badge}</div><h4>${s.name}</h4><div class="challenge">⚠ Challenge: ${s.challenge}</div><div class="action">✓ Action: ${s.action}</div></div>`);
 });
 
-L.rectangle([[22.5,34.5],[25.5,37.0]],{color:'#3d7a5f',weight:1,fillOpacity:0.04,dashArray:'4,6'}).addTo(mangrovesMap);
+L.rectangle([[22.5, 34.5], [25.5, 37.0]], {
+  color: '#3d7a5f', weight: 1, fillOpacity: 0.04, dashArray: '4,6'
+}).addTo(mangrovesMap);
+
+// FIX: force Leaflet to recalculate map size after scroll-reveal shows the container
+// Without this, maps initialised inside hidden (opacity:0) elements render blank tiles
+const mapResizeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        oasesMap.invalidateSize();
+        mangrovesMap.invalidateSize();
+      }, 100);
+      mapResizeObserver.disconnect();
+    }
+  });
+}, { threshold: 0.1 });
+
+const projectsSection = document.getElementById('projects');
+if (projectsSection) mapResizeObserver.observe(projectsSection);
 </script>
 </body>
 </html>
