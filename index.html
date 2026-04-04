@@ -7,7 +7,1284 @@
 <title>Ahmed Saber Sakna — Environmental Engineer & Water Resource Specialist</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  :root {
+    --ink: #1a1612;
+    --ink-muted: #5a5048;
+    --ink-faint: #8a7e74;
+    --bg: #f5f0e8;
+    --bg-warm: #ede6d8;
+    --dark: #111008;
+    --dark-2: #1c1a12;
+    --clay: #c4956a;
+    --clay-deep: #8b5e3c;
+    --teal: #2a5f7a;
+    --teal-light: #3a7a96;
+    --green: #3d7a5f;
+    --amber: #d4943a;
+    --border: rgba(196,149,106,0.22);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--serif);
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ===================== LIGHTBOX ===================== */
+  .lb {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,8,4,0.95);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 2rem;
+  }
+  .lb.open { display: flex; }
+  .lb-x {
+    position: absolute;
+    top: 1.5rem; right: 2rem;
+    font-size: 2.5rem;
+    color: #fff;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .lb-x:hover { opacity: 1; }
+  .lb img {
+    max-width: 90vw;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+  .lb-cap {
+    color: rgba(255,255,255,0.75);
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    max-width: 700px;
+    text-align: center;
+    margin-top: 1.2rem;
+    line-height: 1.6;
+  }
+
+  /* ===================== NAV ===================== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    height: 60px;
+    background: rgba(245,240,232,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 0.2rem;
+    align-items: center;
+  }
+  nav ul li a {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    padding: 0.4rem 0.7rem;
+    border-radius: 2px;
+    transition: color 0.2s;
+  }
+  nav ul li a:hover { color: var(--ink); }
+  .nav-cta {
+    background: var(--clay) !important;
+    color: #fff !important;
+    padding: 0.4rem 0.9rem !important;
+  }
+
+  /* ===================== HERO ===================== */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 100px 5% 60px;
+    position: relative;
+    gap: 4rem;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #f5f0e8 0%, #ede6d8 60%, #e0d5c0 100%);
+    z-index: 0;
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(196,149,106,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(196,149,106,0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 1;
+  }
+  .hero-left, .hero-right { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--clay-deep);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .hero-eyebrow span {
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--clay);
+  }
+  .hero-name {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 0.6rem;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--clay);
+  }
+  .hero-thesis {
+    font-size: 1.02rem;
+    color: var(--ink-muted);
+    line-height: 1.75;
+    max-width: 480px;
+    margin-bottom: 2rem;
+  }
+  .hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.75rem 1.4rem;
+    border-radius: 2px;
+    transition: all 0.22s;
+    display: inline-block;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .btn-primary:hover { background: var(--clay); }
+  .btn-ghost {
+    border: 1px solid var(--ink);
+    color: var(--ink);
+  }
+  .btn-ghost:hover { background: var(--ink); color: var(--bg); }
+
+  .hero-photo {
+    width: 340px;
+    height: 420px;
+    background: var(--bg-warm);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0 auto 1.5rem;
+    position: relative;
+  }
+  .hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-photo-ph {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    padding: 2rem;
+    color: var(--ink-muted);
+  }
+  .hero-photo-ph .ico { font-size: 3rem; margin-bottom: 1rem; }
+  .hero-photo-ph strong { font-family: var(--sans); font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .hero-photo-ph p { font-size: 0.78rem; line-height: 1.6; }
+
+  .hero-creds { display: flex; flex-direction: column; gap: 0.7rem; }
+  .cred {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+  }
+  .cred-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .cred strong { color: var(--ink); font-weight: 600; }
+
+  /* ===================== SECTION BASICS ===================== */
+  section {
+    padding: 6rem 5%;
+  }
+  .on-dark {
+    background: var(--dark);
+    color: rgba(255,255,255,0.88);
+  }
+  .on-dark .section-title, .on-dark h2 { color: #fff; }
+  .on-dark em { color: var(--clay); }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.4rem;
+    color: var(--ink);
+  }
+  .section-title em { font-style: italic; color: var(--clay); }
+  .section-lead {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--ink-muted);
+    max-width: 780px;
+    margin-bottom: 3rem;
+  }
+  .on-dark .section-lead { color: rgba(255,255,255,0.65); }
+
+  /* ===================== ORIGIN / ABOUT ===================== */
+  .origin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    margin-top: 2rem;
+  }
+  .origin-story p {
+    margin-bottom: 1.2rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.78);
+    font-size: 1rem;
+  }
+  .origin-story strong { color: #fff; }
+  .pull-quote {
+    border-left: 3px solid var(--clay);
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    background: rgba(196,149,106,0.08);
+    border-radius: 0 4px 4px 0;
+  }
+  .pull-quote p {
+    font-style: italic;
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.9) !important;
+    margin: 0 !important;
+  }
+  .timeline { display: flex; flex-direction: column; gap: 2.5rem; }
+  .tl-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 1.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(196,149,106,0.18);
+  }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-year {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--clay);
+    padding-top: 0.3rem;
+    letter-spacing: 0.06em;
+  }
+  .tl-tag {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 0.5rem;
+  }
+  .tl-item h4 {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 0.4rem;
+  }
+  .tl-item p { font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.7; }
+
+  /* ===================== EDUCATION ===================== */
+  .education { background: var(--bg-warm); }
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .edu-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2.5rem;
+  }
+  .edu-card.ihe { border-top: 3px solid var(--teal); }
+  .edu-card.eru { border-top: 3px solid var(--clay); }
+  .edu-tag-line {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 0.8rem;
+  }
+  .edu-card h3 {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .edu-inst {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    margin-bottom: 1rem;
+    font-family: var(--mono);
+  }
+  .edu-thesis {
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-muted);
+    border-left: 2px solid var(--clay);
+    padding-left: 1rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.6;
+  }
+  .edu-body { font-size: 0.9rem; line-height: 1.75; color: var(--ink-muted); margin-bottom: 1.5rem; }
+  .edu-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .chip {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--ink-muted);
+    background: var(--bg);
+  }
+
+  /* ===================== UNESCO HUB ===================== */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+  }
+  .stat-box {
+    border: 1px solid rgba(196,149,106,0.28);
+    border-radius: 4px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .stat-box .n {
+    display: block;
+    font-family: var(--sans);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--clay);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .stat-box .l {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+  }
+  .workstream-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .ws {
+    border: 1px solid rgba(196,149,106,0.2);
+    border-radius: 4px;
+    padding: 1.5rem;
+  }
+  .ws h4 {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--clay);
+    margin-bottom: 0.6rem;
+  }
+  .ws p { font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.65; }
+
+  /* ===================== ARAB MAPS ===================== */
+  .arab-maps { background: var(--dark-2); }
+  .map-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 340px;
+    gap: 1.2rem;
+  }
+  .map-exhibit {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid rgba(196,149,106,0.15);
+  }
+  .map-exhibit.wide {
+    grid-column: span 2;
+  }
+  .map-exhibit img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(80%) brightness(0.75);
+    transition: filter 0.5s ease, transform 0.5s ease;
+  }
+  .map-exhibit:hover img {
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1.03);
+  }
+  .map-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,8,4,0.85) 0%, rgba(10,8,4,0.3) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    transition: opacity 0.4s;
+  }
+  .map-exhibit:hover .map-overlay { opacity: 0; }
+  .map-overlay-top { }
+  .map-label {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 0.4rem;
+  }
+  .map-hook {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 300;
+  }
+  .map-info {
+    position: absolute;
+    inset: 0;
+    background: rgba(10,8,4,0.92);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .map-exhibit:hover .map-info { opacity: 1; }
+  .map-info h4 {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 0.8rem;
+  }
+  .map-info p { font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.65; margin-bottom: 0.8rem; }
+  .map-hint {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    color: var(--clay);
+    text-transform: uppercase;
+  }
+
+  /* ===================== WEFE ===================== */
+  .wefe-section { background: #fff; }
+  .wefe-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 2rem;
+  }
+  .wefe-intro {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--ink-muted);
+    margin-bottom: 1.2rem;
+  }
+  .nexus-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0; }
+  .np {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    border-radius: 2rem;
+    letter-spacing: 0.04em;
+  }
+  .np.w { background: #dbeafe; color: #1e40af; }
+  .np.e { background: #fef3c7; color: #92400e; }
+  .np.f { background: #dcfce7; color: #166534; }
+  .np.ec { background: #f0fdf4; color: #15803d; }
+  .np.c { background: var(--clay); color: #fff; }
+  .wefe-process h4 {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 1.5rem 0 1rem;
+  }
+  .process-steps { display: flex; flex-direction: column; gap: 1rem; }
+  .ps {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .ps-num {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--clay);
+    padding-top: 0.15rem;
+    flex-shrink: 0;
+    width: 24px;
+  }
+  .ps p { font-size: 0.88rem; color: var(--ink-muted); line-height: 1.65; }
+  .wefe-numbers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .wn { text-align: center; padding: 1rem; border: 1px solid var(--border); border-radius: 4px; }
+  .wn .n {
+    display: block;
+    font-family: var(--sans);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--clay);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .wn .l { font-size: 0.72rem; color: var(--ink-muted); line-height: 1.4; }
+  .winner {
+    border-radius: 4px;
+    padding: 1.5rem;
+    margin-bottom: 1.2rem;
+    border-left: 4px solid;
+  }
+  .winner.gold { background: #fffbeb; border-color: #f59e0b; }
+  .winner.silver { background: #f8fafc; border-color: #94a3b8; }
+  .winner.bronze { background: #fff7ed; border-color: #ea580c; }
+  .winner-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+  }
+  .winner-medal { font-size: 1.4rem; }
+  .winner-loc {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .winner h4 {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .winner p { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.65; }
+  .doc-btn {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.6rem 1rem;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .doc-btn.dark { background: var(--ink); color: #fff; }
+  .doc-btn.dark:hover { background: var(--clay); }
+  .doc-btn.nile { background: var(--teal); color: #fff; }
+  .doc-btn.oasis { background: var(--clay-deep); color: #fff; }
+  .doc-btn.clay { background: var(--clay); color: #fff; }
+
+  /* ===================== PROJECTS ===================== */
+  .projects { background: var(--bg); }
+  .project-context {
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+    line-height: 1.8;
+    max-width: 900px;
+    border-left: 3px solid var(--clay);
+    padding-left: 1.5rem;
+    margin: 2rem 0 3rem;
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+  .pcard {
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #fff;
+  }
+  .pcard-head { padding: 2rem; }
+  .pcard.oases .pcard-head { background: linear-gradient(135deg, #1c1a12 0%, #2a2015 100%); }
+  .pcard.mangroves .pcard-head { background: linear-gradient(135deg, #0d1f18 0%, #142b20 100%); }
+  .pcard-eco {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 0.8rem;
+  }
+  .pcard-head h3 {
+    font-family: var(--serif);
+    font-size: 1.7rem;
+    font-weight: 300;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .pcard-sub {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  .badges { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .badge {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 2px;
+    border: 1px solid;
+    letter-spacing: 0.06em;
+  }
+  .badge.budget { background: rgba(196,149,106,0.15); color: var(--clay); border-color: rgba(196,149,106,0.3); }
+  .badge.timeline { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.15); }
+  .pcard-body { padding: 2rem; }
+  .problem-stmt {
+    background: #fef9f5;
+    border: 1px solid rgba(196,149,106,0.2);
+    border-radius: 4px;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .problem-stmt p { font-size: 0.88rem; line-height: 1.7; color: var(--ink-muted); }
+  .problem-stmt strong { color: var(--ink); }
+  .approach-label {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay-deep);
+    margin-bottom: 1rem;
+  }
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .pp {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1rem;
+  }
+  .pp-loc {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 0.3rem;
+  }
+  .pp h5 {
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .pp p { font-size: 0.78rem; color: var(--ink-muted); line-height: 1.6; }
+  .highlight-box {
+    background: #fffbf5;
+    border: 1px solid rgba(212,148,58,0.3);
+    border-radius: 4px;
+    padding: 1.2rem;
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .highlight-box strong { color: var(--ink); }
+  .site-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
+  .site-chip {
+    font-family: var(--mono);
+    font-size: 0.56rem;
+    letter-spacing: 0.08em;
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--ink-muted);
+    background: var(--bg-warm);
+  }
+  .pcard-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .pa {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.5rem 0.9rem;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .oa1 { background: var(--clay); color: #fff; }
+  .oa2 { border: 1px solid var(--clay); color: var(--clay-deep); }
+  .oa2:hover { background: var(--clay); color: #fff; }
+  .ma1 { background: var(--green); color: #fff; }
+  .ma2 { border: 1px solid var(--green); color: var(--green); }
+  .ma2:hover { background: var(--green); color: #fff; }
+
+  .map-frame {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    height: 260px;
+  }
+  .map-frame > div { width: 100%; height: 100%; }
+
+  /* ===================== MAB SECTION ===================== */
+  .mab-section { background: var(--bg-warm); }
+  .mab-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 2rem;
+  }
+  .mab-text p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--ink-muted);
+    margin-bottom: 1.2rem;
+  }
+  .mab-text strong { color: var(--ink); }
+  .insight-box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .insight-box h4 {
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--clay-deep);
+    margin-bottom: 0.7rem;
+  }
+  .insight-box p { font-size: 0.88rem; color: var(--ink-muted); line-height: 1.7; }
+  .pillars-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .pill2 {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.2rem;
+  }
+  .pill2-n {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--clay);
+    margin-bottom: 0.4rem;
+  }
+  .pill2 h4 {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .pill2 p { font-size: 0.8rem; color: var(--ink-muted); line-height: 1.6; }
+  .case-list { display: flex; flex-direction: column; gap: 0.8rem; }
+  .cs { display: flex; gap: 0.8rem; align-items: flex-start; }
+  .cs-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 0.3rem; }
+  .cs h5 {
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .cs p { font-size: 0.8rem; color: var(--ink-muted); line-height: 1.5; }
+
+  /* ===================== PEOPLE ===================== */
+  .people-cat {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin: 2.5rem 0 1rem;
+    border-top: 1px solid rgba(196,149,106,0.2);
+    padding-top: 1rem;
+  }
+  .photo-grid {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .photo-grid.hero-layout { grid-template-columns: 2fr 1fr 1fr; }
+  .photo-grid.trio { grid-template-columns: repeat(3, 1fr); }
+  .photo-grid.duo { grid-template-columns: 1fr 1fr; }
+  .pcard-ph {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    height: 280px;
+    border: 1px solid rgba(196,149,106,0.2);
+    background: rgba(255,255,255,0.05);
+  }
+  .pcard-ph.wide { height: 280px; }
+  .pcard-ph img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .pcard-ph:hover img { transform: scale(1.04); }
+  .ph-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(10,8,4,0.9) 0%, transparent 100%);
+    padding: 1.5rem 1.2rem 1rem;
+    transform: translateY(60%);
+    transition: transform 0.3s ease;
+  }
+  .pcard-ph:hover .ph-info { transform: translateY(0); }
+  .ph-tag {
+    font-family: var(--mono);
+    font-size: 0.56rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 0.4rem;
+  }
+  .ph-info h4 {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 0.3rem;
+  }
+  .ph-info p { font-size: 0.78rem; color: rgba(255,255,255,0.7); line-height: 1.5; }
+  .photo-ph-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    text-align: center;
+    height: 280px;
+    border-radius: 4px;
+    border: 1px dashed rgba(196,149,106,0.3);
+    background: rgba(255,255,255,0.03);
+  }
+  .slot-ico { font-size: 2.5rem; margin-bottom: 0.7rem; }
+  .photo-ph-slot h4 {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.4rem;
+  }
+  .photo-ph-slot p { font-size: 0.75rem; color: rgba(255,255,255,0.4); line-height: 1.5; }
+
+  /* ===================== RESEARCH ===================== */
+  .research { background: #fff; }
+  .research-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+  .thesis-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2rem;
+    background: var(--bg);
+  }
+  .tc-label {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 0.8rem;
+  }
+  .thesis-card h3 {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.45;
+    margin-bottom: 1.5rem;
+  }
+  .findings { display: flex; flex-direction: column; gap: 1rem; }
+  .finding {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+  .fi { font-size: 1.1rem; flex-shrink: 0; padding-top: 0.1rem; }
+  .finding p { font-size: 0.84rem; color: var(--ink-muted); line-height: 1.65; }
+  .finding strong { color: var(--ink); }
+  .thesis-btns { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .tb {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.5rem 0.9rem;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .tb.gh { background: var(--ink); color: #fff; }
+  .tb.gh:hover { background: var(--clay); }
+  .tb.pdf { border: 1px solid var(--border); color: var(--ink-muted); }
+  .tb.pdf:hover { border-color: var(--clay); color: var(--clay); }
+
+  .chart-panel { display: flex; flex-direction: column; gap: 1.5rem; }
+  .chart-card, .policy-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+    background: var(--bg);
+  }
+  .chart-title {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 1.2rem;
+  }
+  .bar-rows { display: flex; flex-direction: column; gap: 0.8rem; }
+  .bar-row { display: flex; align-items: center; gap: 0.7rem; }
+  .bar-lbl { font-size: 0.78rem; color: var(--ink-muted); width: 60px; flex-shrink: 0; }
+  .bar-track {
+    flex: 1;
+    background: var(--bg-warm);
+    height: 10px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    width: 0;
+    transition: width 1.2s ease;
+  }
+  .bar-fill.up { background: #ef4444; }
+  .bar-fill.nt { background: var(--amber); }
+  .bar-fill.dn { background: var(--teal); }
+  .bar-val { font-family: var(--mono); font-size: 0.7rem; width: 44px; text-align: right; }
+  .bar-val.up { color: #ef4444; }
+  .bar-val.nt { color: var(--amber); }
+  .bar-val.dn { color: var(--teal); }
+  .policy-row { display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 0; border-bottom: 1px solid var(--border); }
+  .policy-lbl { font-size: 0.85rem; color: var(--ink-muted); }
+  .policy-val {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+  .policy-val.v1 { color: var(--amber); }
+  .policy-val.v2 { color: #ef4444; }
+  .policy-note {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    line-height: 1.65;
+    margin-top: 1rem;
+  }
+  .pubs { display: flex; flex-direction: column; gap: 1rem; }
+  .pub {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.2rem 1.5rem;
+    background: var(--bg);
+  }
+  .pub.rv { border-left: 3px solid var(--clay); }
+  .pub.eng { border-left: 3px solid var(--teal); }
+  .pub-badge {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--clay);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .pub p { font-size: 0.86rem; color: var(--ink-muted); line-height: 1.65; margin-bottom: 0.5rem; }
+  .pub a { font-family: var(--mono); font-size: 0.68rem; color: var(--teal); text-decoration: none; }
+  .pub a:hover { text-decoration: underline; }
+
+  /* ===================== UHF ===================== */
+  .uhf { background: var(--dark); }
+  .uhf-themes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin: 2rem 0 3rem;
+  }
+  .tc {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(196,149,106,0.18);
+    border-radius: 4px;
+    padding: 1.5rem;
+    transition: background 0.3s;
+  }
+  .tc:hover { background: rgba(255,255,255,0.07); }
+  .tc-num {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 0.5rem;
+  }
+  .tc h4 {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 0.6rem;
+  }
+  .tc p { font-size: 0.82rem; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 0.8rem; }
+  .tc-output {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    border-top: 1px solid rgba(196,149,106,0.15);
+    padding-top: 0.8rem;
+    line-height: 1.55;
+    font-style: italic;
+  }
+  .pdf-section { }
+  .pdf-section h3 {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .pdf-section p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 1.5rem;
+    line-height: 1.65;
+  }
+  .pdf-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .pdf-card {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(196,149,106,0.18);
+    border-radius: 4px;
+    padding: 0.9rem;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .pdf-card:hover { background: rgba(255,255,255,0.08); }
+  .pdf-ico { font-size: 1.3rem; flex-shrink: 0; }
+  .pdf-card p { font-size: 0.75rem; color: rgba(255,255,255,0.8); line-height: 1.4; margin-bottom: 0.2rem; }
+  .pdf-card span { font-family: var(--mono); font-size: 0.55rem; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; }
+
+  /* ===================== SKILLS ===================== */
+  .skills { background: var(--bg-warm); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .sg {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+  }
+  .sg h4 {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+  }
+  .sg ul { list-style: none; }
+  .sg ul li {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-muted);
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(196,149,106,0.1);
+    letter-spacing: 0.04em;
+  }
+  .sg ul li:last-child { border-bottom: none; }
+
+  /* ===================== CONTACT ===================== */
+  .contact {
+    background: var(--ink);
+    color: #fff;
+    text-align: center;
+    padding: 6rem 5%;
+  }
+  .contact h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  .contact-sub {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 0.8rem;
+  }
+  .contact-meta {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 2rem;
+  }
+  .contact-links { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; }
+  .cl {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .cl.solid { background: var(--clay); color: #fff; }
+  .cl.solid:hover { background: var(--clay-deep); }
+  .cl.ghost { border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); }
+  .cl.ghost:hover { border-color: var(--clay); color: var(--clay); }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 1100px) {
+    .hero { grid-template-columns: 1fr; padding-top: 80px; }
+    .hero-right { display: none; }
+    .origin-grid, .edu-grid, .wefe-layout, .mab-layout, .research-layout, .projects-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .stat-row { grid-template-columns: repeat(2,1fr); }
+    .workstream-grid { grid-template-columns: repeat(2,1fr); }
+    .uhf-themes { grid-template-columns: repeat(2,1fr); }
+    .pdf-grid { grid-template-columns: repeat(2,1fr); }
+    .map-gallery { grid-template-columns: 1fr 1fr; }
+    .map-exhibit.wide { grid-column: span 2; }
+    .skills-grid { grid-template-columns: repeat(2,1fr); }
+    .photo-grid.hero-layout { grid-template-columns: 1fr 1fr; }
+    .pcard-ph.wide { grid-column: span 2; }
+    .wefe-numbers { grid-template-columns: repeat(2,1fr); }
+    .pillars-grid { grid-template-columns: 1fr; }
+    nav ul { display: none; }
+  }
+
+  @media (max-width: 700px) {
+    .map-gallery { grid-template-columns: 1fr; }
+    .map-exhibit.wide { grid-column: span 1; }
+    .photo-grid.hero-layout, .photo-grid.trio, .photo-grid.duo { grid-template-columns: 1fr; }
+    .pcard-ph.wide { grid-column: span 1; }
+    .stat-row { grid-template-columns: repeat(2,1fr); }
+    .workstream-grid { grid-template-columns: 1fr; }
+    .uhf-themes { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .pdf-grid { grid-template-columns: 1fr 1fr; }
+    .pillars-2x2 { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
 
@@ -18,9 +1295,7 @@
   <div class="lb-cap" id="lb-cap"></div>
 </div>
 
-<!-- ============================================================
-     NAVIGATION
-     ============================================================ -->
+<!-- NAV -->
 <nav>
   <div class="logo">Ahmed Sakna</div>
   <ul>
@@ -35,9 +1310,7 @@
   </ul>
 </nav>
 
-<!-- ============================================================
-     HERO — Identity, name, portrait, credentials
-     ============================================================ -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
@@ -61,9 +1334,11 @@
 
   <div class="hero-right">
     <div class="hero-photo">
-      <!-- Add your portrait: assets/photos/ahmed.jpg -->
-      <img src="assets/photos/ahmed.jpg" alt="Ahmed Saber Sakna"
-        onerror="this.parentNode.innerHTML='<div class=\'hero-photo-ph\'><span class=\'ico\'>👤</span><strong>Add your portrait</strong><p>Save your photo as:<br>assets/photos/ahmed.jpg</p></div>'">
+      <div class="hero-photo-ph">
+        <span class="ico">👤</span>
+        <strong>Add your portrait</strong>
+        <p>Save your photo as:<br>assets/photos/ahmed.jpg</p>
+      </div>
     </div>
     <div class="hero-creds">
       <div class="cred"><div class="cred-dot" style="background:#c4956a"></div><span><strong>UNESCO</strong> Regional Office for Egypt &amp; Sudan</span></div>
@@ -74,25 +1349,23 @@
   </div>
 </section>
 
-<!-- ============================================================
-     ABOUT / ORIGIN STORY
-     ============================================================ -->
+<!-- ABOUT -->
 <section class="origin on-dark" id="about">
   <div class="section-label">My Story</div>
   <h2 class="section-title">A Question Born<br>at <em>Dabaa</em></h2>
-  <p class="section-lead">This portfolio documents how a question asked on a nuclear power plant site in 2022 became a career at the intersection of water science, cultural heritage, and climate resilience. I am an environmental engineer, a water resources scientist, and a UNESCO consultant. Everything you see here flows from one persistent inquiry.</p>
+  <p class="section-lead">This portfolio documents how a question asked on a nuclear power plant site in 2022 became a career at the intersection of water science, cultural heritage, and climate resilience.</p>
 
   <div class="origin-grid">
     <div class="origin-story">
-      <p>In 2022, I was a Project Engineer at <strong>Hassan Allam Construction</strong>, managing critical water supply and firefighting infrastructure for <strong>174+ buildings</strong> at the El Dabaa Nuclear Power Plant — one of Africa's largest active infrastructure programs, on Egypt's Mediterranean coast. I coordinated with five multinational stakeholder groups, enforced nuclear-grade QA/QC standards, and supervised a concrete batch plant with a capacity of 240 m³/hour.</p>
+      <p>In 2022, I was a Project Engineer at <strong>Hassan Allam Construction</strong>, managing critical water supply and firefighting infrastructure for <strong>174+ buildings</strong> at the El Dabaa Nuclear Power Plant — one of Africa's largest active infrastructure programs, on Egypt's Mediterranean coast.</p>
 
-      <p>But every day at the water's edge, working in a basin with deep ecological and human history, questions that had always lived at the edge of my attention came into sharp focus. <strong>Who owns the water rights in this basin? What happens to the environmental integrity of the Mediterranean coast as we build here at this scale?</strong> These weren't rhetorical questions — they were engineering questions with no good answers in the technical specifications.</p>
+      <p>But every day at the water's edge, working in a basin with deep ecological and human history, questions came into sharp focus. <strong>Who owns the water rights in this basin? What happens to the environmental integrity of the Mediterranean coast as we build here at this scale?</strong></p>
 
       <div class="pull-quote">
         <p>"Technical precision without cultural and environmental grounding is not engineering. It is just construction."</p>
       </div>
 
-      <p>Supported by managers who saw the same tensions, I began researching systematically. That inquiry led me from the construction site to the corridors of <strong>IHE Delft</strong> in the Netherlands — where I earned an MSc applying machine learning to satellite-derived water consumption data across the Nile Delta. And then to <strong>UNESCO Cairo</strong>, where I found the language, the institutional mandate, and the community to build the practice I had been moving toward.</p>
+      <p>That inquiry led me from the construction site to the corridors of <strong>IHE Delft</strong> in the Netherlands — where I earned an MSc applying machine learning to satellite-derived water consumption data across the Nile Delta. And then to <strong>UNESCO Cairo</strong>, where I found the language, the institutional mandate, and the community to build the practice I had been moving toward.</p>
 
       <p>Today I work at the intersection of <strong>machine learning and hydrology, cultural heritage and climate policy, scientific rigor and indigenous knowledge</strong>. The thread connecting everything — El Dabaa, IHE Delft, UNESCO — is the conviction that water is not a resource to be managed. It is a civilizational thread to be understood.</p>
     </div>
@@ -103,7 +1376,7 @@
         <div>
           <div class="tl-tag">Academic Foundation</div>
           <h4>Egyptian Russian University — Ranked 1st in Cohort</h4>
-          <p>BSc Construction Engineering, GPA 3.93/4.00. Remained as Teaching Assistant through 2022, designing curriculum for 120+ students annually in Engineering Hydrology, Sanitary Engineering, Water Resources Management, and Project Management.</p>
+          <p>BSc Construction Engineering, GPA 3.93/4.00. Teaching Assistant through 2022, designing curriculum for 120+ students annually in Engineering Hydrology, Sanitary Engineering, Water Resources Management, and Project Management.</p>
         </div>
       </div>
       <div class="tl-item">
@@ -119,7 +1392,7 @@
         <div>
           <div class="tl-tag">Graduate Research · IHE Delft</div>
           <h4>MSc — Water &amp; Sustainable Development</h4>
-          <p>Machine learning applied to WaPOR v2 satellite data and 23 CMIP6 global climate models. Crop-specific water consumption projections for the Nile Delta through 2099. Grenoble reservoir project: multi-stakeholder co-design. First-author manuscript under review.</p>
+          <p>Machine learning applied to WaPOR v2 satellite data and 23 CMIP6 global climate models. Crop-specific water consumption projections for the Nile Delta through 2099. First-author manuscript under review.</p>
         </div>
       </div>
       <div class="tl-item">
@@ -138,7 +1411,7 @@
 <section class="education" id="education">
   <div class="section-label">Academic Formation</div>
   <h2 class="section-title">Built on Two Disciplines,<br><em>United by Water</em></h2>
-  <p class="section-lead">My unusual path — from top-ranked construction engineer to water resource specialist — gives me something rare: the ability to read both the physical infrastructure of water systems and the data science that models their future. Each discipline informs the other.</p>
+  <p class="section-lead">My unusual path — from top-ranked construction engineer to water resource specialist — gives me something rare: the ability to read both the physical infrastructure of water systems and the data science that models their future.</p>
 
   <div class="edu-grid">
     <div class="edu-card ihe">
@@ -146,7 +1419,7 @@
       <h3>Water &amp; Sustainable Development<br>Engineering Sciences</h3>
       <div class="edu-inst">IHE Delft Institute for Water Education · Delft, Netherlands</div>
       <div class="edu-thesis">"Assessing the Impact of Climate Change on Water Consumption Using Remote Sensing Data and Machine Learning: A Case Study of the Nile Delta, Egypt"</div>
-      <p class="edu-body">Developed predictive ML models using WaPOR v2 satellite AETI data and AgERA5 climate reanalysis, trained against a 23-model CMIP6 ensemble. Produced crop-specific water consumption projections for six major crops under SSP2-4.5 and SSP5-8.5 through 2099. Nine ML algorithm types evaluated; Random Forest, SVR, and Ridge selected as best performers. Findings submitted for peer-reviewed publication (2026).<br><br>Separately completed the interdisciplinary Grenoble Reservoir Project: multi-stakeholder co-design workshops integrating ecological flow targets, hydropower, irrigation, and recreational objectives into a shared reservoir operation model — directly applicable to the kinds of basin-level negotiation I conduct at UNESCO.</p>
+      <p class="edu-body">Developed predictive ML models using WaPOR v2 satellite AETI data and AgERA5 climate reanalysis, trained against a 23-model CMIP6 ensemble. Produced crop-specific water consumption projections for six major crops under SSP2-4.5 and SSP5-8.5 through 2099. Nine ML algorithm types evaluated; Random Forest, SVR, and Ridge selected as best performers. Findings submitted for peer-reviewed publication (2026).</p>
       <div class="edu-chips">
         <span class="chip">WaPOR v2</span><span class="chip">AgERA5</span><span class="chip">CMIP6 · 23 GCMs</span><span class="chip">Random Forest · SVR</span><span class="chip">Python · R</span><span class="chip">QGIS · ArcGIS</span><span class="chip">Climate Adaptation</span>
       </div>
@@ -155,8 +1428,8 @@
       <div class="edu-tag-line">BSc — 2018 · Ranked 1st · GPA 3.93/4.00 · Cairo</div>
       <h3>Construction Engineering</h3>
       <div class="edu-inst">Egyptian Russian University · Cairo, Egypt</div>
-      <div class="edu-thesis">Foundation in structural analysis, cost engineering, project management, and the water infrastructure questions that come with building at scale — and the beginning of asking what we owe the environments we build in.</div>
-      <p class="edu-body">Teaching Assistant 2018–2022 for 120+ students annually across four courses: Engineering Hydrology, Sanitary Engineering, Water Resources Management, and Project Management. Modernized the Water Resources module with applied GIS tools and real-world case studies. Organized 3 national workshops on sustainable water management for 200+ stakeholders from government, academia, and civil society.<br><br>Publications during this period focused on self-healing bacterial concrete — a materials science research thread that introduced me to the idea of systems that regenerate rather than just resist.</p>
+      <div class="edu-thesis">Foundation in structural analysis, cost engineering, project management, and the water infrastructure questions that come with building at scale.</div>
+      <p class="edu-body">Teaching Assistant 2018–2022 for 120+ students annually across four courses: Engineering Hydrology, Sanitary Engineering, Water Resources Management, and Project Management. Organized 3 national workshops on sustainable water management for 200+ stakeholders. Publications during this period focused on self-healing bacterial concrete — a materials science research thread that introduced me to the idea of systems that regenerate rather than just resist.</p>
       <div class="edu-chips">
         <span class="chip">Primavera P6</span><span class="chip">SAP2000 · ETABS</span><span class="chip">Risk Management</span><span class="chip">Nuclear QA/QC</span><span class="chip">Curriculum Design</span><span class="chip">Workshop Facilitation</span>
       </div>
@@ -168,7 +1441,7 @@
 <section class="hub on-dark" id="work">
   <div class="section-label">UNESCO Regional Office for Egypt &amp; Sudan — Oct 2024 → Present</div>
   <h2 class="section-title">Four Workstreams,<br><em>One Mandate</em></h2>
-  <p class="section-lead">My UNESCO consultancy operates across four converging domains. Each is grounded in the same conviction: the Arab world's ancient water and land management wisdom is not nostalgic heritage — it is actionable, scientifically validated climate adaptation technology. The following sections detail each workstream.</p>
+  <p class="section-lead">My UNESCO consultancy operates across four converging domains. The Arab world's ancient water and land management wisdom is not nostalgic heritage — it is actionable, scientifically validated climate adaptation technology.</p>
 
   <div class="stat-row">
     <div class="stat-box"><span class="n">€1M</span><div class="l">Secured from AECID across two climate projects</div></div>
@@ -187,18 +1460,14 @@
   </div>
 </section>
 
-<!-- ============================================================
-     ARAB MAB MAPS — Grey to colour on hover, story-driven
-     ============================================================ -->
+<!-- ARAB MAB MAPS -->
 <section class="arab-maps on-dark" id="arab-maps">
   <div class="section-label">Geospatial Work · Arab MAB &amp; Geoparks Programme</div>
   <h2 class="section-title">Remapping the Arab World's<br><em>Hidden Strength</em></h2>
-  <p class="section-lead">These maps were produced for the UNESCO publication <em>"Biosphere Reserves and Geoparks in the Arab World: Long Lasting Resilience"</em> (2025). Their purpose is to reframe a narrative: the Arab world is not defined by its water scarcity. It is the global repository of water management wisdom accumulated over millennia. Each map tells one chapter of that argument. Hover to see them come alive — click to expand.</p>
+  <p class="section-lead">These maps were produced for the UNESCO publication <em>"Biosphere Reserves and Geoparks in the Arab World: Long Lasting Resilience"</em> (2025). Hover to see them come alive — click to expand.</p>
 
   <div class="map-gallery">
-
-    <!-- Map 2: Water Stress — WIDE, leading the narrative -->
-    <div class="map-exhibit wide" onclick="openLb('assets/images/2.png','On The Edge of Water — 14 of the world\'s 17 driest countries are in the Arab Region. Precipitation map 0–450 mm/yr. This is not a vulnerability — it is the crucible of the world\'s most sophisticated water knowledge. Source: FAO 2024 · UNESCO MAB.')">
+    <div class="map-exhibit wide" onclick="openLb('assets/images/2.png','On The Edge of Water — 14 of the world\'s 17 driest countries are in the Arab Region. Precipitation map 0–450 mm/yr. Source: FAO 2024 · UNESCO MAB.')">
       <img src="assets/images/2.png" alt="On The Edge of Water — Arab Region Water Stress Map">
       <div class="map-overlay">
         <div class="map-overlay-top">
@@ -208,12 +1477,11 @@
       </div>
       <div class="map-info">
         <h4>"On The Edge of Water" — Regional Water Stress Analysis</h4>
-        <p>14 of the world's 17 most water-stressed countries are in the Arab Region. This precipitation map (0–450 mm/yr) does not tell a story of weakness — it documents the severity of the challenge that produced humanity's most sophisticated water knowledge: Aflaj, Khettaras, Qanats, and the Nile Nilometer. Source: FAO 2024 · UNESCO MAB.</p>
-        <div class="map-hint">↗ Hover to see full colour · Click to expand</div>
+        <p>14 of the world's 17 most water-stressed countries are in the Arab Region. This precipitation map (0–450 mm/yr) does not tell a story of weakness — it documents the severity of the challenge that produced humanity's most sophisticated water knowledge. Source: FAO 2024 · UNESCO MAB.</p>
+        <div class="map-hint">↗ Click to expand</div>
       </div>
     </div>
 
-    <!-- Map 1: UNESCO Network -->
     <div class="map-exhibit" onclick="openLb('assets/images/1.png','UNESCO Category II Centres, Chairs, Biosphere & Conservation Offices, Government Facilities and Academic Facilities — the institutional constellation of the ArabMAB network across 22 Arab states.')">
       <img src="assets/images/1.png" alt="UNESCO Arab Network Facilities Map">
       <div class="map-overlay">
@@ -224,13 +1492,12 @@
       </div>
       <div class="map-info">
         <h4>UNESCO Earth Sciences Network — Arab Region</h4>
-        <p>Category II Centres, UNESCO Chairs, Biosphere &amp; Conservation Offices, Government Facilities, and Academic Facilities mapped across 22 Arab states — the backbone of regional water and biodiversity science.</p>
-        <div class="map-hint">↗ Hover · Click to expand</div>
+        <p>Category II Centres, UNESCO Chairs, Biosphere &amp; Conservation Offices, Government Facilities, and Academic Facilities mapped across 22 Arab states.</p>
+        <div class="map-hint">↗ Click to expand</div>
       </div>
     </div>
 
-    <!-- Map 3: Scientific Hubs -->
-    <div class="map-exhibit" onclick="openLb('assets/images/3.png','Hidden Strength: Arab Scientific & Research Hubs. Relevant publications 2015–2025 mapped by institution. KAUST: 15,200 publications. Qatar University: 8,100. The Arab world\'s scientific capacity is vastly underrepresented in global conservation narratives. Source: SCOPUS 2024 · UNESCO MAB.')">
+    <div class="map-exhibit" onclick="openLb('assets/images/3.png','Hidden Strength: Arab Scientific & Research Hubs. KAUST: 15,200 publications. Qatar University: 8,100. Source: SCOPUS 2024 · UNESCO MAB.')">
       <img src="assets/images/3.png" alt="Arab Scientific Research Hubs Map">
       <div class="map-overlay">
         <div class="map-overlay-top">
@@ -240,13 +1507,12 @@
       </div>
       <div class="map-info">
         <h4>"Hidden Strength" — Arab Scientific Research Hubs</h4>
-        <p>The region hosts world-class research centres in water science, climate modelling, and biodiversity. KAUST leads with 15,200 relevant publications (2015–2025). This scientific capacity — largely invisible in global conservation narratives — is the foundation we build on. Source: SCOPUS 2024 · UNESCO MAB.</p>
-        <div class="map-hint">↗ Hover · Click to expand</div>
+        <p>The region hosts world-class research centres in water science, climate modelling, and biodiversity. KAUST leads with 15,200 relevant publications (2015–2025). Source: SCOPUS 2024 · UNESCO MAB.</p>
+        <div class="map-hint">↗ Click to expand</div>
       </div>
     </div>
 
-    <!-- Map 4: Network satellite -->
-    <div class="map-exhibit" onclick="openLb('assets/images/4.png','UNESCO Earth Sciences Network — high-resolution satellite base map showing the full distribution of Category II Centres, UNESCO Chairs, Biosphere & Conservation Offices, Government Facilities and Academic Facilities across the Arab region.')">
+    <div class="map-exhibit" onclick="openLb('assets/images/4.png','UNESCO Earth Sciences Network — satellite base map showing the full distribution across the Arab region.')">
       <img src="assets/images/4.png" alt="UNESCO Network Satellite Dark Map">
       <div class="map-overlay">
         <div class="map-overlay-top">
@@ -256,13 +1522,12 @@
       </div>
       <div class="map-info">
         <h4>Conservation Network — Satellite View</h4>
-        <p>High-resolution satellite base revealing the geographic logic of where conservation infrastructure and natural heritage coincide. The institution and the ecosystem it protects, seen together.</p>
-        <div class="map-hint">↗ Hover · Click to expand</div>
+        <p>High-resolution satellite base revealing the geographic logic of where conservation infrastructure and natural heritage coincide.</p>
+        <div class="map-hint">↗ Click to expand</div>
       </div>
     </div>
 
-    <!-- Map 5: Biosphere Reserves — WIDE, closing the argument -->
-    <div class="map-exhibit wide" onclick="openLb('assets/images/5.png','UNESCO Biosphere Reserves and Global Geoparks in the Arab Region — full atlas with site photographs. From the Biosphere Reserve of the Mediterranean (Morocco/Spain) and M\'Goun Geopark to Marawah Marine Reserve (UAE) and Socotra Archipelago (Yemen). Each a living laboratory for heritage-based solutions.')">
+    <div class="map-exhibit wide" onclick="openLb('assets/images/5.png','UNESCO Biosphere Reserves and Global Geoparks in the Arab Region — full atlas with site photographs. Each a living laboratory for heritage-based solutions.')">
       <img src="assets/images/5.png" alt="Arab Biosphere Reserves and Geoparks Full Atlas">
       <div class="map-overlay">
         <div class="map-overlay-top">
@@ -272,25 +1537,23 @@
       </div>
       <div class="map-info">
         <h4>Biosphere Reserves &amp; Geoparks — Full Network Atlas</h4>
-        <p>Every UNESCO Biosphere Reserve and Global Geopark in the Arab region, mapped with site photographs — from Morocco's cedar forests and M'Goun Geopark to the Red Sea coral reefs, the mangroves of the Arabian Gulf, and the dragon blood forests of Socotra. Each site is a living laboratory where heritage-based solutions to climate change are tested every day.</p>
-        <div class="map-hint">↗ Hover to see full colour · Click to expand</div>
+        <p>Every UNESCO Biosphere Reserve and Global Geopark in the Arab region, mapped with site photographs — from Morocco's cedar forests to the Red Sea coral reefs and the dragon blood forests of Socotra.</p>
+        <div class="map-hint">↗ Click to expand</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     WEFE+C COMPETITION — with WEFE Booklet
-     ============================================================ -->
+<!-- WEFE+C -->
 <section class="wefe-section" id="wefe">
   <div class="section-label">Youth Innovation Initiative · UNESCO Cairo · August 2025</div>
   <h2 class="section-title">WEFE+C:<br><em>Trail in Motion</em></h2>
 
   <div class="wefe-layout">
     <div>
-      <p class="wefe-intro">I designed and ran this national competition to prove a belief: Egypt's oases are not problems waiting for outside solutions — they are living laboratories where the pressure of the WEFE Nexus is most acute and where communities already hold the most relevant knowledge. We needed to activate a generation to see both truths at once.</p>
+      <p class="wefe-intro">I designed and ran this national competition to prove a belief: Egypt's oases are not problems waiting for outside solutions — they are living laboratories where the pressure of the WEFE Nexus is most acute and where communities already hold the most relevant knowledge.</p>
 
-      <p class="wefe-intro">The Water-Energy-Food-Ecosystem Nexus is the scientific standard for managing resource trade-offs. But it has a blind spot: it treats culture as decoration, not infrastructure. The WEFE Trail in Motion added a fifth, mandatory pillar.</p>
+      <p class="wefe-intro">The WEFE Trail in Motion added a fifth, mandatory pillar to the standard Water-Energy-Food-Ecosystem framework.</p>
 
       <div class="nexus-pills">
         <span class="np w">Water</span>
@@ -303,11 +1566,11 @@
       <div class="wefe-process">
         <h4>How the competition worked</h4>
         <div class="process-steps">
-          <div class="ps"><div class="ps-num">01</div><p><strong>National Call:</strong> Open call disseminated through Deans' offices of Engineering, Agriculture, and Science faculties nationally. Partnered with youth platforms like EUJEEL for digital outreach — 13k+ impressions, 1000+ reactions.</p></div>
-          <div class="ps"><div class="ps-num">02</div><p><strong>Capacity Building:</strong> "WEFE+C In-Depth" webinar (June 12, 2025) — 3.5 hours of live training on nexus thinking, financial viability, cultural integration methodology, and real Egyptian case studies. 250+ participants.</p></div>
+          <div class="ps"><div class="ps-num">01</div><p><strong>National Call:</strong> Open call disseminated through Deans' offices of Engineering, Agriculture, and Science faculties nationally. 13k+ impressions, 1000+ reactions.</p></div>
+          <div class="ps"><div class="ps-num">02</div><p><strong>Capacity Building:</strong> "WEFE+C In-Depth" webinar (June 12, 2025) — 3.5 hours of live training. 250+ participants.</p></div>
           <div class="ps"><div class="ps-num">03</div><p><strong>Technical Screening:</strong> 140 formal applications reviewed. Multi-stage funnel reduced field to 19 finalists. Scoring: Technical Innovation (30%), Scalability (25%), Economic Viability (20%), Ecosystem &amp; Social Impact (15%), Pitch Clarity (10%) + Cultural Bonus (+10pts).</p></div>
-          <div class="ps"><div class="ps-num">04</div><p><strong>Final Evaluation:</strong> Two-day event at UNESCO Cairo (Aug 28–29, 2025). "Dossier-First" methodology — jury reviewed written proposals before presentations. Each team given 15 minutes: presentation + rigorous cross-examination by expert jury.</p></div>
-          <div class="ps"><div class="ps-num">05</div><p><strong>Mentorship Bootcamp:</strong> Winners entered a 6-week intensive programme transforming concepts into fundable Project Documents — technical deep-dives, financial modeling, implementation planning, peer review, and final pitch preparation.</p></div>
+          <div class="ps"><div class="ps-num">04</div><p><strong>Final Evaluation:</strong> Two-day event at UNESCO Cairo (Aug 28–29, 2025). "Dossier-First" methodology. Each team: 15 minutes presentation + rigorous cross-examination.</p></div>
+          <div class="ps"><div class="ps-num">05</div><p><strong>Mentorship Bootcamp:</strong> Winners entered a 6-week intensive programme transforming concepts into fundable Project Documents.</p></div>
         </div>
       </div>
 
@@ -330,7 +1593,7 @@
           <div class="winner-loc">Siwa Oasis · Waterlogging &amp; Salinity</div>
         </div>
         <h4>Cultivania — Siwa Nexus Regeneration</h4>
-        <p>Decentralized solar-powered Reverse Osmosis units treat brackish agricultural drainage water that currently poisons the soil. Treated water irrigates salt-tolerant heritage crops and supports aquaculture in the Gambi Depression. The entire system was co-designed with local farmers to respect traditional land tenure and prevent over-drainage of community water resources. Jury verdict: most ready-to-implement holistic blueprint in the competition. Currently in pilot development phase ahead of Cairo Water Week 2026 demonstration.</p>
+        <p>Decentralized solar-powered Reverse Osmosis units treat brackish agricultural drainage water. Treated water irrigates salt-tolerant heritage crops and supports aquaculture in the Gambi Depression. Co-designed with local farmers. Currently in pilot development phase ahead of Cairo Water Week 2026.</p>
       </div>
 
       <div class="winner silver">
@@ -339,7 +1602,7 @@
           <div class="winner-loc">Fayoum · Lake Qarun</div>
         </div>
         <h4>Loopet — AI Valorization of Poultry Waste</h4>
-        <p>A circular bio-economy model targeting Lake Qarun's ecological crisis. Massive poultry industry runoff has destroyed the lake's fisheries and degraded a critical migratory bird corridor. Loopet's AI-optimized bioconversion process transforms this pollutant into high-quality aquaculture feed — processing units powered by self-cleaning solar panels. Simultaneously solves waste, water quality, and food security challenges. Strong business case; regulatory pathway for feed approval is the current mentorship focus.</p>
+        <p>A circular bio-economy model targeting Lake Qarun's ecological crisis. Loopet's AI-optimized bioconversion process transforms massive poultry industry runoff into high-quality aquaculture feed — processing units powered by self-cleaning solar panels.</p>
       </div>
 
       <div class="winner bronze">
@@ -348,26 +1611,22 @@
           <div class="winner-loc">Kharga Oasis · Deep Desert</div>
         </div>
         <h4>Smart Hydroponic System</h4>
-        <p>Solar-powered closed-loop hydroponics achieving 90% water savings compared to traditional soil farming — directly addressing Kharga's existential dependence on a non-renewable fossil aquifer. IoT sensors and a mobile app democratize high-efficiency farming, making it accessible and manageable for low-income households and youth entrepreneurs. Jury selected unanimously for community impact and scalability. Currently in business model development to ensure cost recovery without grant dependency.</p>
+        <p>Solar-powered closed-loop hydroponics achieving 90% water savings compared to traditional soil farming. IoT sensors and a mobile app democratize high-efficiency farming, making it accessible for low-income households and youth entrepreneurs.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     AECID PROJECTS — with deep narrative and interactive maps
-     ============================================================ -->
+<!-- PROJECTS -->
 <section class="projects" id="projects">
   <div class="section-label">AECID Climate Action · Spain–Egypt Alliance 2025–2030 · €1,000,000 Total</div>
   <h2 class="section-title">Two Ecosystems.<br><em>One Million Euros.</em><br>One Framework.</h2>
 
   <div class="project-context">
-    In September 2025, King Felipe VI and President El-Sisi signed the Spain–Egypt Alliance for Sustainable Development (2025–2030). Both projects below are its <strong>direct operational expression</strong>, developed by Ahmed Sakna as Project Specialist at UNESCO Cairo. Together they demonstrate a single thesis: <strong>conservation pays for itself when heritage, science, and community are treated as a unified system — not separate workstreams.</strong> Click markers on each map for site-specific challenge-and-action detail.
+    In September 2025, King Felipe VI and President El-Sisi signed the Spain–Egypt Alliance for Sustainable Development (2025–2030). Both projects below are its <strong>direct operational expression</strong>, developed by Ahmed Sakna as Project Specialist at UNESCO Cairo. Together they demonstrate a single thesis: <strong>conservation pays for itself when heritage, science, and community are treated as a unified system.</strong>
   </div>
 
   <div class="projects-grid">
-
-    <!-- ======= OASES PROJECT ======= -->
     <div class="pcard oases">
       <div class="pcard-head">
         <div class="pcard-eco">Desert · Oasis Biomes · Western Egypt · MAB Programme</div>
@@ -379,56 +1638,48 @@
         </div>
       </div>
       <div class="pcard-body">
-
         <div class="problem-stmt">
-          <p><strong>The Situation:</strong> Our Forensic Agrarian Review during the inception phase documented a "Phenological Shift" — climate change is physically altering the seasonal cycles and harvest dates of staple crops like dates and olives, throwing traditional farming into chaos. Fossil aquifers are depleting at rates exceeding recharge by factors of 3–5x. The ancestral <em>"Knowledge by Sight"</em> — the intricate unwritten methods of managing scarce water that have sustained these oases for millennia — is dying with the elder generation. <strong>If we do not act immediately to bridge ancient heritage with modern science, these green havens will be consumed by the desert.</strong></p>
+          <p><strong>The Situation:</strong> Our Forensic Agrarian Review documented a "Phenological Shift" — climate change is physically altering the seasonal cycles and harvest dates of staple crops. Fossil aquifers are depleting at rates exceeding recharge by factors of 3–5x. The ancestral <em>"Knowledge by Sight"</em> — intricate unwritten methods of managing scarce water — is dying with the elder generation.</p>
         </div>
-
         <div class="approach-label">Four site-specific pilots — each addressing a distinct challenge</div>
         <div class="pillars-grid">
           <div class="pp">
             <div class="pp-loc">Dakhla Oasis</div>
             <h5>Water Harvesting</h5>
-            <p>The ancient Nubian Sandstone Aquifer is fading, drying up artesian channels that once flowed freely. UNESCO's IHP principles applied: 2–3 traditional wells rehabilitated, 2 sand dams + recharge trench constructed to capture flash flood runoff, 3ha of gravity-fed drip irrigation installed — eliminating the need for diesel pumps.</p>
+            <p>2–3 traditional wells rehabilitated, 2 sand dams + recharge trench constructed. 3ha of gravity-fed drip irrigation installed — eliminating the need for diesel pumps.</p>
           </div>
           <div class="pp">
             <div class="pp-loc">Fayoum Oasis</div>
             <h5>Agro-Innovation</h5>
-            <p>The Ramad Farm Model deployed across 10ha: ancient "Fallow Irrigation" revived alongside intercropping of date palms with legumes, moringa, and henna. Crucially, university-developed bio-polymers dramatically increase soil water retention — a bridge between 4,000-year-old farming technique and 21st-century materials science.</p>
+            <p>Ancient "Fallow Irrigation" revived alongside intercropping of date palms with legumes, moringa, and henna. Bio-polymers bridge 4,000-year-old farming technique with 21st-century materials science.</p>
           </div>
           <div class="pp">
             <div class="pp-loc">Siwa Oasis</div>
             <h5>Salinity Management</h5>
-            <p>Rising salty groundwater is seeping into fields, poisoning the famous Siwan olives and date crops, and threatening the ancient mud-brick Shali heritage site. Bioengineering response: 8ha of highly salt-tolerant heritage crops, 150 agroforestry windbreak trees to stabilize soil structure, 2 wetland strips for natural water filtration and ecosystem recovery.</p>
+            <p>8ha of salt-tolerant heritage crops, 150 agroforestry windbreak trees, 2 wetland strips for natural water filtration and ecosystem recovery.</p>
           </div>
           <div class="pp">
             <div class="pp-loc">Kharga Oasis</div>
             <h5>Eco-Tourism &amp; TVET</h5>
-            <p>The absence of green economic opportunities drives youth migration, accelerating the loss of traditional knowledge. A historic 1960s Administrative Complex is restored as a School of Traditional Crafts. A mudbrick house is converted to a visitor centre. Local youth are trained as heritage geo-tourism guides, creating livelihoods tied to cultural stewardship.</p>
+            <p>Historic 1960s Administrative Complex restored as a School of Traditional Crafts. Local youth trained as heritage geo-tourism guides, creating livelihoods tied to cultural stewardship.</p>
           </div>
         </div>
-
         <div class="highlight-box">
-          <strong>The Genetic Ark:</strong> Through our partnership with the Desert Research Center (DRC), we identified a dormant Tissue Culture Laboratory during the inception phase. Operational funds are provided to reactivate it — and 50,000 seedlings of endangered, climate-resilient heritage date varieties (Saidi and Siwi) will be mass-propagated bio-securely, securing the genetic future of Egypt's oases against climate shocks. Additionally, 20 women-led startups are trained to convert agricultural waste — date pits, coffee grounds, olive pomace — into organic flour, animal feed, and natural cosmetics: a self-sustaining circular bio-economy that breaks the grant-dependency cycle.
+          <strong>The Genetic Ark:</strong> 50,000 seedlings of endangered, climate-resilient heritage date varieties (Saidi and Siwi) will be mass-propagated bio-securely, securing the genetic future of Egypt's oases. Additionally, 20 women-led startups are trained to convert agricultural waste into organic flour, animal feed, and natural cosmetics.
         </div>
-
         <div class="site-chips">
-          <span class="site-chip">Siwa Oasis</span><span class="site-chip">Fayoum</span><span class="site-chip">Kharga</span><span class="site-chip">Dakhla</span><span class="site-chip">Desert Research Center</span><span class="site-chip">Fayoum University</span><span class="site-chip">Egyptian Space Agency</span><span class="site-chip">MAB Programme</span>
+          <span class="site-chip">Siwa Oasis</span><span class="site-chip">Fayoum</span><span class="site-chip">Kharga</span><span class="site-chip">Dakhla</span><span class="site-chip">Desert Research Center</span><span class="site-chip">Fayoum University</span><span class="site-chip">Egyptian Space Agency</span>
         </div>
-
         <div class="pcard-actions">
           <a href="assets/docs/Oases_Project_Brochure.pdf" class="pa oa1" target="_blank">📄 Project Brochure</a>
           <a href="assets/docs/01_Harnessing_Heritage_for_a_Resilient_Future.pdf" class="pa oa2" target="_blank">📖 Strategic Framework</a>
-          <a href="#mab" class="pa oa2">→ Read the Science</a>
         </div>
-
         <div class="map-frame">
           <div id="map-oases"></div>
         </div>
       </div>
     </div>
 
-    <!-- ======= MANGROVES PROJECT ======= -->
     <div class="pcard mangroves">
       <div class="pcard-head">
         <div class="pcard-eco">Coastal · Blue Carbon · Red Sea · IOC Ocean Literacy</div>
@@ -440,48 +1691,42 @@
         </div>
       </div>
       <div class="pcard-body">
-
         <div class="problem-stmt">
-          <p><strong>The Situation:</strong> A devastating <strong>30% decline in Red Sea mangrove cover</strong>, driven by rapid urbanization, unregulated camel overgrazing, and climate change. But our inception review identified a deeper problem: <strong>Past Project Failure</strong>. Previous international restoration initiatives often failed because they relied on guesswork — planting seedlings in wrong sediment depths, ignoring local hydrology, and excluding the communities who hold 20 years of unpublished ecological knowledge. <strong>We must stop treating mangroves as 'nature to be conserved' and start treating them as the foundation of a thriving Blue Carbon Economy.</strong></p>
+          <p><strong>The Situation:</strong> A devastating <strong>30% decline in Red Sea mangrove cover</strong>, driven by rapid urbanization, unregulated camel overgrazing, and climate change. Past restoration initiatives often failed because they relied on guesswork — planting seedlings in wrong sediment depths, ignoring local hydrology, and excluding communities who hold 20 years of unpublished ecological knowledge.</p>
         </div>
-
         <div class="approach-label">Four scientifically validated, shovel-ready pillars</div>
         <div class="pillars-grid">
           <div class="pp">
             <div class="pp-loc">Pillar 1</div>
             <h5>Precision Ecological Restoration</h5>
-            <p>Restore 20km of coastline by planting 20,000 mangrove trees (10,000/year) across 2 local nurseries. Planting zones are dictated by 40 years of Egyptian Space Agency (EgSA) satellite survival baselines (1985–2025) combined with Ranger field logs on optimal salinity levels — eliminating guesswork.</p>
+            <p>Restore 20km of coastline by planting 20,000 mangrove trees across 2 local nurseries. Planting zones dictated by 40 years of Egyptian Space Agency satellite survival baselines (1985–2025).</p>
           </div>
           <div class="pp">
             <div class="pp-loc">Pillar 2</div>
             <h5>Protection Infrastructure</h5>
-            <p>Install camel-proof fencing around every planting zone to prevent overgrazing of young shoots before they can anchor. Physically restore degraded tidal channels to reinstate correct hydrological flow — the critical condition for root establishment that past projects ignored.</p>
+            <p>Camel-proof fencing around every planting zone. Physically restore degraded tidal channels to reinstate correct hydrological flow — the critical condition that past projects ignored.</p>
           </div>
           <div class="pp">
             <div class="pp-loc">Pillar 3</div>
             <h5>Green Skills &amp; TVET</h5>
-            <p>Formal vocational training for 60 local youth and women in sustainable fisheries management, mangrove nursery operations, and eco-tourism guiding. This certifies them as economic guardians of the ecosystem — their income now depends on the forest's health, not its exploitation.</p>
+            <p>Formal vocational training for 60 local youth and women in sustainable fisheries management, mangrove nursery operations, and eco-tourism guiding.</p>
           </div>
           <div class="pp">
             <div class="pp-loc">Pillar 4</div>
             <h5>Scientific Monitoring</h5>
-            <p>Continuous NDVI Vegetation Index analysis via EgSA satellite imagery tracks forest health in near-real-time. The project culminates in a peer-reviewed Mangrove Restoration Model, submitted to national policymakers to advise future coastal restoration decisions across Egypt.</p>
+            <p>Continuous NDVI Vegetation Index analysis via EgSA satellite imagery tracks forest health in near-real-time. Project culminates in a peer-reviewed Mangrove Restoration Model.</p>
           </div>
         </div>
-
         <div class="highlight-box">
-          <strong>The 40-Year Satellite Baseline &amp; The Ababda Bedouin:</strong> Through our EgSA partnership, we conducted a retrospective remote sensing analysis of Earth Observation data from 1985 to 2025 — identifying exactly where mangroves historically thrived before urban encroachment. This allows planting funds to be directed with surgical precision. The Ababda Bedouin Tribes — indigenous custodians of the Wadi El Gemal coastline — are institutionalized as the central stewards of the Community Mangrove Stewardship Committee (CMSC), alongside the Wadi El Gemal National Park Authority, EgSA, AUC (CARES), NIOF, and HEPCA. Their economic survival is now directly tied to the health of the mangrove bio-shields.
+          <strong>The 40-Year Satellite Baseline &amp; The Ababda Bedouin:</strong> Retrospective remote sensing analysis of Earth Observation data from 1985–2025 identifies exactly where mangroves historically thrived. The Ababda Bedouin Tribes — indigenous custodians of the Wadi El Gemal coastline — are institutionalized as the central stewards of the Community Mangrove Stewardship Committee (CMSC). Their economic survival is now directly tied to the health of the mangrove bio-shields.
         </div>
-
         <div class="site-chips">
-          <span class="site-chip">Wadi El Gemal</span><span class="site-chip">Hamata</span><span class="site-chip">Ababda Bedouin</span><span class="site-chip">EgSA · AUC · NIOF</span><span class="site-chip">HEPCA</span><span class="site-chip">Wadi El Gemal NP</span>
+          <span class="site-chip">Wadi El Gemal</span><span class="site-chip">Hamata</span><span class="site-chip">Ababda Bedouin</span><span class="site-chip">EgSA · AUC · NIOF</span><span class="site-chip">HEPCA</span>
         </div>
-
         <div class="pcard-actions">
           <a href="assets/docs/Mangroves_Project_Brochure.pdf" class="pa ma1" target="_blank">📄 Project Brochure</a>
           <a href="assets/docs/02_Arab_Biosphere_Reserves_and_Geoparks.pdf" class="pa ma2" target="_blank">📖 Regional MAB Vision</a>
         </div>
-
         <div class="map-frame">
           <div id="map-mangroves"></div>
         </div>
@@ -490,25 +1735,21 @@
   </div>
 </section>
 
-<!-- ============================================================
-     MAB / DRYLANDS — The intellectual framework
-     ============================================================ -->
+<!-- MAB -->
 <section class="mab-section" id="mab">
   <div class="section-label">Intellectual Framework · Arab MAB Programme · Publications</div>
   <h2 class="section-title">Drylands, Oases &amp;<br><em>Heritage-Based Solutions</em></h2>
 
   <div class="mab-layout">
     <div class="mab-text">
-      <p>The publications and policy work at UNESCO Cairo are grounded in a single paradigm shift that the AECID projects operationalize: oases are not merely natural systems requiring technical interventions. They are <strong>heritage-based solutions</strong> — socio-ecological systems where cultural practices, traditional knowledge, and social structures are as integral to ecological function as hydrology itself.</p>
+      <p>The publications and policy work at UNESCO Cairo are grounded in a single paradigm shift: oases are not merely natural systems requiring technical interventions. They are <strong>heritage-based solutions</strong> — socio-ecological systems where cultural practices, traditional knowledge, and social structures are as integral to ecological function as hydrology itself.</p>
 
       <div class="insight-box">
         <h4>The Core Empirical Finding</h4>
-        <p>Linguistic diversity in oasis communities directly correlates with agrobiodiversity. The Siwi Amazigh language contains precise terminology for traditional cultivation techniques and water management practices that have maintained date palm genetic diversity for centuries. When the language erodes, the knowledge erodes. And when the knowledge erodes, the ecosystem erodes. The loss of traditional knowledge is as direct a threat to oasis sustainability as aquifer depletion — and far faster.</p>
+        <p>Linguistic diversity in oasis communities directly correlates with agrobiodiversity. The Siwi Amazigh language contains precise terminology for traditional cultivation techniques and water management practices that have maintained date palm genetic diversity for centuries. When the language erodes, the knowledge erodes — and the ecosystem erodes with it. The loss of traditional knowledge is as direct a threat to oasis sustainability as aquifer depletion.</p>
       </div>
 
-      <p>This framework was developed through three field missions: to <strong>Fayoum University's Faculty of Agriculture</strong> (where significant research capacity exists but a critical gap remains between academic findings and farmer practice — extension services are underdeveloped, and interdisciplinary integration between hydrology, ecology, agriculture, and social science is absent); to <strong>Siwa Oasis</strong> (where a technical intervention in the 1990s successfully reduced waterlogging — but governance failure allowed illegal drilling to resume and the problem to re-emerge); and to <strong>New Valley Governorate</strong> (where the Nubian Sandstone Aquifer is being extracted at rates far exceeding recharge, and infrastructure deficits force communities into resource-intensive survival strategies).</p>
-
-      <p>These findings were validated and expanded through the <strong>12-country Expert Group Meeting on Managing Groundwater and Dependent Ecosystems in Drylands</strong>, hosted at UNESCO Cairo in June 2025 — producing the strategic framework now being implemented across the AECID projects.</p>
+      <p>This framework was developed through three field missions: to <strong>Fayoum University's Faculty of Agriculture</strong>, to <strong>Siwa Oasis</strong>, and to <strong>New Valley Governorate</strong> — then validated through the <strong>12-country Expert Group Meeting on Managing Groundwater and Dependent Ecosystems in Drylands</strong>, hosted at UNESCO Cairo in June 2025.</p>
 
       <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1.75rem">
         <a href="assets/docs/01_Harnessing_Heritage_for_a_Resilient_Future.pdf" class="doc-btn nile" target="_blank">📄 Strategic Framework for Oasis Ecosystems</a>
@@ -519,16 +1760,16 @@
     <div>
       <p style="font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:#8b5e3c;margin-bottom:1rem">Strategic Framework: Four Pillars</p>
       <div class="pillars-2x2">
-        <div class="pill2"><div class="pill2-n">01</div><h4>Integrated Water Management</h4><p>Context-specific hybrid approaches combining modern engineering with traditional Aflaj, Qanats, and Khettaras — each adapted to local hydrogeological conditions.</p></div>
+        <div class="pill2"><div class="pill2-n">01</div><h4>Integrated Water Management</h4><p>Context-specific hybrid approaches combining modern engineering with traditional Aflaj, Qanats, and Khettaras.</p></div>
         <div class="pill2"><div class="pill2-n">02</div><h4>Foundational Inventory</h4><p>A regional typology of oases by hydrogeological, socio-economic, and developmental characteristics — enabling targeted planning rather than uniform policy.</p></div>
-        <div class="pill2"><div class="pill2-n">03</div><h4>Indigenous Knowledge</h4><p>Community empowerment as the primary driver. Communities are not passive beneficiaries of conservation — they are active experts whose knowledge is primary data.</p></div>
-        <div class="pill2"><div class="pill2-n">04</div><h4>Science as Enabler</h4><p>Technology complements rather than replaces traditional wisdom. Remote sensing, monitoring networks, and decision-support systems serve as amplifiers, not substitutes.</p></div>
+        <div class="pill2"><div class="pill2-n">03</div><h4>Indigenous Knowledge</h4><p>Community empowerment as the primary driver. Communities are active experts whose knowledge is primary data.</p></div>
+        <div class="pill2"><div class="pill2-n">04</div><h4>Science as Enabler</h4><p>Technology complements rather than replaces traditional wisdom. Remote sensing and decision-support systems serve as amplifiers, not substitutes.</p></div>
       </div>
 
       <p style="font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:#8b5e3c;margin:1.5rem 0 0.75rem">Five Documented Case Studies</p>
       <div class="case-list">
-        <div class="cs"><div class="cs-dot" style="background:#c44a3e"></div><div><h5>Siwa, Egypt</h5><p>Technical success + governance failure = system collapse. Waterlogging returned when enforcement and community engagement ended.</p></div></div>
-        <div class="cs"><div class="cs-dot" style="background:#6a8ab0"></div><div><h5>Azraq, Jordan</h5><p>Top-down restoration without community agency: only 10% of original wetland area restored, with ongoing conflict.</p></div></div>
+        <div class="cs"><div class="cs-dot" style="background:#c44a3e"></div><div><h5>Siwa, Egypt</h5><p>Technical success + governance failure = system collapse. Waterlogging returned when enforcement ended.</p></div></div>
+        <div class="cs"><div class="cs-dot" style="background:#6a8ab0"></div><div><h5>Azraq, Jordan</h5><p>Top-down restoration without community agency: only 10% of original wetland area restored.</p></div></div>
         <div class="cs"><div class="cs-dot" style="background:#d4943a"></div><div><h5>Aflaj Systems, Oman</h5><p>2,500-year-old gravity-flow systems persist precisely where traditional social institutions managing them remain intact.</p></div></div>
         <div class="cs"><div class="cs-dot" style="background:#3d7a5f"></div><div><h5>Draa Valley, Morocco</h5><p>Strong legal framework + community "groundwater contracts" + smart metering = measurable improvement in aquifer management.</p></div></div>
         <div class="cs"><div class="cs-dot" style="background:#8b5e3c"></div><div><h5>New Valley, Egypt</h5><p>State-led expansion since the 1960s has depleted the non-renewable Nubian Sandstone Aquifer without disaggregated local management plans.</p></div></div>
@@ -537,117 +1778,124 @@
   </div>
 </section>
 
-<!-- ============================================================
-     PEOPLE — The human element, restored and expanded
-     ============================================================ -->
+<!-- PEOPLE -->
 <section class="people on-dark" id="people">
   <div class="section-label">The Human Element</div>
   <h2 class="section-title">People, Partnerships,<br>&amp; <em>Key Moments</em></h2>
-  <p class="section-lead">Policy is built by people, with people, for people. From high-level ministerial dialogues and international forums to field conversations with farmers and Bedouin elders at the water's edge — these moments constitute the actual infrastructure of climate resilience. Hover to see the moments come alive.</p>
+  <p class="section-lead">Policy is built by people, with people, for people. From high-level ministerial dialogues to field conversations with farmers and Bedouin elders at the water's edge. Hover to see the moments come alive.</p>
 
   <div class="people-cat">Diplomacy &amp; Governance</div>
   <div class="photo-grid hero-layout">
-    <div class="pcard-ph wide"
-      data-src="assets/photos/minister_meeting.jpg"
-      data-cap="Presenting the WEFE+C framework and Zankalon research findings to H.E. the Minister of Water Resources & Irrigation. Discussing national policy alignment for the AECID-funded oases restoration programme.">
-      <img src="assets/photos/minister_meeting.jpg" alt="Meeting with Minister of Water Resources"
-        onerror="this.parentNode.classList.add('photo-ph-slot'); this.parentNode.classList.add('wide'); this.remove(); this.parentNode.innerHTML='<div class=\'slot-ico\'>🤝</div><h4>High-Level Ministerial Dialogue</h4><p>Add photo as: assets/photos/minister_meeting.jpg<br>Meeting with H.E. Minister of Water Resources &amp; Irrigation — presenting research findings and the AECID project framework.</p>'">
+    <div class="pcard-ph wide">
+      <div class="photo-ph-slot" style="height:100%">
+        <div class="slot-ico">🤝</div>
+        <h4>High-Level Ministerial Dialogue</h4>
+        <p>Add photo as: assets/photos/minister_meeting.jpg<br>Meeting with H.E. Minister of Water Resources &amp; Irrigation</p>
+      </div>
       <div class="ph-info">
         <div class="ph-tag">Policy Dialogue · Ministry of Water Resources &amp; Irrigation</div>
         <h4>Translating Science into National Policy</h4>
-        <p>Presenting the Zankalon research findings and the WEFE+C framework. Bridging the gap between academic water modelling and the decisions that govern 80% of Egypt's freshwater use.</p>
+        <p>Presenting the Zankalon research findings and the WEFE+C framework.</p>
       </div>
     </div>
-    <div class="pcard-ph"
-      data-src="assets/photos/governor_meeting.jpg"
-      data-cap="Field coordination meeting for the Historic Cairo UHF project. Aligning municipal urban planning with heritage conservation and the Conservation & Management Plan.">
-      <img src="assets/photos/governor_meeting.jpg" alt="Meeting with Cairo Governor"
-        onerror="this.parentNode.classList.add('photo-ph-slot'); this.remove(); this.parentNode.innerHTML='<div class=\'slot-ico\'>🏛</div><h4>Cairo Governorate Coordination</h4><p>Add photo as: assets/photos/governor_meeting.jpg</p>'">
+    <div class="pcard-ph">
+      <div class="photo-ph-slot" style="height:100%">
+        <div class="slot-ico">🏛</div>
+        <h4>Cairo Governorate Coordination</h4>
+        <p>Add photo as: assets/photos/governor_meeting.jpg</p>
+      </div>
       <div class="ph-info">
         <div class="ph-tag">Local Implementation · Cairo Governorate</div>
         <h4>Historic Cairo: Conservation meets Urban Planning</h4>
-        <p>Aligning municipal urban planning decisions with UNESCO heritage conservation requirements for the UHF project.</p>
+        <p>Aligning municipal urban planning decisions with UNESCO heritage conservation requirements.</p>
       </div>
     </div>
-    <div class="pcard-ph"
-      data-src="assets/photos/aecid_signing.jpg"
-      data-cap="Formalizing the €1M AECID partnership — part of the Spain–Egypt Alliance for Sustainable Development signed by King Felipe VI and President El-Sisi in September 2025.">
-      <img src="assets/photos/aecid_signing.jpg" alt="AECID Funding Ceremony"
-        onerror="this.parentNode.classList.add('photo-ph-slot'); this.remove(); this.parentNode.innerHTML='<div class=\'slot-ico\'>✍️</div><h4>Spain–Egypt Alliance Signing</h4><p>Add photo as: assets/photos/aecid_signing.jpg</p>'">
+    <div class="pcard-ph">
+      <div class="photo-ph-slot" style="height:100%">
+        <div class="slot-ico">✍️</div>
+        <h4>Spain–Egypt Alliance Signing</h4>
+        <p>Add photo as: assets/photos/aecid_signing.jpg</p>
+      </div>
       <div class="ph-info">
         <div class="ph-tag">Spain–Egypt Alliance · AECID · €1,000,000</div>
         <h4>Formalising €1M in Climate Adaptation</h4>
-        <p>The partnership that makes both the Oases and Mangroves projects possible. Conservation anchored in diplomacy.</p>
+        <p>The partnership that makes both the Oases and Mangroves projects possible.</p>
       </div>
     </div>
   </div>
 
   <div class="people-cat">Innovation &amp; Youth</div>
   <div class="photo-grid trio">
-    <div class="pcard-ph"
-      data-src="assets/photos/wefe_awards.jpg"
-      data-cap="Awarding Cultivania, Loopet, and Smart Hydroponics — the three WEFE+C Trail in Motion winners — at the UNESCO Cairo office, August 2025. The seed of change planted in Egypt's next generation of water innovators.">
-      <img src="assets/photos/wefe_awards.jpg" alt="WEFE Competition Awards"
-        onerror="this.parentNode.classList.add('photo-ph-slot'); this.remove(); this.parentNode.innerHTML='<div class=\'slot-ico\'>🏆</div><h4>WEFE+C Award Ceremony</h4><p>Add photo as: assets/photos/wefe_awards.jpg<br>UNESCO Cairo, August 28–29, 2025</p>'">
+    <div class="pcard-ph">
+      <div class="photo-ph-slot" style="height:100%">
+        <div class="slot-ico">🏆</div>
+        <h4>WEFE+C Award Ceremony</h4>
+        <p>Add photo as: assets/photos/wefe_awards.jpg</p>
+      </div>
       <div class="ph-info">
         <div class="ph-tag">Youth Empowerment · UNESCO Cairo · Aug 2025</div>
         <h4>Awarding the WEFE+C Winners</h4>
-        <p>Cultivania, Loopet, Smart Hydroponics — seed-funded and mentored. The generation that will solve what ours created.</p>
+        <p>Cultivania, Loopet, Smart Hydroponics — seed-funded and mentored.</p>
       </div>
     </div>
-    <div class="pcard-ph"
-      data-src="assets/photos/eu_hackathon.jpg"
-      data-cap="Serving as mentor and jury member for the EU Water AI Hackathon — guiding interdisciplinary teams on integrating machine learning with traditional water management knowledge.">
-      <img src="assets/photos/eu_hackathon.jpg" alt="EU Water AI Hackathon"
-        onerror="this.parentNode.classList.add('photo-ph-slot'); this.remove(); this.parentNode.innerHTML='<div class=\'slot-ico\'>💡</div><h4>EU Water AI Hackathon</h4><p>Add photo as: assets/photos/eu_hackathon.jpg</p>'">
+    <div class="pcard-ph">
+      <div class="photo-ph-slot" style="height:100%">
+        <div class="slot-ico">💡</div>
+        <h4>EU Water AI Hackathon</h4>
+        <p>Add photo as: assets/photos/eu_hackathon.jpg</p>
+      </div>
       <div class="ph-info">
         <div class="ph-tag">Mentorship · EU Water AI Hackathon</div>
         <h4>Guiding the Next Generation</h4>
-        <p>Jury member and mentor. Teaching teams to ask the question behind the question — not just how to model water, but why.</p>
+        <p>Jury member and mentor. Teaching teams to ask the question behind the question.</p>
       </div>
     </div>
-    <div class="pcard-ph"
-      data-src="assets/photos/cairo_water_week.jpg"
-      data-cap="Showcasing the WEFE+C Trail in Motion initiative and its winning innovations at Cairo Water Week — presenting to an international audience of water experts, policymakers, and development practitioners.">
-      <img src="assets/photos/cairo_water_week.jpg" alt="Cairo Water Week Presentation"
-        onerror="this.parentNode.classList.add('photo-ph-slot'); this.remove(); this.parentNode.innerHTML='<div class=\'slot-ico\'>🌍</div><h4>Cairo Water Week</h4><p>Add photo as: assets/photos/cairo_water_week.jpg</p>'">
+    <div class="pcard-ph">
+      <div class="photo-ph-slot" style="height:100%">
+        <div class="slot-ico">🌍</div>
+        <h4>Cairo Water Week</h4>
+        <p>Add photo as: assets/photos/cairo_water_week.jpg</p>
+      </div>
       <div class="ph-info">
         <div class="ph-tag">International Forum · Cairo Water Week</div>
         <h4>Taking the WEFE+C Story Global</h4>
-        <p>Presenting Egypt's youth innovations to international policymakers. Local knowledge, global platform.</p>
+        <p>Presenting Egypt's youth innovations to international policymakers.</p>
       </div>
     </div>
   </div>
 
   <div class="people-cat">Fieldwork &amp; Community Stewardship</div>
   <div class="photo-grid trio">
-    <div class="pcard-ph"
-      data-src="assets/photos/fayoum_mission.jpg"
-      data-cap="Field mission to Fayoum University's Faculty of Agriculture — documenting the gap between academic expertise in date palm genetics and water management, and actual farmer practice. Extension services are the missing link.">
-      <img src="assets/photos/fayoum_mission.jpg" alt="Fayoum University Field Mission"
-        onerror="this.parentNode.classList.add('photo-ph-slot'); this.remove(); this.parentNode.innerHTML='<div class=\'slot-ico\'>🌿</div><h4>Fayoum Mission</h4><p>Add photo as: assets/photos/fayoum_mission.jpg<br>Fayoum University Faculty of Agriculture — field capacity assessment and academic partnership for oasis research.</p>'">
+    <div class="pcard-ph">
+      <div class="photo-ph-slot" style="height:100%">
+        <div class="slot-ico">🌿</div>
+        <h4>Fayoum Mission</h4>
+        <p>Add photo as: assets/photos/fayoum_mission.jpg</p>
+      </div>
       <div class="ph-info">
         <div class="ph-tag">Field Mission · Fayoum University Faculty of Agriculture</div>
         <h4>The Gap Between Lab and Field</h4>
-        <p>Significant expertise in date palm genetics — but the research never reaches the farmers. Extension services are the missing infrastructure.</p>
+        <p>Significant expertise in date palm genetics — but research never reaches farmers. Extension services are the missing infrastructure.</p>
       </div>
     </div>
-    <div class="pcard-ph"
-      data-src="assets/photos/siwa_site_visit.jpg"
-      data-cap="Inspecting waterlogging damage and soil salinity intrusion with local farmers in Siwa Oasis. Where modern soil science meets the ancestral 'Knowledge by Sight' that managed this landscape for millennia.">
-      <img src="assets/photos/siwa_site_visit.jpg" alt="Siwa Oasis Site Visit"
-        onerror="this.parentNode.classList.add('photo-ph-slot'); this.remove(); this.parentNode.innerHTML='<div class=\'slot-ico\'>🏜</div><h4>Siwa: The Salinity Frontline</h4><p>Add photo as: assets/photos/siwa_site_visit.jpg</p>'">
+    <div class="pcard-ph">
+      <div class="photo-ph-slot" style="height:100%">
+        <div class="slot-ico">🏜</div>
+        <h4>Siwa: The Salinity Frontline</h4>
+        <p>Add photo as: assets/photos/siwa_site_visit.jpg</p>
+      </div>
       <div class="ph-info">
         <div class="ph-tag">Site Visit · Siwa Oasis · Western Desert</div>
         <h4>Siwa: The Salinity Frontline</h4>
         <p>Assessing waterlogging damage. Where ancient mud-brick heritage and living agriculture face the same rising threat.</p>
       </div>
     </div>
-    <div class="pcard-ph"
-      data-src="assets/photos/ababda_community.jpg"
-      data-cap="Documenting Traditional Ecological Knowledge with Ababda Bedouin leaders at Wadi El Gemal. Their unpublished Ranger planting logs and generational knowledge of mangrove ecology are the blueprint for the Blue Carbon economy.">
-      <img src="assets/photos/ababda_community.jpg" alt="Ababda Bedouin Community"
-        onerror="this.parentNode.classList.add('photo-ph-slot'); this.remove(); this.parentNode.innerHTML='<div class=\'slot-ico\'>🌊</div><h4>Ababda Bedouin Elders</h4><p>Add photo as: assets/photos/ababda_community.jpg</p>'">
+    <div class="pcard-ph">
+      <div class="photo-ph-slot" style="height:100%">
+        <div class="slot-ico">🌊</div>
+        <h4>Ababda Bedouin Elders</h4>
+        <p>Add photo as: assets/photos/ababda_community.jpg</p>
+      </div>
       <div class="ph-info">
         <div class="ph-tag">Indigenous Knowledge · Wadi El Gemal · Red Sea</div>
         <h4>The Knowledge Holders</h4>
@@ -658,22 +1906,24 @@
 
   <div class="people-cat">Milestones &amp; Graduation</div>
   <div class="photo-grid duo">
-    <div class="pcard-ph"
-      data-src="assets/photos/graduation_speech.jpg"
-      data-cap="Graduation from IHE Delft Institute for Water Education — completing the MSc that connected the question asked at El Dabaa to the science needed to answer it. Delft, Netherlands, 2024.">
-      <img src="assets/photos/graduation_speech.jpg" alt="IHE Delft Graduation"
-        onerror="this.parentNode.classList.add('photo-ph-slot'); this.remove(); this.parentNode.innerHTML='<div class=\'slot-ico\'>🎓</div><h4>IHE Delft Graduation</h4><p>Add photo as: assets/photos/graduation_speech.jpg<br>Graduation speech or ceremony at IHE Delft, Delft, Netherlands, 2024.</p>'">
+    <div class="pcard-ph">
+      <div class="photo-ph-slot" style="height:100%">
+        <div class="slot-ico">🎓</div>
+        <h4>IHE Delft Graduation</h4>
+        <p>Add photo as: assets/photos/graduation_speech.jpg</p>
+      </div>
       <div class="ph-info">
         <div class="ph-tag">Graduation · IHE Delft Institute for Water Education · 2024</div>
         <h4>The Question Answered — And Opened Further</h4>
-        <p>Completing the MSc that connected what I saw at El Dabaa to the science needed to address it. Delft, Netherlands, 2024.</p>
+        <p>Completing the MSc that connected what I saw at El Dabaa to the science needed to address it.</p>
       </div>
     </div>
-    <div class="pcard-ph"
-      data-src="assets/photos/new_valley_wells.jpg"
-      data-cap="Technical assessment of deep-well extraction infrastructure in New Valley Governorate. The Nubian Sandstone Aquifer — a non-renewable fossil resource being extracted at rates far exceeding any possible recharge.">
-      <img src="assets/photos/new_valley_wells.jpg" alt="New Valley Deep Wells"
-        onerror="this.parentNode.classList.add('photo-ph-slot'); this.remove(); this.parentNode.innerHTML='<div class=\'slot-ico\'>⛏</div><h4>New Valley: Deep Wells</h4><p>Add photo as: assets/photos/new_valley_wells.jpg</p>'">
+    <div class="pcard-ph">
+      <div class="photo-ph-slot" style="height:100%">
+        <div class="slot-ico">⛏</div>
+        <h4>New Valley: Deep Wells</h4>
+        <p>Add photo as: assets/photos/new_valley_wells.jpg</p>
+      </div>
       <div class="ph-info">
         <div class="ph-tag">Field Assessment · New Valley · Kharga &amp; Dakhla</div>
         <h4>The Pulse of the Desert</h4>
@@ -683,9 +1933,7 @@
   </div>
 </section>
 
-<!-- ============================================================
-     RESEARCH — The science, clearly explained
-     ============================================================ -->
+<!-- RESEARCH -->
 <section class="research" id="research">
   <div class="section-label">Peer-Reviewed Research · MSc Thesis · IHE Delft 2024</div>
   <h2 class="section-title">The Zankalon Forecast:<br><em>When ML Meets the Nile Delta</em></h2>
@@ -697,11 +1945,11 @@
         <div class="tc-label">MSc Thesis · Under Peer Review · 2026 · IHE Delft</div>
         <h3>"Assessing the Impact of Climate Change on Agricultural Water Consumption Using Remote Sensing Data and Machine Learning: A Case Study of Zankalon, Nile Delta, Egypt"</h3>
         <div class="findings">
-          <div class="finding"><div class="fi">🛰</div><p><strong>Data:</strong> WaPOR v2 (30m resolution AETI data, 2009–2023), AgERA5 climate reanalysis drivers, ensemble of 23 CMIP6 General Circulation Models. Six major irrigated crops: wheat, rice, clover, grapes, orchards, potato. Projections extended to 2099 under SSP2-4.5 and SSP5-8.5.</p></div>
-          <div class="finding"><div class="fi">🤖</div><p><strong>Method:</strong> Nine ML algorithm types evaluated per crop using time-series cross-validation. Best performers: Random Forest (Orchards R²=0.863, Wheat R²=0.684), SVR (Rice R²=0.832, Grapes R²=0.677, Potato R²=0.766), Ridge Regression (Clover R²=0.770). No single algorithm dominated across all crops.</p></div>
-          <div class="finding"><div class="fi">❄️</div><p><strong>Counter-intuitive finding 1:</strong> Winter crops (wheat, clover) show <strong>INCREASING</strong> water demand (+5.3–6.6% by 2099). Warmer winters increase evaporative demand during the cool growing season — hotter summers do not automatically mean all crops need more water.</p></div>
-          <div class="finding"><div class="fi">🌊</div><p><strong>Counter-intuitive finding 2:</strong> Summer crops (rice, grapes) show <strong>DECREASING</strong> water demand (−4.7% to −6.3%). Likely driven by projected changes in humidity and radiation balance during peak summer months, reducing vapour pressure deficit despite rising temperatures.</p></div>
-          <div class="finding"><div class="fi">📊</div><p><strong>Policy finding:</strong> Agricultural expansion will drive a +13.5% total CWR increase by 2050 — vs. +3.6% from climate change alone. National land-use policy is the critical lever. The crops most targeted for expansion (wheat, orchards) are precisely those projected to need the most water.</p></div>
+          <div class="finding"><div class="fi">🛰</div><p><strong>Data:</strong> WaPOR v2 (30m resolution AETI data, 2009–2023), AgERA5 climate reanalysis drivers, ensemble of 23 CMIP6 General Circulation Models. Six major irrigated crops. Projections through 2099 under SSP2-4.5 and SSP5-8.5.</p></div>
+          <div class="finding"><div class="fi">🤖</div><p><strong>Method:</strong> Nine ML algorithm types evaluated per crop. Best performers: Random Forest (Orchards R²=0.863, Wheat R²=0.684), SVR (Rice R²=0.832, Grapes R²=0.677, Potato R²=0.766), Ridge Regression (Clover R²=0.770).</p></div>
+          <div class="finding"><div class="fi">❄️</div><p><strong>Counter-intuitive finding 1:</strong> Winter crops (wheat, clover) show <strong>INCREASING</strong> water demand (+5.3–6.6% by 2099). Warmer winters increase evaporative demand during the cool growing season.</p></div>
+          <div class="finding"><div class="fi">🌊</div><p><strong>Counter-intuitive finding 2:</strong> Summer crops (rice, grapes) show <strong>DECREASING</strong> water demand (−4.7% to −6.3%). Driven by projected changes in humidity and radiation balance during peak summer months.</p></div>
+          <div class="finding"><div class="fi">📊</div><p><strong>Policy finding:</strong> Agricultural expansion will drive a +13.5% total CWR increase by 2050 — vs. +3.6% from climate change alone. <strong>National land-use policy is the critical lever.</strong></p></div>
         </div>
         <div class="thesis-btns">
           <a href="https://github.com/sadow999/IHE-Thesis" class="tb gh" target="_blank">⌥ Code on GitHub</a>
@@ -727,12 +1975,11 @@
         <div class="chart-title">Total CWR Increase by 2050 — What Actually Drives It</div>
         <div class="policy-row"><div class="policy-lbl">Climate change alone</div><div class="policy-val v1">+3.6%</div></div>
         <div class="policy-row"><div class="policy-lbl">Climate + agricultural expansion</div><div class="policy-val v2">+13.5%</div></div>
-        <p class="policy-note">Egypt faces an existing annual water deficit of 13.5 billion m³. The crops most planned for national expansion — wheat and orchards — are precisely those projected to need the most water under climate change. High-efficiency irrigation investment is not optional. It is the viability condition for the expansion itself.</p>
+        <p class="policy-note">Egypt faces an existing annual water deficit of 13.5 billion m³. The crops most planned for national expansion — wheat and orchards — are precisely those projected to need the most water under climate change.</p>
       </div>
     </div>
   </div>
 
-  <!-- Publications -->
   <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;margin:3.5rem 0 0.5rem;color:var(--ink)">Publication Record</h3>
   <p style="font-size:0.72rem;color:var(--ink-muted);margin-bottom:1.5rem">All publications listed with DOIs and links to associated code repositories where available.</p>
   <div class="pubs">
@@ -743,7 +1990,7 @@
     </div>
     <div class="pub">
       <span class="pub-badge">Published · 2026</span>
-      <p>Abdelal, Q., Al-Kilani, M.R., Al-Bakri, J., Keblouti, M., &amp; <strong>Sakna, A.</strong> "Reduced Frequency of Soil Moisture Measurements for Cost-effective Irrigation Management in Arid Regions." <em>Journal of Agrometeorology</em>, 28(1), 100–103. (Author contribution: data analysis, review and editing.)</p>
+      <p>Abdelal, Q., Al-Kilani, M.R., Al-Bakri, J., Keblouti, M., &amp; <strong>Sakna, A.</strong> "Reduced Frequency of Soil Moisture Measurements for Cost-effective Irrigation Management in Arid Regions." <em>Journal of Agrometeorology</em>, 28(1), 100–103.</p>
       <a href="https://doi.org/10.54386/jam.v28i1.3254" target="_blank">doi:10.54386/jam.v28i1.3254 →</a>
     </div>
     <div class="pub eng">
@@ -764,27 +2011,25 @@
   </div>
 </section>
 
-<!-- ============================================================
-     UHF — HISTORIC CAIRO
-     ============================================================ -->
+<!-- UHF -->
 <section class="uhf on-dark" id="uhf">
   <div class="section-label">Urban Heritage Framework · UNESCO / Ministry of Tourism &amp; Antiquities</div>
   <h2 class="section-title">University Heritage Forum:<br><em>Historic Cairo as Living Lab</em></h2>
-  <p class="section-lead">The UHF is a pioneering initiative launched July 2023, bridging 8 universities, the Ministry of Tourism &amp; Antiquities, and Cairo Governorate to develop interdisciplinary conservation strategies for Historic Cairo — a UNESCO World Heritage Site since 1979. Over 85 participants produced 7 technical reports directly informing the Conservation &amp; Management Plan. My role: GIS map production, technical documentation, and programme coordination. Hover on each theme card to read the detailed output.</p>
+  <p class="section-lead">The UHF bridges 8 universities, the Ministry of Tourism &amp; Antiquities, and Cairo Governorate to develop interdisciplinary conservation strategies for Historic Cairo — a UNESCO World Heritage Site since 1979. Over 85 participants produced 7 technical reports directly informing the Conservation &amp; Management Plan. My role: GIS map production, technical documentation, and programme coordination.</p>
 
   <div class="uhf-themes">
-    <div class="tc"><div class="tc-num">Theme 01</div><h4>Zero-Energy Cities — Citadel Area</h4><p>Digital Twin of the Mohamed Ali Mosque using Autodesk Revit and Unreal Engine. Enables predictive maintenance scheduling and solar energy integration simulations — a scalable proof-of-concept for heritage buildings as active energy participants rather than passive energy drains.</p><div class="tc-output">Output: A replicable Zero-Energy Heritage model with direct policy implications for Cairo Governorate's energy transition planning. Simulation data shared with MoTA for the Conservation and Management Plan.</div></div>
-    <div class="tc"><div class="tc-num">Theme 02</div><h4>Green Infrastructure — Fustat</h4><p>Proposals for urban agriculture, water-sensitive design, rooftop gardens, and reintroduction of historically relevant plant species through participatory landscape planning. Fustat affirmed as a site of agricultural significance for over a millennium — deserving landscape strategies of commensurate depth and ambition.</p><div class="tc-output">Output: A community-managed green space framework that restores Fustat's agricultural heritage identity while delivering measurable urban ecosystem services including stormwater management and microclimate regulation.</div></div>
-    <div class="tc"><div class="tc-num">Theme 03</div><h4>Cultural Economy — El-Gamaliya</h4><p>Immersive heritage trails, creative economy clusters, and a proposed visitor centre in Muhib El-Din Hall. Strategic linking of traditional craft industries — copper, glass, leather, textiles, papyrus — with cultural tourism to create sustainable livelihoods embedded within the historic urban fabric.</p><div class="tc-output">Output: Heritage Economic Activation Plan converting intangible cultural assets into sustainable income for El-Gamaliya artisan communities, with specific recommendations for the Heritage Investment Plan.</div></div>
-    <div class="tc"><div class="tc-num">Theme 04</div><h4>Urban Finance — Darb Al-Ahmar</h4><p>Adaptive reuse strategies for Khayer Bek (dark tourism VR experiences + artisan market) and Bayt Al-Razzaz (boutique hotel + seminar venue). Innovative financing mechanisms proposed: microfinance schemes, heritage bonds, and eco-transport solutions designed to bridge the gap between conservation costs and private investment appetite.</p><div class="tc-output">Output: Creative Financing Toolkit for Heritage Adaptive Reuse — a template applicable across Historic Cairo and potentially scalable to other Egyptian WHS contexts.</div></div>
-    <div class="tc"><div class="tc-num">Theme 05</div><h4>Documentation — Eastern Historic Cairo</h4><p>Meticulous documentation of 25+ monuments in the Mamluk Cemetery using a quantitative risk-based prioritization model assigning urgency scores across structural, environmental, and social risk dimensions. Cemeteries reframed as "living landscapes" with active ecological and social functions far beyond their funerary designation.</p><div class="tc-output">Output: Risk-Based Preservation Index for Mamluk Cemetery monuments. A replicable, transparent methodology for preservation policy applicable to other heritage sites across Egypt.</div></div>
-    <div class="tc"><div class="tc-num">Theme 06</div><h4>Climate Hazards — Imam Al-Shafi'i Area</h4><p>Comprehensive climate hazard mapping for one of Cairo's most complex heritage zones. Groundwater management protocols, early-warning systems for flooding and subsidence, and social well-being indicators embedded alongside monument protection targets — ensuring community resilience and conservation are treated as a single integrated objective.</p><div class="tc-output">Output: Integrated Climate-Heritage Adaptation Plan with quantified risk thresholds, early-warning triggers, and community response protocols — submitted as input to the CMP.</div></div>
-    <div class="tc"><div class="tc-num">Theme 07</div><h4>Living Heritage — Al-Azhar</h4><p>Crafts, storytelling, and Mawlid practices comprehensively mapped and georeferenced. A Community Management Plan rooted in participatory governance proposes repurposing Sabil-Kuttabs as cultural hubs, anchoring the intangible in the physical urban grid — and ensuring the CMP reflects the living social reality of the district.</p><div class="tc-output">Output: "Map of Intangible Heritage" layering active social practices onto Al-Azhar's physical urban fabric. Community Governance Council framework submitted for CMP integration.</div></div>
+    <div class="tc"><div class="tc-num">Theme 01</div><h4>Zero-Energy Cities — Citadel Area</h4><p>Digital Twin of the Mohamed Ali Mosque using Autodesk Revit and Unreal Engine. Enables predictive maintenance scheduling and solar energy integration simulations.</p><div class="tc-output">Output: A replicable Zero-Energy Heritage model with direct policy implications for Cairo Governorate's energy transition planning.</div></div>
+    <div class="tc"><div class="tc-num">Theme 02</div><h4>Green Infrastructure — Fustat</h4><p>Proposals for urban agriculture, water-sensitive design, rooftop gardens, and reintroduction of historically relevant plant species through participatory landscape planning.</p><div class="tc-output">Output: A community-managed green space framework that restores Fustat's agricultural heritage identity while delivering measurable urban ecosystem services.</div></div>
+    <div class="tc"><div class="tc-num">Theme 03</div><h4>Cultural Economy — El-Gamaliya</h4><p>Immersive heritage trails, creative economy clusters, and a proposed visitor centre in Muhib El-Din Hall. Strategic linking of traditional craft industries with cultural tourism.</p><div class="tc-output">Output: Heritage Economic Activation Plan converting intangible cultural assets into sustainable income for El-Gamaliya artisan communities.</div></div>
+    <div class="tc"><div class="tc-num">Theme 04</div><h4>Urban Finance — Darb Al-Ahmar</h4><p>Adaptive reuse strategies for Khayer Bek (dark tourism VR) and Bayt Al-Razzaz. Innovative financing mechanisms: microfinance schemes, heritage bonds, and eco-transport solutions.</p><div class="tc-output">Output: Creative Financing Toolkit for Heritage Adaptive Reuse — a template applicable across Historic Cairo.</div></div>
+    <div class="tc"><div class="tc-num">Theme 05</div><h4>Documentation — Eastern Historic Cairo</h4><p>Meticulous documentation of 25+ monuments in the Mamluk Cemetery using a quantitative risk-based prioritization model assigning urgency scores.</p><div class="tc-output">Output: Risk-Based Preservation Index for Mamluk Cemetery monuments. A replicable, transparent methodology for preservation policy.</div></div>
+    <div class="tc"><div class="tc-num">Theme 06</div><h4>Climate Hazards — Imam Al-Shafi'i Area</h4><p>Comprehensive climate hazard mapping. Groundwater management protocols, early-warning systems for flooding and subsidence, and social well-being indicators embedded alongside monument protection targets.</p><div class="tc-output">Output: Integrated Climate-Heritage Adaptation Plan with quantified risk thresholds and early-warning triggers.</div></div>
+    <div class="tc"><div class="tc-num">Theme 07</div><h4>Living Heritage — Al-Azhar</h4><p>Crafts, storytelling, and Mawlid practices comprehensively mapped and georeferenced. A Community Management Plan proposes repurposing Sabil-Kuttabs as cultural hubs.</p><div class="tc-output">Output: "Map of Intangible Heritage" layering active social practices onto Al-Azhar's physical urban fabric. Community Governance Council framework submitted for CMP integration.</div></div>
   </div>
 
   <div class="pdf-section">
     <h3>Thematic Map Documents</h3>
-    <p>Each map was produced in support of the Conservation and Management Plan for Historic Cairo. Place your UHF PDF files at <code style="font-size:0.62rem;color:var(--clay);background:rgba(196,149,106,0.1);padding:2px 5px;border-radius:2px">assets/docs/UHF/</code> to activate these links.</p>
+    <p>Each map was produced in support of the Conservation and Management Plan for Historic Cairo.</p>
     <div class="pdf-grid">
       <a class="pdf-card" href="assets/docs/UHF/Case Studies Around Historic Cairo.pdf" target="_blank"><div class="pdf-ico">🗺</div><div><p>Case Studies — Historic Cairo</p><span>PDF · Overview Map</span></div></a>
       <a class="pdf-card" href="assets/docs/UHF/Historic Cairo Core Zones and Buffer Zones 2008.pdf" target="_blank"><div class="pdf-ico">🗺</div><div><p>Core &amp; Buffer Zones 2008</p><span>PDF · Boundary Map</span></div></a>
@@ -829,7 +2074,131 @@
 </section>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="assets/js/main.js"></script>
-<script src="assets/js/maps.js"></script>
+<script>
+  // ===== LIGHTBOX =====
+  function openLb(src, cap) {
+    document.getElementById('lb-img').src = src;
+    document.getElementById('lb-cap').textContent = cap;
+    document.getElementById('lb').classList.add('open');
+  }
+  function closeLb() {
+    document.getElementById('lb').classList.remove('open');
+    document.getElementById('lb-img').src = '';
+  }
+  document.getElementById('lb').addEventListener('click', function(e) {
+    if (e.target === this) closeLb();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLb();
+  });
+
+  // ===== BAR CHART ANIMATION =====
+  function animateBars() {
+    document.querySelectorAll('.bar-fill').forEach(function(bar) {
+      bar.style.width = bar.getAttribute('data-w');
+    });
+  }
+  const researchSection = document.getElementById('research');
+  let barsAnimated = false;
+  const barObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !barsAnimated) {
+        barsAnimated = true;
+        setTimeout(animateBars, 300);
+      }
+    });
+  }, { threshold: 0.2 });
+  if (researchSection) barObserver.observe(researchSection);
+
+  // ===== LEAFLET MAPS =====
+  function initMaps() {
+    // Oases map
+    var oasisTiles = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+    var attr = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
+    var mapOases = L.map('map-oases', { zoomControl: true, scrollWheelZoom: false }).setView([27.5, 29.5], 5);
+    L.tileLayer(oasisTiles, { attribution: attr, maxZoom: 19 }).addTo(mapOases);
+
+    var oasisSites = [
+      { lat: 29.2, lng: 25.52, name: 'Siwa Oasis', detail: 'Salinity management: 8ha of salt-tolerant heritage crops, agroforestry windbreaks, wetland strips for natural filtration.' },
+      { lat: 29.31, lng: 30.84, name: 'Fayoum Oasis', detail: 'Agro-innovation: Ramad Farm Model, "Fallow Irrigation" revived, bio-polymers bridging 4,000-year farming wisdom with modern materials science.' },
+      { lat: 25.44, lng: 30.55, name: 'Kharga Oasis', detail: 'Eco-Tourism & TVET: Historic 1960s Complex restored as School of Traditional Crafts. Youth trained as heritage geo-tourism guides.' },
+      { lat: 25.49, lng: 28.98, name: 'Dakhla Oasis', detail: 'Water Harvesting: Nubian Sandstone Aquifer rehabilitation. 2-3 traditional wells restored, sand dams + recharge trenches, gravity-fed drip irrigation.' }
+    ];
+
+    var oasisIcon = L.divIcon({
+      className: '',
+      html: '<div style="width:12px;height:12px;background:#c4956a;border:2px solid #fff;border-radius:50%;box-shadow:0 0 8px rgba(196,149,106,0.8)"></div>',
+      iconSize: [12, 12], iconAnchor: [6, 6]
+    });
+
+    oasisSites.forEach(function(site) {
+      L.marker([site.lat, site.lng], { icon: oasisIcon })
+        .addTo(mapOases)
+        .bindPopup('<strong style="font-family:sans-serif;font-size:0.85rem">' + site.name + '</strong><p style="font-family:sans-serif;font-size:0.75rem;margin-top:0.3rem;line-height:1.5">' + site.detail + '</p>', { maxWidth: 240 });
+    });
+
+    // Mangroves map
+    var mapMang = L.map('map-mangroves', { zoomControl: true, scrollWheelZoom: false }).setView([24.0, 35.5], 7);
+    L.tileLayer(oasisTiles, { attribution: attr, maxZoom: 19 }).addTo(mapMang);
+
+    var mangSites = [
+      { lat: 23.88, lng: 35.37, name: 'Wadi El Gemal', detail: 'Core restoration zone. 20,000 mangrove trees over 20km coastline. 40-year EgSA satellite baseline guiding precision planting. Ababda Bedouin as central stewards.' },
+      { lat: 23.65, lng: 35.42, name: 'Hamata', detail: 'Secondary restoration node. Camel-proof fencing, tidal channel restoration, nursery establishment. TVET training for 60 local youth and women.' }
+    ];
+
+    var mangIcon = L.divIcon({
+      className: '',
+      html: '<div style="width:12px;height:12px;background:#3d7a5f;border:2px solid #fff;border-radius:50%;box-shadow:0 0 8px rgba(61,122,95,0.8)"></div>',
+      iconSize: [12, 12], iconAnchor: [6, 6]
+    });
+
+    mangSites.forEach(function(site) {
+      L.marker([site.lat, site.lng], { icon: mangIcon })
+        .addTo(mapMang)
+        .bindPopup('<strong style="font-family:sans-serif;font-size:0.85rem">' + site.name + '</strong><p style="font-family:sans-serif;font-size:0.75rem;margin-top:0.3rem;line-height:1.5">' + site.detail + '</p>', { maxWidth: 240 });
+    });
+  }
+
+  // Init maps after page load
+  window.addEventListener('load', function() {
+    setTimeout(initMaps, 300);
+  });
+
+  // ===== SMOOTH SCROLL OFFSET FOR FIXED NAV =====
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        var offset = 70;
+        var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ===== INTERSECTION OBSERVER for subtle fade-in =====
+  var fadeEls = document.querySelectorAll('.edu-card, .ws, .tl-item, .winner, .pp, .pill2, .cs, .pub, .tc, .sg, .pcard-ph, .stat-box, .wn');
+  fadeEls.forEach(function(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(18px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  });
+
+  var fadeObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry, i) {
+      if (entry.isIntersecting) {
+        setTimeout(function() {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, 60);
+        fadeObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+  fadeEls.forEach(function(el) { fadeObs.observe(el); });
+</script>
 </body>
 </html>
