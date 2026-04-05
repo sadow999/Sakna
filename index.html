@@ -1113,13 +1113,10 @@ section { padding: 5rem 5%; }
      PAGE: HOME
      ================================================================ -->
 <div class="page active" id="page-home">
-  <!-- FIX 1: hero-full is now a 2-column grid with portrait on the right -->
   <div class="hero-full">
     <div class="hero-bg-img"></div>
     <div class="hero-grid-lines"></div>
     <div class="hero-radial"></div>
- 
-    <!-- Left: text content -->
     <div class="hero-content">
       <div class="hero-eyebrow">Environmental Engineer &amp; UNESCO Consultant</div>
       <p class="hero-name">Ahmed Saber Sakna</p>
@@ -1141,38 +1138,59 @@ section { padding: 5rem 5%; }
         <a href="Ahmed_Sakna_Resume_2026.pdf" class="btn btn-ghost" target="_blank">Download CV</a>
         <a href="https://github.com/sadow999/IHE-Thesis" class="btn btn-ghost" target="_blank">GitHub ↗</a>
       </div>
- 
+
       <div class="page-nav-cards">
-        <div class="pnc" onclick="showPage('story')"><div class="pnc-num">01 / Origin</div><h3>My Story</h3><p>ERU Teaching Assistant → El Dabaa Nuclear Site → IHE Delft → UNESCO Cairo</p><div class="pnc-arrow">Explore →</div></div>
-        <div class="pnc" onclick="showPage('unesco')"><div class="pnc-num">02 / Present</div><h3>UNESCO Journey</h3><p>12+ countries, 5 ministries, €1M+ secured, conferences & field missions</p><div class="pnc-arrow">Explore →</div></div>
-        <div class="pnc" onclick="showPage('wefe')"><div class="pnc-num">03 / Innovation</div><h3>WEFE+C Competition</h3><p>380 innovators, national competition, 3 winning projects, 6-week bootcamp</p><div class="pnc-arrow">Explore →</div></div>
-        <div class="pnc" onclick="showPage('projects')"><div class="pnc-num">04 / Projects</div><h3>AECID €1M Projects</h3><p>Oases restoration & mangrove regeneration — Spain–Egypt Alliance 2025–2030</p><div class="pnc-arrow">Explore →</div></div>
-        <div class="pnc" onclick="showPage('research')"><div class="pnc-num">05 / Science</div><h3>The Zankalon Forecast</h3><p>ML + remote sensing + CMIP6 ensemble — the Nile Delta through 2099</p><div class="pnc-arrow">Explore →</div></div>
-        <div class="pnc" onclick="showPage('drylands')"><div class="pnc-num">06 / Framework</div><h3>Drylands & Oases</h3><p>Heritage-based solutions, Arab MAB, case studies across 12 countries</p><div class="pnc-arrow">Explore →</div></div>
-        <div class="pnc" onclick="showPage('uhf')"><div class="pnc-num">07 / Heritage</div><h3>Historic Cairo</h3><p>University Heritage Forum — 7 thematic conservation strategies, 85 participants</p><div class="pnc-arrow">Explore →</div></div>
-        <div class="pnc" onclick="goToContact()"><div class="pnc-num">08 / Connect</div><h3>Get In Touch</h3><p>Open to international development, consultancy & research collaborations</p><div class="pnc-arrow">Contact →</div></div>
-      </div>
-    </div>
- 
-    <!-- Right: Ahmed's portrait (FIX 1) -->
-    <div class="hero-photo-col">
-      <div class="hero-portrait-wrap">
-        <div class="hero-portrait-frame">
-          <img src="assets/photos/ahmed.png" alt="Ahmed Saber Sakna"
-            onerror="this.parentElement.style.background='rgba(196,149,106,0.08)';this.style.display='none'">
+        <div class="pnc" onclick="showPage('story')">
+          <div class="pnc-num">01 / Origin</div>
+          <h3>My Story</h3>
+          <p>ERU Teaching Assistant → El Dabaa Nuclear Site → IHE Delft → UNESCO Cairo</p>
+          <div class="pnc-arrow">Explore →</div>
         </div>
-        <div class="hero-portrait-badge">
-          <span class="badge-clay">MSc IHE Delft</span>
-          <span class="badge-dot">·</span>
-          <span>UNESCO Cairo</span>
-          <span class="badge-dot">·</span>
-          <span>Cairo, Egypt</span>
+        <div class="pnc" onclick="showPage('unesco')">
+          <div class="pnc-num">02 / Present</div>
+          <h3>UNESCO Journey</h3>
+          <p>12+ countries, 5 ministries, €1M+ secured, conferences & field missions</p>
+          <div class="pnc-arrow">Explore →</div>
         </div>
-        <div class="hero-portrait-accent"></div>
+        <div class="pnc" onclick="showPage('wefe')">
+          <div class="pnc-num">03 / Innovation</div>
+          <h3>WEFE+C Competition</h3>
+          <p>380 innovators, national competition, 3 winning projects, 6-week bootcamp</p>
+          <div class="pnc-arrow">Explore →</div>
+        </div>
+        <div class="pnc" onclick="showPage('projects')">
+          <div class="pnc-num">04 / Projects</div>
+          <h3>AECID €1M Projects</h3>
+          <p>Oases restoration & mangrove regeneration — Spain–Egypt Alliance 2025–2030</p>
+          <div class="pnc-arrow">Explore →</div>
+        </div>
+        <div class="pnc" onclick="showPage('research')">
+          <div class="pnc-num">05 / Science</div>
+          <h3>The Zankalon Forecast</h3>
+          <p>ML + remote sensing + CMIP6 ensemble — the Nile Delta through 2099</p>
+          <div class="pnc-arrow">Explore →</div>
+        </div>
+        <div class="pnc" onclick="showPage('drylands')">
+          <div class="pnc-num">06 / Framework</div>
+          <h3>Drylands & Oases</h3>
+          <p>Heritage-based solutions, Arab MAB, case studies across 12 countries</p>
+          <div class="pnc-arrow">Explore →</div>
+        </div>
+        <div class="pnc" onclick="showPage('uhf')">
+          <div class="pnc-num">07 / Heritage</div>
+          <h3>Historic Cairo</h3>
+          <p>University Heritage Forum — 7 thematic conservation strategies, 85 participants</p>
+          <div class="pnc-arrow">Explore →</div>
+        </div>
+        <div class="pnc" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+          <div class="pnc-num">08 / Connect</div>
+          <h3>Get In Touch</h3>
+          <p>Open to international development, consultancy & research collaborations</p>
+          <div class="pnc-arrow">Contact →</div>
+        </div>
       </div>
     </div>
   </div>
- 
   <!-- Contact on home page -->
   <div id="contact" class="contact-section">
     <h2>Let's Build Something<br>That Lasts</h2>
