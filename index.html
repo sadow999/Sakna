@@ -6,6 +6,7 @@
 <meta name="description" content="Ahmed Saber Sakna — PhD student at Johns Hopkins University (satellite hydrology &amp; remote sensing), UNESCO Consultant, FAO/WUR WaPOR Project Consultant. €1M+ in climate adaptation funding. MSc IHE Delft.">
 <title>Ahmed Saber Sakna — Water Resources, Remote Sensing &amp; Climate Adaptation</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -1324,6 +1325,25 @@
     </div>
   </section>
 
+  <!-- Map -->
+  <section class="on-white">
+    <div class="section-label">Interactive Map</div>
+    <h2 class="section-title">Where <em>We Went</em></h2>
+    <p class="section-lead">The two sites sit about 16 km apart on the Piedmont, northwest of Baltimore. Blue dots are where photos were taken, from the photos' own GPS. The circles mark the approximate area of each site. Click anything for details.</p>
+    <div class="viz-controls">
+      <button class="viz-btn active" data-map-view="both">Both sites</button>
+      <button class="viz-btn" data-map-view="schist">Oregon Ridge</button>
+      <button class="viz-btn" data-map-view="serp">Soldiers Delight</button>
+      <button class="viz-btn" data-map-view="region">Baltimore region</button>
+    </div>
+    <div id="field-map" class="field-map" role="region" aria-label="Map of field trip sites"></div>
+    <div class="viz-legend">
+      <span><i class="sw-ring" style="border-color:#2672a3;background:rgba(38,114,163,0.12)"></i>Part I · schist (approximate area)</span>
+      <span><i class="sw-ring" style="border-color:#c27a2c;background:rgba(194,122,44,0.14)"></i>Part II · serpentinite (approximate area)</span>
+      <span><i class="sw-dot" style="background:#2672a3"></i>Photo location (GPS)</span>
+    </div>
+  </section>
+
   <!-- The route -->
   <section class="on-dark">
     <div class="section-label">The Route</div>
@@ -1401,8 +1421,66 @@
     </div>
   </section>
 
-  <!-- Comparison table -->
+  <!-- Cross-sections -->
+  <section class="on-white">
+    <div class="section-label">Interactive Cross-Sections</div>
+    <h2 class="section-title">What's <em>Underneath</em></h2>
+    <p class="section-lead">Both sections are drawn at the same scale. Each spans one ridge-to-ridge distance at Pond Branch, so Druids Run fits two valleys in the same width (median hillslope 88 m vs 177 m). Hover or tap any layer, the water table, or the borehole depths. Then switch on a storm.</p>
+    <div class="viz-controls">
+      <button class="viz-btn active" data-weather="dry">Dry weather</button>
+      <button class="viz-btn" data-weather="storm">During a storm</button>
+    </div>
+    <div class="xs-wrap">
+      <svg id="xs-schist" class="xs-svg" role="img" aria-label="Cross-section of Pond Branch: deep saprolite and a bow-tie weathering front"></svg>
+      <svg id="xs-serp" class="xs-svg" role="img" aria-label="Cross-section of Soldiers Delight: thin soil directly on serpentinite"></svg>
+    </div>
+    <p class="fig-note">Schematic, built from the field reader's numbers: layer depths from the 2019 borehole (Cosans et al., 2024) and seismic surveys (St. Clair et al., 2015); hillslope length, relief and permeable-layer thickness from Litwin &amp; Harman (2024). Vertical exaggeration <span id="xs-ve">~3×</span>. Elevations are relative to the channel.</p>
+  </section>
+
+  <!-- Figures -->
   <section class="on-warm">
+    <div class="section-label">Interactive Figures</div>
+    <h2 class="section-title">The Numbers, <em>Drawn</em></h2>
+    <div class="fig-grid">
+      <figure class="fig-card fade-in">
+        <div class="fig-num">Figure 1</div>
+        <h3>A 3.7% strip makes most of the storm runoff</h3>
+        <p class="fig-sub">Pond Branch (37 ha): catchment area vs. the source of storm quickflow</p>
+        <svg id="fig-runoff" class="fig-svg" role="img" aria-label="Riparian strip is 3.7% of area but over 90% of storm quickflow"></svg>
+        <p class="fig-note">Over 90% of cumulative storm quickflow is explained by rain falling directly on the riparian strip plus a modest toe-slope return flow. Source: Putnam (2018), via the field reader.</p>
+      </figure>
+      <figure class="fig-card fade-in">
+        <div class="fig-num">Figure 2</div>
+        <h3>Bigger storms hit the serpentinite much harder</h3>
+        <p class="fig-sub">Event quickflow scales as Q<sub>f</sub> ∝ P<sup>a</sup>: growth in quickflow relative to a reference storm</p>
+        <div class="viz-slider">
+          <label for="fig-scaling-slider">Storm size</label>
+          <input type="range" id="fig-scaling-slider" min="1" max="3" step="0.1" value="2">
+        </div>
+        <p class="fig-readout" id="fig-scaling-readout"></p>
+        <svg id="fig-scaling" class="fig-svg" role="img" aria-label="Quickflow grows with storm size much faster at Druids Run"></svg>
+        <div class="viz-legend">
+          <span><i class="sw-line" style="background:#2672a3"></i>Pond Branch / Baisman Run (a = 1.89)</span>
+          <span><i class="sw-line" style="background:#c27a2c"></i>Soldiers Delight / Druids Run (a = 3.17)</span>
+        </div>
+        <p class="fig-note">Exponents from Litwin &amp; Harman (2024). The curves show relative growth only, (P/P₀)<sup>a</sup>; absolute discharge also depends on catchment size.</p>
+      </figure>
+      <figure class="fig-card fig-wide fade-in">
+        <div class="fig-num">Figure 3</div>
+        <h3>Same climate, different ground: pick a measure</h3>
+        <div class="viz-controls viz-controls-wrap" id="fig-compare-tabs"></div>
+        <svg id="fig-compare" class="fig-svg" role="img" aria-label="Comparison of the two sites"></svg>
+        <p class="fig-note" id="fig-compare-note"></p>
+        <div class="viz-legend">
+          <span><i class="sw-line" style="background:#2672a3"></i>Pond Branch (schist)</span>
+          <span><i class="sw-line" style="background:#c27a2c"></i>Soldiers Delight (serpentinite)</span>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Comparison table -->
+  <section class="on-white">
     <div class="section-label">Side by Side</div>
     <h2 class="section-title">Schist vs. <em>Serpentinite</em></h2>
     <p class="section-lead">Same climate and same base-level lowering (~2.4 m per million years). Everything else follows from the rock.</p>
@@ -1428,7 +1506,7 @@
   </section>
 
   <!-- Why it matters -->
-  <section class="on-white">
+  <section class="on-warm">
     <div class="grid-2-asym">
       <div>
         <div class="section-label">Why It Matters to My Research</div>
@@ -1478,6 +1556,8 @@
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="assets/js/field.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
 </html>

@@ -27,6 +27,11 @@ function showPage(id) {
     setTimeout(animateBars, 400);
   }
 
+  // Build the field-notes map and figures the first time the page is shown
+  if (id === 'field' && window.initField) {
+    setTimeout(window.initField, 50);
+  }
+
   // Trigger fade-ins
   setTimeout(triggerFadeIns, 100);
 }
