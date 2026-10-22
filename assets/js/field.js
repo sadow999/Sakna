@@ -56,7 +56,9 @@
       return;
     }
     const oregonRidge = [39.4905, -76.6855];
-    const soldiersDelight = [39.4110, -76.8360];
+    const soldiersDelight = [39.4135, -76.8440];
+    const pondGauge = [39.48028, -76.68750];   // 39°28'49" N, 76°41'15" W (field reader)
+    const druidsOutlet = [39.4171, -76.8523];  // field reader
 
     map = L.map(el, { scrollWheelZoom: false, zoomControl: true });
     const bases = {
@@ -79,7 +81,7 @@
     // Approximate site areas
     L.circle(oregonRidge, { radius: 1300, color: SCHIST, weight: 2, fillColor: SCHIST, fillOpacity: 0.12, dashArray: '5 5' })
       .addTo(map).bindPopup(photoPopup('Part I · Oregon Ridge Park', 'Pond Branch &amp; Baisman Run on the Loch Raven Schist. Circle shows the approximate area.', 'assets/photos/field/saprolite_cutbank.jpg'));
-    L.circle(soldiersDelight, { radius: 1300, color: SERP, weight: 2, fillColor: SERP, fillOpacity: 0.14, dashArray: '5 5' })
+    L.circle(soldiersDelight, { radius: 1700, color: SERP, weight: 2, fillColor: SERP, fillOpacity: 0.14, dashArray: '5 5' })
       .addTo(map).bindPopup(photoPopup('Part II · Soldiers Delight', 'Serpentine barrens and Druids Run headwaters. Circle shows the approximate area.', 'assets/photos/field/group_soldiers_delight.jpg'));
 
     // Photo GPS points (from the photos' own location data)
@@ -92,17 +94,26 @@
         .addTo(map).bindPopup(photoPopup(p.title, p.sub, p.img));
     });
 
+    // Gauged outlets (coordinates from the field reader)
+    function gaugeIcon(color) {
+      return L.divIcon({ className: '', html: '<div class="map-gauge" style="background:' + color + '"></div>', iconSize: [16, 16], iconAnchor: [8, 8] });
+    }
+    L.marker(pondGauge, { icon: gaugeIcon(SCHIST) }).addTo(map).bindPopup(photoPopup('Pond Branch gauge · USGS 01583570',
+      '37 ha forested catchment, the Baltimore Ecosystem Study reference since 1998. First gauged by Cleaves, Godfrey &amp; Bricker in 1964–68.', 'assets/photos/field/pond_branch_weir.jpg'));
+    L.marker(druidsOutlet, { icon: gaugeIcon(SERP) }).addTo(map).bindPopup(photoPopup('Druids Run outlet',
+      '107 ha serpentinite catchment draining to the Patapsco. Named informally by Litwin &amp; Harman after a local group of druids that meets in the watershed.'));
+
     // Distance between the two sites
-    const km = haversineKm(oregonRidge, soldiersDelight);
-    L.polyline([oregonRidge, soldiersDelight], { color: '#1a1612', weight: 2, dashArray: '2 7', opacity: 0.8 }).addTo(map);
-    const mid = [(oregonRidge[0] + soldiersDelight[0]) / 2, (oregonRidge[1] + soldiersDelight[1]) / 2];
+    const km = haversineKm(pondGauge, druidsOutlet);
+    L.polyline([pondGauge, druidsOutlet], { color: '#1a1612', weight: 2, dashArray: '2 7', opacity: 0.8 }).addTo(map);
+    const mid = [(pondGauge[0] + druidsOutlet[0]) / 2, (pondGauge[1] + druidsOutlet[1]) / 2];
     L.marker(mid, { interactive: false, icon: L.divIcon({ className: 'map-dist', html: '≈ ' + km.toFixed(0) + ' km', iconSize: [70, 22], iconAnchor: [35, 11] }) }).addTo(map);
 
     // Context
     L.circleMarker([39.2857, -76.6100], { radius: 5, color: '#1a1612', weight: 1, fillColor: '#fff', fillOpacity: 1 })
       .addTo(map).bindPopup(photoPopup('Baltimore Inner Harbor', 'Built at the Fall Zone, where ships could sail inland and Piedmont streams powered mills.'));
 
-    const all = L.latLngBounds([oregonRidge, soldiersDelight, gps[0].at, gps[1].at]).pad(0.12);
+    const all = L.latLngBounds([oregonRidge, soldiersDelight, druidsOutlet, gps[0].at, gps[1].at]).pad(0.12);
     map.fitBounds(all);
 
     document.querySelectorAll('[data-map-view]').forEach(btn => {
@@ -119,55 +130,69 @@
 
   // ==========================================
   // 2. CROSS-SECTIONS (same scale for both sites)
+  // Pond Branch follows seismic Line 5 (ridge–valley–ridge in ~240 m, ~20 m relief).
+  // Druids Run uses hillslopes half as long and 0.43× the relief (Litwin & Harman 2024 medians).
   // ==========================================
   const XS = {
-    W: 900, H: 330, ml: 54, mr: 18, mt: 34, mb: 36,
-    xMax: 354,          // m — ridge to ridge at Pond Branch (2 × 177 m hillslope)
-    yTop: 12, yBot: -55 // m relative to the channel
+    W: 900, H: 340, ml: 54, mr: 18, mt: 34, mb: 36,
+    xMax: 240,          // m
+    yTop: 26, yBot: -50 // m relative to the channel
+  };
+
+  // depth (m below the surface) to fast, fresh rock under each weathering model
+  const FRESH = {
+    bowtie: (u, z) => 6 + 39 * Math.pow(u, 1.2),   // ~6–10 m under the valley, ≥45 m under the ridge
+    classic: (u, z) => 8 + 0.5 * z                  // a subdued copy of the surface
   };
 
   const SITES = {
     schist: {
       name: 'Pond Branch · Loch Raven Schist',
       color: SCHIST,
-      channels: [177], L: 177, relief: 6.7, ripU: 0.085,
+      channels: [120], L: 120, relief: 22, ripU: 0.1,
       layers: [
-        { name: 'Soil', fill: '#5b4330', top: u => 0, bot: u => 0.8,
-          info: '<b>Soil</b> · under 1 m. Bioturbated: seismic anisotropy is 0% here.' },
-        { name: 'Saprolite', fill: '#cfa77c', top: u => 0.8, bot: u => 3 + 12 * u,
-          info: '<b>Saprolite</b> · "rotten rock" up to ~15 m thick under the ridge. Bulk density 1.8 g/cm³, porosity over 20%. Weathered in place: the schist\'s banding survives but it crumbles by hand. Seismic anisotropy peaks here (33%).' },
-        { name: 'Fractured, weathered rock', fill: '#a58f79', top: u => 3 + 12 * u, bot: u => 4 + 44 * Math.pow(u, 1.3),
-          info: '<b>Fractured, weathered rock</b> · only 2–10 m thick under the valley, over 40 m under the ridge: the "bow-tie". Horizontal tectonic stress (~8.4 MPa) pinches fractures shut under valleys; under ridges they open and let water in deep.' },
-        { name: 'Fresh schist', fill: '#6c6762', top: u => 4 + 44 * Math.pow(u, 1.3), bot: u => 80,
-          info: '<b>Fresh Loch Raven Schist</b> · seismic velocity above 4 km/s, density 2.7 g/cm³, porosity ~2%. Mica, plagioclase, quartz, and almandine garnet.' }
+        { name: 'Soil', fill: '#5b4330', top: () => 0, bot: () => 1,
+          info: '<b>Soil</b> · about 1 m of clay-rich soil. Burrowing, roots and creep have erased the rock fabric: seismic anisotropy is ~0% here.' },
+        { name: 'Saprolite', fill: '#cfa77c', top: () => 1, bot: u => 1.5 + 13.5 * u,
+          info: '<b>Saprolite</b> · "rotten rock", ~15 m thick under the ridge and thinning to the valley. Its base is a subdued copy of the surface. Bulk density ~1.8 g/cm³, porosity 20–30%. Seismic anisotropy peaks here (29–33%): weathering amplifies the rock\'s fabric. Quartz pegmatite dikes survive as hard ribs.' },
+        { name: 'Fractured, weathered rock', fill: '#a58f79', top: u => 1.5 + 13.5 * u, bot: (u, z, m) => FRESH[m](u, z),
+          info: () => MODEL === 'bowtie'
+            ? '<b>Fractured, weathered rock</b> · the seismic picture: fast rock (>4 km/s) within ~10 m of the valley floor but ~40 m below the ridgetops, a mirror image of the surface. Strong regional compression (~8.4 MPa) keeps fractures shut under valleys; under ridges they open and let water in.'
+            : '<b>Fractured, weathered rock</b> · the classic picture (Cleaves et al., 1970): the weathering front as a subdued copy of the land surface. Switch to "Seismic bow-tie" to see what the 2015 survey found.' },
+        { name: 'Fresh schist', fill: '#6c6762', top: (u, z, m) => FRESH[m](u, z), bot: () => 120,
+          info: '<b>Fresh Loch Raven Schist</b> · ~42% quartz, 24% muscovite, 11% plagioclase, plus biotite, staurolite and garnet. Density ~2.7 g/cm³, porosity ~2%.' }
       ],
-      wtDry: u => 0.15 + 10 * Math.pow(u, 1.5),
-      wtStorm: u => u < 0.12 ? 0 : 0.1 + 9.6 * Math.pow(u, 1.5),
+      wtDry: u => u < 0.1 ? 0.15 : 0.15 + 11.15 * Math.pow((u - 0.1) / 0.9, 1.4),
+      wtStorm: u => u < 0.12 ? 0 : 0.1 + 10.9 * Math.pow((u - 0.12) / 0.88, 1.4),
       satUStorm: 0.12,
-      borehole: { x: 14, marks: [
-        { d: 5, t: 'Upper 5 m: volumetric strain jumps to +100% (the near-surface expands).' },
-        { d: 10.5, t: '10.5 m: plagioclase completely depleted above this depth.' },
-        { d: 15, t: '~15 m: sharp iron-oxidation front (garnet breakdown), the base of the saprolite.' },
-        { d: 45, t: '45 m: bottom of the 2019 borehole. Still fractured, weathered rock; no fresh bedrock reached.' }
+      borehole: { x: 6, marks: [
+        { d: 5, t: 'Upper ~5 m: volumetric strain reaches about +100%. The near-surface has expanded.' },
+        { d: 10.5, t: '10.5 m: sodium and calcium (plagioclase) are almost completely gone above this depth.' },
+        { d: 15, t: '~15 m: a sharp garnet iron-oxidation front marks the base of the saprolite.' },
+        { d: 45, t: '45 m: bottom of the 2019 borehole. Still weathered rock; fresh bedrock was never reached.' }
       ] }
     },
     serp: {
-      name: 'Soldiers Delight · Serpentinite',
+      name: 'Druids Run · Serpentinite',
       color: SERP,
-      channels: [88, 264], L: 88, relief: 2.9, ripU: 0.05,
+      channels: [60, 180], L: 60, relief: 9.5, ripU: 0.06,
       layers: [
-        { name: 'Thin soil', fill: '#4d3b2c', top: u => 0, bot: u => 0.3 + 0.5 * u,
-          info: '<b>Chrome silt loam</b> · 10–40 cm (≤1 m), much of it wind-blown silt from past cold climates. Ca:Mg below 0.1 at depth; nickel up to 1.9% and chromium 0.6%.' },
-        { name: 'Weathered rind', fill: '#8b8f6e', top: u => 0.3 + 0.5 * u, bot: u => 1 + 2 * u,
-          info: '<b>Weathered rind</b> · no saprolite. Serpentinite dissolves almost completely (~64% of rock mass leaves in solution), so hard rock sits 1–3 m down. Permeable layer ~0.46 m, transmissivity ~1.1 m²/d.' },
-        { name: 'Fresh serpentinite', fill: '#55604f', top: u => 1 + 2 * u, bot: u => 80,
-          info: '<b>Antigorite serpentinite</b> · ~86% antigorite, ~11% magnetite (a magnet sticks to it), no quartz. Oceanic mantle that formed ~489 million years ago.' }
+        { name: 'Thin soil', fill: '#4d3b2c', top: () => 0, bot: u => 0.05 + 0.95 * Math.pow(1 - u, 2),
+          info: '<b>Chrome silt loam</b> · as little as 5 cm on ridgetops, ~46 cm A horizon, ~1 m of alluvium in valley bottoms. Much of the silt in the upper ~90 cm blew in on the wind. Ca:Mg is 0.06–0.17 below 16 cm; nickel up to 1.9% and chromium 0.6%.' },
+        { name: 'Thin regolith', fill: '#8b8f6e', top: u => 0.05 + 0.95 * Math.pow(1 - u, 2), bot: u => 1.2 + 1.3 * u,
+          info: '<b>Thin regolith</b> · no saprolite. Serpentinite dissolves almost completely (~64% of rock mass leaves in solution), so the base of soil and weathered material is within ~1–3 m. Permeable layer ~0.46 m, transmissivity ~1.1 m²/d.' },
+        { name: 'Fractured serpentinite', fill: '#6f7a62', top: u => 1.2 + 1.3 * u, bot: u => 2.5 + 3 * u,
+          info: '<b>Fractured serpentinite</b> · seismic "bedrock" velocities appear only ~2–6 m down along the 2023 survey line.' },
+        { name: 'Fresh serpentinite', fill: '#55604f', top: u => 2.5 + 3 * u, bot: () => 120,
+          info: '<b>Antigorite serpentinite</b> · ~86% antigorite and ~11% magnetite (a magnet sticks to it), no quartz. Mantle rock of the Baltimore Mafic Complex, crystallized ~489 million years ago.' }
       ],
-      wtDry: u => 0.25 + 1.4 * u,
+      wtDry: u => 0.3 + 1.6 * u,
       wtStorm: u => u < 0.85 ? 0 : 0.2 * (u - 0.85) / 0.15,
       satUStorm: 0.85
     }
   };
+
+  let MODEL = 'bowtie';
 
   function siteGeom(site, x) {
     // distance to nearest channel, normalised by hillslope length
@@ -188,6 +213,8 @@
     const sy = y => mt + (yTop - y) / (yTop - yBot) * ph;
     const N = 240, xs = [];
     for (let i = 0; i <= N; i++) xs.push(i / N * xMax);
+    const at = (x, fn) => { const s = siteGeom(site, x); return [sx(x), sy(s.z - fn(s.u, s.z, MODEL))]; };
+    const line = pts => pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('L');
 
     const defs = svgEl('defs', {}, svg);
     const clip = svgEl('clipPath', { id: 'clip-' + key }, defs);
@@ -199,37 +226,35 @@
 
     // layers
     site.layers.forEach(layer => {
-      const top = xs.map(x => { const s = siteGeom(site, x); return [sx(x), sy(s.z - layer.top(s.u))]; });
-      const bot = xs.map(x => { const s = siteGeom(site, x); return [sx(x), sy(s.z - layer.bot(s.u))]; }).reverse();
-      const d = 'M' + top.concat(bot).map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('L') + 'Z';
-      const path = svgEl('path', { d, fill: layer.fill, stroke: 'rgba(255,255,255,0.55)', 'stroke-width': 1, class: 'xs-layer' }, g);
+      const top = xs.map(x => at(x, layer.top));
+      const bot = xs.map(x => at(x, layer.bot)).reverse();
+      const path = svgEl('path', { d: 'M' + line(top.concat(bot)) + 'Z', fill: layer.fill, stroke: 'rgba(255,255,255,0.55)', 'stroke-width': 1, class: 'xs-layer' }, g);
       hover(path, layer.info);
     });
 
     // water table + saturated zone
     const wt = storm ? site.wtStorm : site.wtDry;
-    const wtPts = xs.map(x => { const s = siteGeom(site, x); return [sx(x), sy(s.z - wt(s.u))]; });
-    const satBot = xs.map(x => { const s = siteGeom(site, x); return [sx(x), sy(yBot)]; }).reverse();
-    svgEl('path', { d: 'M' + wtPts.concat(satBot).map(p => p.join(',')).join('L') + 'Z', fill: WATER, opacity: 0.16, 'pointer-events': 'none' }, g);
-    const wtLine = svgEl('path', { d: 'M' + wtPts.map(p => p.join(',')).join('L'), fill: 'none', stroke: WATER, 'stroke-width': 2, 'stroke-dasharray': '6 4', class: 'xs-wt' }, g);
+    const wtPts = xs.map(x => at(x, wt));
+    const satBot = xs.map(x => [sx(x), sy(yBot)]).reverse();
+    svgEl('path', { d: 'M' + line(wtPts.concat(satBot)) + 'Z', fill: WATER, opacity: 0.16, 'pointer-events': 'none' }, g);
+    const wtLine = svgEl('path', { d: 'M' + line(wtPts), fill: 'none', stroke: WATER, 'stroke-width': 2, 'stroke-dasharray': '6 4', class: 'xs-wt' }, g);
     hover(wtLine, key === 'schist'
-      ? (storm ? '<b>Water table during a storm</b> · saturation reaches the surface only on the flat riparian strip (~3.7% of the catchment). The hillslopes absorb the rain.'
-               : '<b>Water table, dry weather</b> · 10–20 cm below the riparian surface all year, ~10 m deep under the ridge. Rain takes months to reach it there.')
-      : (storm ? '<b>Water table during a storm</b> · the thin soil fills up fast and saturation spreads across whole hillslopes.'
-               : '<b>Water table, dry weather</b> · perched in the thin soil and rind; little room to store water.'));
+      ? (storm ? '<b>Water table during a storm</b> · saturation reaches the surface only on the flat riparian strip (~3.7% of the catchment). The hillslopes soak up the rain.'
+               : '<b>Water table, dry weather</b> · ~11.3 m below the ridge, ~1.3 m below the toe of the slope, and at the surface in the riparian zone. Even in the 2016 drought it was only ~20 cm below the valley floor.')
+      : (storm ? '<b>Water table during a storm</b> · the thin soil fills fast and saturation spreads across whole hillslopes. At ~100 mm of rain nearly all of Druids Run contributes runoff.'
+               : '<b>Water table, dry weather</b> · held in the thin soil and regolith; there is little room to store water.'));
 
-    // surface saturation (overland flow) during storm
+    // surface saturation (overland flow) during a storm
     if (storm) {
       site.channels.forEach(c => {
         const half = site.satUStorm * site.L;
         const a = Math.max(0, c - half), b = Math.min(xMax, c + half);
         const pts = xs.filter(x => x >= a && x <= b).map(x => [sx(x), sy(siteGeom(site, x).z)]);
-        const sat = svgEl('path', { d: 'M' + pts.map(p => p.join(',')).join('L'), fill: 'none', stroke: WATER, 'stroke-width': 5, 'stroke-linecap': 'round', class: 'xs-sat' }, g);
+        const sat = svgEl('path', { d: 'M' + line(pts), fill: 'none', stroke: WATER, 'stroke-width': 5, 'stroke-linecap': 'round', class: 'xs-sat' }, g);
         hover(sat, key === 'schist'
-          ? '<b>Saturated riparian strip</b> · direct rain here plus toe-slope return flow explains over 90% of storm quickflow.'
+          ? '<b>Saturated riparian strip</b> · rain falling directly here explains ~92% of cumulative storm quickflow; toe-slope return flow adds the rest.'
           : '<b>Saturated hillslope</b> · saturation-excess overland flow starts close to the ridges, which is why channels are so closely spaced.');
       });
-      // rain
       for (let i = 0; i < 46; i++) {
         const x = ml + (i + 0.5) / 46 * pw;
         svgEl('line', { x1: x, y1: mt + 4 + (i % 3) * 6, x2: x - 4, y2: mt + 16 + (i % 3) * 6, stroke: WATER, 'stroke-width': 1.5, opacity: 0.7, 'pointer-events': 'none' }, g);
@@ -240,8 +265,8 @@
     site.channels.forEach(c => {
       const ch = svgEl('circle', { cx: sx(c), cy: sy(0), r: 5, fill: WATER, stroke: '#fff', 'stroke-width': 2, class: 'xs-ch' }, g);
       hover(ch, key === 'schist'
-        ? '<b>Pond Branch</b> · base flow is ~85–87% of annual runoff; 25 mg/L dissolved solids.'
-        : '<b>Druids Run headwater channel</b> · base flow ~63% of runoff; 205 mg/L dissolved solids, Mg-HCO₃ water.');
+        ? '<b>Pond Branch</b> · base flow is ~85–87% of runoff; in the 1960s it kept flowing for 187 days without recharge. 25 mg/L dissolved solids.'
+        : '<b>Druids Run headwater channel</b> · base flow ~63% of runoff; 205 mg/L dissolved solids, Mg-HCO₃ water. Bedrock is exposed at channel heads.');
     });
 
     // borehole
@@ -256,35 +281,36 @@
         svgEl('text', { x: sx(bx) + 11, y: y + 4, class: 'xs-bh-lbl' }, t).textContent = m.d + ' m';
         hover(t, '<b>2019 ridge borehole</b> · ' + m.t);
       });
-      svgEl('text', { x: sx(bx) + 11, y: sy(s0.z) - 6, class: 'xs-lbl-dark' }, svg).textContent = 'Borehole';
+      svgEl('text', { x: sx(bx) + 11, y: mt + 14, class: 'xs-lbl-dark' }, svg).textContent = 'Ridge borehole';
     }
 
-    // bow-tie annotation (schist)
+    // annotations
     if (key === 'schist') {
-      const x0 = 177, s = siteGeom(site, x0);
-      svgEl('text', { x: sx(x0), y: sy(s.z - 4) + 16, 'text-anchor': 'middle', class: 'xs-lbl-light' }, g).textContent = 'fresh rock just ~4 m down';
-      svgEl('text', { x: sx(300), y: sy(-38), 'text-anchor': 'middle', class: 'xs-lbl-light' }, g).textContent = '…but over 40 m under the ridge';
+      if (MODEL === 'bowtie') {
+        svgEl('text', { x: sx(120), y: sy(-6) + 16, 'text-anchor': 'middle', class: 'xs-lbl-light' }, g).textContent = 'fast rock ~6–10 m under the valley…';
+        svgEl('text', { x: sx(196), y: sy(-28), 'text-anchor': 'middle', class: 'xs-lbl-light' }, g).textContent = '…but ~40 m+ under the ridge';
+      } else {
+        svgEl('text', { x: sx(120), y: sy(-20), 'text-anchor': 'middle', class: 'xs-lbl-light' }, g).textContent = 'classic idea: front follows the surface, subdued';
+      }
     }
-
     if (key === 'serp') {
-      svgEl('text', { x: sx(177), y: sy(-25), 'text-anchor': 'middle', class: 'xs-lbl-light' }, g).textContent = 'no saprolite: hard serpentinite just 1–3 m down';
+      svgEl('text', { x: sx(120), y: sy(-25), 'text-anchor': 'middle', class: 'xs-lbl-light' }, g).textContent = 'no saprolite: hard serpentinite a few metres down';
     }
 
     // axes (recessive)
     const ax = svgEl('g', { class: 'xs-axis' }, svg);
-    for (let y = 10; y >= -50; y -= 10) {
+    for (let y = 20; y >= -50; y -= 10) {
       svgEl('line', { x1: ml - 4, y1: sy(y), x2: ml, y2: sy(y) }, ax);
       svgEl('text', { x: ml - 8, y: sy(y) + 3.5, 'text-anchor': 'end' }, ax).textContent = y + ' m';
     }
-    for (let x = 0; x <= 350; x += 50) {
+    for (let x = 0; x <= xMax; x += 40) {
       svgEl('line', { x1: sx(x), y1: H - mb, x2: sx(x), y2: H - mb + 4 }, ax);
       svgEl('text', { x: sx(x), y: H - mb + 16, 'text-anchor': 'middle' }, ax).textContent = x;
     }
     svgEl('text', { x: ml + pw, y: H - 4, 'text-anchor': 'end' }, ax).textContent = 'distance across the valley (m)';
 
     // title
-    const ttl = svgEl('text', { x: ml, y: 20, class: 'xs-title' }, svg);
-    ttl.textContent = site.name;
+    svgEl('text', { x: ml, y: 20, class: 'xs-title' }, svg).textContent = site.name;
     svgEl('rect', { x: ml - 16, y: 10, width: 10, height: 10, rx: 2, fill: site.color }, svg);
   }
 
@@ -300,11 +326,18 @@
         render();
       });
     });
+    document.querySelectorAll('[data-model]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        MODEL = btn.dataset.model;
+        document.querySelectorAll('[data-model]').forEach(x => x.classList.toggle('active', x === btn));
+        render();
+      });
+    });
     // vertical exaggeration, computed from the drawing scale
     const pw = XS.W - XS.ml - XS.mr, ph = XS.H - XS.mt - XS.mb;
     const ve = (ph / (XS.yTop - XS.yBot)) / (pw / XS.xMax);
     const veEl = document.getElementById('xs-ve');
-    if (veEl) veEl.textContent = '~' + ve.toFixed(1) + '×';
+    if (veEl) veEl.textContent = ve < 1.15 ? 'none (drawn at about true scale)' : '~' + ve.toFixed(1) + '×';
     render();
   }
 
@@ -421,7 +454,10 @@
     { k: 'base', label: 'Base flow share of runoff', unit: '%', a: 86, b: 63, note: 'Pond Branch: ~85–87%. Soldiers Delight: ~63%.' },
     { k: 'perm', label: 'Permeable layer thickness', unit: 'm', a: 4.03, b: 0.46, note: 'From Litwin & Harman (2024) model calibrations.' },
     { k: 'T', label: 'Transmissivity', unit: 'm²/d', a: 3.89, b: 1.12, note: 'How easily water moves through the permeable layer.' },
-    { k: 'hl', label: 'Median hillslope length', unit: 'm', a: 177, b: 88, note: 'Shorter hillslopes mean more closely spaced valleys.' }
+    { k: 'hl', label: 'Median hillslope length', unit: 'm', a: 177, b: 88, note: 'Shorter hillslopes mean more closely spaced valleys.' },
+    { k: 'rr', label: 'Runoff ratio', unit: '', a: 0.3, b: 0.57, note: 'Share of rainfall leaving as streamflow. Druids Run: 2022–23, a short record; Pond Branch: long term.' },
+    { k: 'flux', label: 'Rock-derived solute flux', unit: 'kg/ha/yr', a: 32.4, b: 59.3, note: 'Mass of dissolved rock leaving each hectare every year (Cleaves et al., 1974).' },
+    { k: 'chemrate', label: 'Chemical lowering rate', unit: 'm/Myr', a: 1.2, b: 2.2, note: 'Total lowering is ~2.4 m per million years at both sites; at Soldiers Delight almost all of it is chemical.' }
   ];
   function figCompare() {
     const svg = document.getElementById('fig-compare');
@@ -457,6 +493,70 @@
     draw(MEASURES[0]);
   }
 
+  // Fig D — Acid-rain memory: deposition fell, stream sulfate did not (indexed to 1968 = 100)
+  function figSulfate() {
+    const svg = document.getElementById('fig-sulfate');
+    if (!svg) return;
+    const W = 640, H = 300, ml = 54, mr = 200, mt = 24, mb = 40;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    const pw = W - ml - mr, ph = H - mt - mb;
+    const sx = i => ml + i * pw;
+    const sy = v => mt + ph - v / 110 * ph;
+    const INK = '#8a7e74';
+    const series = [
+      { k: 'Sulfate deposited from the air', c: INK, a: 17.8, b: 6, bLo: 5, bHi: 7, unit: 'kg/ha/yr' },
+      { k: 'Sulfate in Pond Branch base flow', c: WATER, a: 1.3, b: 1.26, unit: 'mg/L' }
+    ];
+    const ax = svgEl('g', { class: 'xs-axis' }, svg);
+    [0, 25, 50, 75, 100].forEach(v => {
+      svgEl('line', { x1: ml, y1: sy(v), x2: ml + pw, y2: sy(v), class: 'fig-gridline' }, ax);
+      svgEl('text', { x: ml - 8, y: sy(v) + 3.5, 'text-anchor': 'end' }, ax).textContent = v;
+    });
+    svgEl('text', { x: sx(0), y: H - mb + 20, 'text-anchor': 'middle' }, ax).textContent = '1960s';
+    svgEl('text', { x: sx(1), y: H - mb + 20, 'text-anchor': 'middle' }, ax).textContent = 'today';
+    series.forEach((s, i) => {
+      const a = 100, b = s.b / s.a * 100;
+      if (s.bLo) {
+        svgEl('line', { x1: sx(1), y1: sy(s.bLo / s.a * 100), x2: sx(1), y2: sy(s.bHi / s.a * 100), stroke: s.c, 'stroke-width': 2, opacity: 0.5 }, svg);
+      }
+      svgEl('line', { x1: sx(0), y1: sy(a), x2: sx(1), y2: sy(b), stroke: s.c, 'stroke-width': 2.5, 'stroke-linecap': 'round' }, svg);
+      [[0, s.a], [1, s.b]].forEach(([t, raw]) => {
+        const v = raw / s.a * 100;
+        const dot = svgEl('circle', { cx: sx(t), cy: sy(v), r: 6, fill: s.c, stroke: '#fff', 'stroke-width': 2, class: 'fig-mark' }, svg);
+        hover(dot, '<b>' + s.k + '</b><br>' + (t ? 'Today: ' + (s.bLo ? s.bLo + '–' + s.bHi : raw) : '1960s: ' + raw) + ' ' + s.unit + '<br>Index: ' + Math.round(v));
+      });
+      svgEl('text', { x: sx(1) + 14, y: sy(b) + (i ? -4 : 4), class: 'fig-val' }, svg).textContent = (i ? 'stream: ' : 'deposition: ') + Math.round(b);
+    });
+  }
+
+  // Fig E — Nitrogen in vs. out by land use (Groffman et al. 2004, 1999–2001)
+  function figNitrogen() {
+    const svg = document.getElementById('fig-nitrogen');
+    if (!svg) return;
+    const W = 640, H = 300, ml = 170, mr = 120, mt = 14;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    const pw = W - ml - mr, bh = 22, max = 75;
+    const rows = [
+      { k: 'Forest (Pond Branch)', inp: 11.2, out: 0.52, ret: 95 },
+      { k: 'Suburban (Glyndon)', inp: 25.6, out: 6.5, ret: 75 },
+      { k: 'Agricultural (McDonogh)', inp: 71.2, out: 16.4, ret: 77 }
+    ];
+    const IN = '#b8b0a6';
+    rows.forEach((r, i) => {
+      const y = mt + i * 92;
+      svgEl('text', { x: ml - 12, y: y + bh + 4, 'text-anchor': 'end', class: 'fig-cat' }, svg).textContent = r.k;
+      [[r.inp, IN, 'Nitrogen in (air + fertilizer)'], [r.out, WATER, 'Nitrogen out in streamflow']].forEach(([v, c, lbl], j) => {
+        const yy = y + j * (bh + 3);
+        const w = Math.max(3, v / max * pw);
+        const rect = svgEl('rect', { x: ml, y: yy, width: w, height: bh, rx: 4, fill: c, class: 'fig-mark fig-grow' }, svg);
+        hover(rect, '<b>' + r.k + '</b><br>' + lbl + ': ' + v + ' kg N/ha/yr<br>Retained: ' + r.ret + '%');
+        svgEl('text', { x: ml + w + 8, y: yy + bh / 2 + 4, class: 'fig-val' }, svg).textContent = v + (j ? '' : ' kg/ha/yr');
+      });
+      svgEl('text', { x: ml - 12, y: y + bh + 20, 'text-anchor': 'end', class: 'fig-val' }, svg).textContent = r.ret + '% retained';
+    });
+    svgEl('line', { x1: ml, y1: 6, x2: ml, y2: H - 18, class: 'fig-base' }, svg);
+  }
+
   // ==========================================
   window.initField = function() {
     if (ready) { if (map) map.invalidateSize(); return; }
@@ -466,6 +566,8 @@
     figRunoff();
     figScaling();
     figCompare();
+    figSulfate();
+    figNitrogen();
     setTimeout(() => { if (map) map.invalidateSize(); }, 300);
   };
 })();

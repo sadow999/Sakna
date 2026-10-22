@@ -1179,6 +1179,21 @@ section { padding: 5rem 5%; }
 .viz-slider label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); }
 .viz-slider input { flex: 1; accent-color: var(--clay-deep); }
 
+.viz-sep { width: 1px; align-self: stretch; background: var(--border); margin: 0 0.4rem; }
+.map-gauge { display: inline-block; width: 13px; height: 13px; border: 2px solid #fff; transform: rotate(45deg); box-shadow: 0 0 0 1px rgba(0,0,0,0.25); }
+.viz-legend .map-gauge { width: 10px; height: 10px; margin-right: 0.15rem; }
+
+.q-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.q-card { border: 1px solid var(--border); border-top: 3px solid var(--clay); border-radius: 4px; padding: 1.5rem; background: var(--bg); }
+.q-num { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; color: var(--clay-deep); margin-bottom: 0.6rem; }
+.q-card h4 { font-family: var(--serif); font-size: 1.25rem; font-weight: 500; color: var(--ink); line-height: 1.3; margin-bottom: 0.6rem; }
+.q-card p { font-size: 0.88rem; color: var(--ink-muted); line-height: 1.7; }
+.q-card p strong { color: var(--ink); }
+
+.ref-list { columns: 2 420px; column-gap: 3rem; padding-left: 1.4rem; }
+.ref-list li { font-size: 0.82rem; color: var(--ink-muted); line-height: 1.6; margin-bottom: 0.7rem; break-inside: avoid; }
+.ref-list a { font-family: var(--mono); font-size: 0.68rem; color: var(--clay-deep); }
+
 .viz-tip {
   position: fixed;
   z-index: 3000;
@@ -1241,6 +1256,7 @@ section { padding: 5rem 5%; }
   .stop .photo-slot { height: 300px; }
   .field-gallery { grid-template-columns: repeat(2, 1fr); }
   .fig-grid { grid-template-columns: 1fr; }
+  .q-grid { grid-template-columns: 1fr 1fr; }
   .field-map { height: 420px; }
 }
 @media (max-width: 650px) {
@@ -1261,6 +1277,7 @@ section { padding: 5rem 5%; }
   .xs-svg { min-width: 680px; }
   .fig-card { padding: 1.2rem; overflow-x: auto; }
   #fig-compare { min-width: 560px; }
+  .q-grid { grid-template-columns: 1fr; }
 }
 
 /* ===== FADE IN ANIMATION ===== */
