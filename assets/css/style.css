@@ -630,6 +630,11 @@ section { padding: 5rem 5%; }
 .cred-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 .cred strong { color: rgba(255,255,255,0.85); font-weight: 400; }
 
+/* home field photo */
+.home-feature-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 4rem; align-items: center; max-width: 1240px; }
+.home-feature-photo { aspect-ratio: 4 / 5; max-height: 80vh; }
+.home-feature-photo img { object-position: center 40%; }
+
 /* page nav cards */
 .page-nav-cards {
   display: grid;
@@ -1215,6 +1220,8 @@ section { padding: 5rem 5%; }
   nav.menu-open .nav-sub { display: flex; position: static; margin: 0 0 0 0.8rem; padding: 0 0 0 0.6rem; border: none; border-left: 1px solid rgba(196,149,106,0.2); background: none; }
   nav.menu-open .nav-group-btn { pointer-events: none; color: var(--clay) !important; background: none !important; }
   .hero-top { grid-template-columns: 1fr; gap: 2.5rem; }
+  .home-feature-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .home-feature-photo { max-height: none; }
   .hero-portrait { order: -1; max-width: 260px; }
     .grid-2, .grid-2-asym { grid-template-columns: 1fr; gap: 2rem; }
   .grid-3 { grid-template-columns: repeat(2,1fr); }
