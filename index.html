@@ -3,1085 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Ahmed Saber Sakna — Environmental Engineer, UNESCO Consultant, Water Resource Specialist. €1M+ in climate adaptation funding. MSc IHE Delft. Cairo, Egypt.">
-<title>Ahmed Saber Sakna — Environmental Engineer & Water Resource Specialist</title>
+<meta name="description" content="Ahmed Saber Sakna — PhD student at Johns Hopkins University (satellite hydrology &amp; remote sensing), UNESCO Consultant, FAO/WUR WaPOR Project Consultant. €1M+ in climate adaptation funding. MSc IHE Delft.">
+<title>Ahmed Saber Sakna — Water Resources, Remote Sensing &amp; Climate Adaptation</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root {
-  --ink: #1a1612;
-  --ink-muted: #5a5048;
-  --ink-faint: #8a7e74;
-  --bg: #f5f0e8;
-  --bg-warm: #ede6d8;
-  --dark: #111008;
-  --dark-2: #1c1a12;
-  --dark-3: #161410;
-  --clay: #c4956a;
-  --clay-deep: #8b5e3c;
-  --clay-light: #d4a882;
-  --teal: #2a5f7a;
-  --teal-light: #3a7a96;
-  --green: #3d7a5f;
-  --amber: #d4943a;
-  --border: rgba(196,149,106,0.22);
-  --border-dark: rgba(196,149,106,0.15);
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --mono: 'DM Mono', monospace;
-  --sans: 'Syne', sans-serif;
-  --nav-h: 64px;
-  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--serif);
-  background: var(--bg);
-  color: var(--ink);
-  font-size: 17px;
-  line-height: 1.7;
-  overflow-x: hidden;
-}
-
-/* ===== SCROLLBAR ===== */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--dark); }
-::-webkit-scrollbar-thumb { background: var(--clay); border-radius: 3px; }
-
-/* ===== PAGES ===== */
-.page { display: none; min-height: 100vh; }
-.page.active { display: block; }
-
-/* ===== NAV ===== */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 900;
-  height: var(--nav-h);
-  background: rgba(17,16,8,0.96);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(196,149,106,0.12);
-  display: flex;
-  align-items: center;
-  padding: 0 2.5rem;
-  gap: 1rem;
-}
-.nav-logo {
-  font-family: var(--sans);
-  font-weight: 800;
-  font-size: 0.9rem;
-  letter-spacing: 0.06em;
-  color: #fff;
-  cursor: pointer;
-  margin-right: auto;
-  transition: color var(--transition);
-}
-.nav-logo:hover { color: var(--clay); }
-.nav-logo span { color: var(--clay); }
-.nav-links {
-  display: flex;
-  gap: 0.2rem;
-  align-items: center;
-  list-style: none;
-}
-.nav-links li button {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  background: none;
-  border: none;
-  color: rgba(255,255,255,0.55);
-  padding: 0.45rem 0.75rem;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: all var(--transition);
-}
-.nav-links li button:hover,
-.nav-links li button.active { color: #fff; background: rgba(196,149,106,0.12); }
-.nav-links li button.active { color: var(--clay); }
-.nav-cta {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  background: var(--clay) !important;
-  color: #fff !important;
-  padding: 0.45rem 1rem !important;
-  border-radius: 2px;
-  border: none;
-  cursor: pointer;
-  transition: background var(--transition);
-}
-.nav-cta:hover { background: var(--clay-deep) !important; }
-.nav-mobile-toggle {
-  display: none;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1.4rem;
-  cursor: pointer;
-  padding: 0.3rem;
-}
-
-/* ===== PAGE HERO BANNER ===== */
-.page-hero {
-  padding-top: var(--nav-h);
-  min-height: 40vh;
-  display: flex;
-  align-items: flex-end;
-  padding-bottom: 4rem;
-  position: relative;
-  overflow: hidden;
-}
-.page-hero-bg {
-  position: absolute;
-  inset: 0;
-  background: var(--dark-3);
-  z-index: 0;
-}
-.page-hero-grain {
-  position: absolute;
-  inset: 0;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px;
-  z-index: 1;
-}
-.page-hero-accent {
-  position: absolute;
-  bottom: 0; right: 0;
-  width: 600px; height: 300px;
-  background: radial-gradient(ellipse at bottom right, rgba(196,149,106,0.08) 0%, transparent 70%);
-  z-index: 1;
-}
-.page-hero-inner {
-  position: relative;
-  z-index: 2;
-  padding: 0 5%;
-  width: 100%;
-}
-.page-label {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--clay);
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-.page-label::before {
-  content: '';
-  display: inline-block;
-  width: 24px;
-  height: 1px;
-  background: var(--clay);
-}
-.page-hero h1 {
-  font-family: var(--serif);
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  font-weight: 300;
-  line-height: 1.05;
-  color: #fff;
-}
-.page-hero h1 em { font-style: italic; color: var(--clay); }
-
-/* ===== SECTION BASICS ===== */
-section { padding: 5rem 5%; }
-.on-dark { background: var(--dark); color: rgba(255,255,255,0.85); }
-.on-dark-2 { background: var(--dark-2); color: rgba(255,255,255,0.85); }
-.on-warm { background: var(--bg-warm); }
-.on-white { background: #fff; }
-.section-label {
-  font-family: var(--mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--clay);
-  margin-bottom: 0.8rem;
-}
-.section-title {
-  font-family: var(--serif);
-  font-size: clamp(1.8rem, 3.5vw, 3rem);
-  font-weight: 300;
-  line-height: 1.1;
-  margin-bottom: 1.2rem;
-}
-.section-title em { font-style: italic; color: var(--clay); }
-.section-lead {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: var(--ink-muted);
-  max-width: 720px;
-  margin-bottom: 3rem;
-}
-.on-dark .section-title { color: #fff; }
-.on-dark .section-lead { color: rgba(255,255,255,0.6); }
-.on-dark-2 .section-title { color: #fff; }
-.on-dark-2 .section-lead { color: rgba(255,255,255,0.6); }
-
-/* ===== LIGHTBOX ===== */
-.lb {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(6,5,3,0.97);
-  z-index: 2000;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 2rem;
-}
-.lb.open { display: flex; }
-.lb-x {
-  position: absolute;
-  top: 1.5rem; right: 2rem;
-  font-size: 2rem;
-  color: rgba(255,255,255,0.5);
-  cursor: pointer;
-  transition: color 0.2s;
-  line-height: 1;
-  font-weight: 300;
-}
-.lb-x:hover { color: #fff; }
-.lb img { max-width: 90vw; max-height: 78vh; object-fit: contain; border-radius: 3px; }
-.lb-cap {
-  color: rgba(255,255,255,0.6);
-  font-family: var(--serif);
-  font-size: 0.9rem;
-  max-width: 640px;
-  text-align: center;
-  margin-top: 1.2rem;
-  line-height: 1.6;
-  font-style: italic;
-}
-
-/* ===== PHOTO COMPONENT ===== */
-.photo-slot {
-  position: relative;
-  overflow: hidden;
-  border-radius: 4px;
-  cursor: pointer;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(196,149,106,0.15);
-}
-.photo-slot img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(100%) brightness(0.75);
-  transition: filter 0.6s ease, transform 0.6s ease;
-  display: block;
-}
-.photo-slot:hover img {
-  filter: grayscale(0%) brightness(1);
-  transform: scale(1.04);
-}
-.photo-slot .ph-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(10,8,4,0.92) 0%, rgba(10,8,4,0.2) 55%, transparent 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.4rem;
-  transform: translateY(55%);
-  transition: transform 0.35s ease;
-}
-.photo-slot:hover .ph-overlay { transform: translateY(0); }
-.ph-tag {
-  font-family: var(--mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--clay);
-  margin-bottom: 0.4rem;
-}
-.ph-overlay h4 {
-  font-family: var(--serif);
-  font-size: 1rem;
-  font-weight: 400;
-  color: #fff;
-  margin-bottom: 0.3rem;
-  line-height: 1.3;
-}
-.ph-overlay p {
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.68);
-  line-height: 1.5;
-}
-.photo-placeholder {
-  background: rgba(255,255,255,0.03);
-  border: 1px dashed rgba(196,149,106,0.25);
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem;
-  min-height: 220px;
-}
-.photo-placeholder .ico { font-size: 2.2rem; margin-bottom: 0.8rem; opacity: 0.5; }
-.photo-placeholder h4 {
-  font-family: var(--sans);
-  font-size: 0.82rem;
-  color: rgba(255,255,255,0.5);
-  margin-bottom: 0.4rem;
-}
-.photo-placeholder p { font-size: 0.72rem; color: rgba(255,255,255,0.3); line-height: 1.5; }
-
-/* ===== TIMELINE ===== */
-.timeline { display: flex; flex-direction: column; gap: 0; }
-.tl-item {
-  display: grid;
-  grid-template-columns: 90px 1fr;
-  gap: 2rem;
-  padding: 2rem 0;
-  border-bottom: 1px solid rgba(196,149,106,0.14);
-  position: relative;
-}
-.tl-item::before {
-  content: '';
-  position: absolute;
-  left: 82px;
-  top: 2.5rem;
-  bottom: -1px;
-  width: 1px;
-  background: linear-gradient(to bottom, rgba(196,149,106,0.4), transparent);
-}
-.tl-item:last-child { border-bottom: none; }
-.tl-item:last-child::before { display: none; }
-.tl-year {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  color: var(--clay);
-  padding-top: 0.2rem;
-  letter-spacing: 0.04em;
-}
-.tl-dot {
-  position: absolute;
-  left: 78px;
-  top: 2.4rem;
-  width: 9px;
-  height: 9px;
-  background: var(--clay);
-  border-radius: 50%;
-  border: 2px solid var(--dark);
-}
-.tl-tag {
-  font-family: var(--mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--clay);
-  margin-bottom: 0.4rem;
-}
-.tl-item h4 {
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  font-weight: 400;
-  color: #fff;
-  margin-bottom: 0.4rem;
-}
-.tl-item p { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
-
-/* ===== STAT ROW ===== */
-.stat-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  margin: 2.5rem 0;
-}
-.stat-box {
-  border: 1px solid rgba(196,149,106,0.2);
-  border-radius: 4px;
-  padding: 1.8rem 1.5rem;
-  text-align: center;
-  background: rgba(255,255,255,0.03);
-  transition: background var(--transition), border-color var(--transition);
-}
-.stat-box:hover { background: rgba(196,149,106,0.06); border-color: rgba(196,149,106,0.35); }
-.stat-box .n {
-  display: block;
-  font-family: var(--sans);
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: var(--clay);
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-.stat-box .l { font-size: 0.78rem; color: rgba(255,255,255,0.55); line-height: 1.5; }
-
-/* ===== CHIP / BADGE ===== */
-.chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.chip {
-  font-family: var(--mono);
-  font-size: 0.56rem;
-  letter-spacing: 0.08em;
-  padding: 0.3rem 0.65rem;
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  color: var(--ink-muted);
-  background: var(--bg);
-}
-.chip-dark {
-  font-family: var(--mono);
-  font-size: 0.56rem;
-  letter-spacing: 0.08em;
-  padding: 0.3rem 0.65rem;
-  border: 1px solid rgba(196,149,106,0.2);
-  border-radius: 2px;
-  color: rgba(255,255,255,0.6);
-  background: rgba(255,255,255,0.04);
-}
-
-/* ===== BUTTONS ===== */
-.btn {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 2px;
-  border: none;
-  cursor: pointer;
-  display: inline-block;
-  transition: all var(--transition);
-}
-.btn-primary { background: var(--clay); color: #fff; }
-.btn-primary:hover { background: var(--clay-deep); }
-.btn-dark { background: var(--ink); color: #fff; }
-.btn-dark:hover { background: var(--clay); }
-.btn-ghost { border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); background: none; }
-.btn-ghost:hover { border-color: var(--clay); color: var(--clay); }
-.btn-ghost-ink { border: 1px solid var(--ink); color: var(--ink); background: none; }
-.btn-ghost-ink:hover { background: var(--ink); color: var(--bg); }
-.btn-teal { background: var(--teal); color: #fff; }
-.btn-teal:hover { background: #1e4a60; }
-
-/* ===== PULL QUOTE ===== */
-.pull-quote {
-  border-left: 3px solid var(--clay);
-  padding: 1.1rem 1.5rem;
-  margin: 2rem 0;
-  background: rgba(196,149,106,0.07);
-  border-radius: 0 4px 4px 0;
-}
-.pull-quote p {
-  font-style: italic;
-  font-size: 1.2rem;
-  color: rgba(255,255,255,0.88);
-  line-height: 1.65;
-  margin: 0;
-}
-
-/* ===== GRID UTILITIES ===== */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-.grid-2-asym { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; }
-
-/* ===== NAV PAGE BUTTONS (hero) ===== */
-.hero-page-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  margin-top: 2.5rem;
-}
-
-/* ======================================================
-   PAGE 1 — LANDING / HOME
-   ====================================================== */
-#page-home .hero-full {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: calc(var(--nav-h) + 3rem) 5% 5rem;
-  position: relative;
-  overflow: hidden;
-}
-#page-home .hero-bg-img {
-  position: absolute;
-  inset: 0;
-  background: var(--dark-3);
-  z-index: 0;
-}
-#page-home .hero-grid-lines {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(196,149,106,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(196,149,106,0.05) 1px, transparent 1px);
-  background-size: 80px 80px;
-  z-index: 1;
-}
-#page-home .hero-radial {
-  position: absolute;
-  top: -20%;
-  right: -10%;
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(ellipse, rgba(196,149,106,0.07) 0%, transparent 65%);
-  z-index: 1;
-}
-#page-home .hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 900px;
-}
-.hero-eyebrow {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--clay);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-.hero-eyebrow::before {
-  content: '';
-  display: inline-block;
-  width: 32px;
-  height: 1px;
-  background: var(--clay);
-}
-#page-home .hero-name {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 0.8rem;
-}
-#page-home h1 {
-  font-family: var(--serif);
-  font-size: clamp(3.5rem, 7vw, 7rem);
-  font-weight: 300;
-  line-height: 0.98;
-  color: #fff;
-  margin-bottom: 2rem;
-}
-#page-home h1 em { font-style: italic; color: var(--clay); }
-#page-home .hero-thesis {
-  font-size: 1.05rem;
-  color: rgba(255,255,255,0.6);
-  line-height: 1.8;
-  max-width: 600px;
-  margin-bottom: 2.5rem;
-}
-.hero-creds {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.2rem;
-  margin-bottom: 2.5rem;
-}
-.cred {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 0.82rem;
-  color: rgba(255,255,255,0.55);
-}
-.cred-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-.cred strong { color: rgba(255,255,255,0.85); font-weight: 400; }
-
-/* page nav cards */
-.page-nav-cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.2rem;
-  margin-top: 3rem;
-  border-top: 1px solid rgba(196,149,106,0.15);
-  padding-top: 3rem;
-}
-.pnc {
-  border: 1px solid rgba(196,149,106,0.15);
-  border-radius: 4px;
-  padding: 1.5rem;
-  cursor: pointer;
-  background: rgba(255,255,255,0.02);
-  transition: all 0.3s;
-  text-align: left;
-}
-.pnc:hover { background: rgba(196,149,106,0.08); border-color: rgba(196,149,106,0.35); }
-.pnc-num {
-  font-family: var(--mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.12em;
-  color: var(--clay);
-  margin-bottom: 0.6rem;
-}
-.pnc h3 {
-  font-family: var(--serif);
-  font-size: 1.05rem;
-  font-weight: 400;
-  color: #fff;
-  margin-bottom: 0.4rem;
-  line-height: 1.3;
-}
-.pnc p { font-size: 0.76rem; color: rgba(255,255,255,0.45); line-height: 1.5; }
-.pnc-arrow {
-  margin-top: 1rem;
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  color: var(--clay);
-  letter-spacing: 0.08em;
-}
-
-/* ======================================================
-   PAGE 2 — ORIGIN / STORY
-   ====================================================== */
-.edu-card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 2.5rem;
-}
-.edu-card.ihe { border-top: 3px solid var(--teal); }
-.edu-card.eru { border-top: 3px solid var(--clay); }
-.edu-tag-line {
-  font-family: var(--mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-  margin-bottom: 0.8rem;
-}
-.edu-card h3 {
-  font-family: var(--serif);
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 0.5rem;
-}
-.edu-inst {
-  font-size: 0.8rem;
-  color: var(--ink-muted);
-  font-family: var(--mono);
-  margin-bottom: 1rem;
-}
-.edu-thesis {
-  font-style: italic;
-  font-size: 0.9rem;
-  color: var(--ink-muted);
-  border-left: 2px solid var(--clay);
-  padding-left: 1rem;
-  margin-bottom: 1.2rem;
-  line-height: 1.65;
-}
-.edu-body {
-  font-size: 0.9rem;
-  line-height: 1.8;
-  color: var(--ink-muted);
-  margin-bottom: 1.5rem;
-}
-
-/* IHE Event cards */
-.event-card {
-  border: 1px solid rgba(196,149,106,0.18);
-  border-radius: 4px;
-  padding: 1.5rem;
-  background: rgba(255,255,255,0.03);
-  display: flex;
-  gap: 1.2rem;
-  align-items: flex-start;
-  transition: background var(--transition);
-}
-.event-card:hover { background: rgba(196,149,106,0.06); }
-.event-icon { font-size: 1.8rem; flex-shrink: 0; }
-.event-tag {
-  font-family: var(--mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--clay);
-  margin-bottom: 0.35rem;
-}
-.event-card h4 {
-  font-family: var(--serif);
-  font-size: 1rem;
-  font-weight: 400;
-  color: #fff;
-  margin-bottom: 0.3rem;
-}
-.event-card p { font-size: 0.83rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
-.event-link {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  color: var(--teal-light);
-  text-decoration: none;
-  display: inline-block;
-  margin-top: 0.5rem;
-  letter-spacing: 0.06em;
-}
-.event-link:hover { text-decoration: underline; }
-
-/* ======================================================
-   PAGE 3 — UNESCO
-   ====================================================== */
-.workstream-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-.ws {
-  border: 1px solid rgba(196,149,106,0.18);
-  border-radius: 4px;
-  padding: 1.5rem;
-  background: rgba(255,255,255,0.03);
-  transition: background var(--transition);
-}
-.ws:hover { background: rgba(196,149,106,0.06); }
-.ws h4 {
-  font-family: var(--sans);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--clay);
-  margin-bottom: 0.6rem;
-}
-.ws p { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.65; }
-
-/* UNESCO Event Timeline */
-.event-timeline { display: flex; flex-direction: column; gap: 0; }
-.et-item {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 2rem;
-  padding: 2rem 0;
-  border-bottom: 1px solid rgba(196,149,106,0.1);
-}
-.et-item:last-child { border-bottom: none; }
-.et-meta { }
-.et-date {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  color: var(--clay);
-  margin-bottom: 0.3rem;
-}
-.et-venue {
-  font-family: var(--mono);
-  font-size: 0.58rem;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 0.06em;
-}
-.et-content h4 {
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  font-weight: 400;
-  color: #fff;
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
-}
-.et-content p { font-size: 0.86rem; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 0.5rem; }
-.et-link {
-  font-family: var(--mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.08em;
-  color: var(--teal-light);
-  text-decoration: none;
-}
-.et-link:hover { text-decoration: underline; }
-
-/* ======================================================
-   PAGE 4 — WEFE+C
-   ====================================================== */
-.process-steps { display: flex; flex-direction: column; gap: 1rem; }
-.ps { display: flex; gap: 1rem; align-items: flex-start; }
-.ps-num {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  color: var(--clay);
-  padding-top: 0.1rem;
-  flex-shrink: 0;
-  width: 28px;
-  font-weight: 500;
-}
-.ps p { font-size: 0.88rem; color: var(--ink-muted); line-height: 1.65; }
-.ps strong { color: var(--ink); }
-.nexus-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0; }
-.np {
-  font-family: var(--sans);
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 0.4rem 1rem;
-  border-radius: 2rem;
-  letter-spacing: 0.04em;
-}
-.np.w { background: #dbeafe; color: #1e40af; }
-.np.e { background: #fef3c7; color: #92400e; }
-.np.f { background: #dcfce7; color: #166534; }
-.np.ec { background: #f0fdf4; color: #15803d; }
-.np.c { background: var(--clay); color: #fff; }
-.winner {
-  border-radius: 4px;
-  padding: 1.5rem;
-  margin-bottom: 1.2rem;
-  border-left: 4px solid;
-}
-.winner.gold { background: #fffbeb; border-color: #f59e0b; }
-.winner.silver { background: #f8fafc; border-color: #94a3b8; }
-.winner.bronze { background: #fff7ed; border-color: #ea580c; }
-.winner-meta { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
-.winner-medal { font-size: 1.4rem; }
-.winner-loc {
-  font-family: var(--mono);
-  font-size: 0.58rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-}
-.winner h4 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; color: var(--ink); margin-bottom: 0.5rem; }
-.winner p { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.65; }
-
-.wn-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin: 2rem 0; }
-.wn { text-align: center; padding: 1.2rem; border: 1px solid var(--border); border-radius: 4px; }
-.wn .n { display: block; font-family: var(--sans); font-size: 2.2rem; font-weight: 700; color: var(--clay); line-height: 1; margin-bottom: 0.3rem; }
-.wn .l { font-size: 0.72rem; color: var(--ink-muted); line-height: 1.4; }
-
-/* ======================================================
-   PAGE 5 — PROJECTS / AECID
-   ====================================================== */
-.project-hero-band {
-  background: var(--dark-3);
-  border-bottom: 1px solid rgba(196,149,106,0.12);
-  padding: 3rem 5%;
-  margin-top: var(--nav-h);
-}
-.project-intro-text {
-  font-size: 0.95rem;
-  color: rgba(255,255,255,0.7);
-  line-height: 1.8;
-  max-width: 860px;
-  border-left: 3px solid var(--clay);
-  padding-left: 1.5rem;
-  margin: 1.5rem 0;
-}
-.pcard {
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  background: #fff;
-}
-.pcard-head { padding: 2rem; }
-.pcard.oases .pcard-head { background: linear-gradient(135deg, #1c1a12 0%, #2a2015 100%); }
-.pcard.mangroves .pcard-head { background: linear-gradient(135deg, #0d1f18 0%, #142b20 100%); }
-.pcard-eco { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay); margin-bottom: 0.8rem; }
-.pcard-head h3 { font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: #fff; margin-bottom: 0.4rem; }
-.pcard-sub { font-size: 0.8rem; color: rgba(255,255,255,0.55); line-height: 1.5; margin-bottom: 1rem; }
-.badge { font-family: var(--mono); font-size: 0.6rem; padding: 0.3rem 0.7rem; border-radius: 2px; border: 1px solid; letter-spacing: 0.06em; }
-.badge.budget { background: rgba(196,149,106,0.15); color: var(--clay); border-color: rgba(196,149,106,0.3); }
-.badge.green-b { background: rgba(61,122,95,0.18); color: #2a6040; border-color: rgba(61,122,95,0.32); }
-.badge.timeline { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.55); border-color: rgba(255,255,255,0.14); }
-.badges { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-.pcard-body { padding: 2rem; }
-.problem-stmt { background: #fef9f5; border: 1px solid rgba(196,149,106,0.2); border-radius: 4px; padding: 1.2rem; margin-bottom: 1.5rem; }
-.problem-stmt p { font-size: 0.88rem; line-height: 1.7; color: var(--ink-muted); }
-.problem-stmt strong { color: var(--ink); }
-.approach-label { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay-deep); margin-bottom: 1rem; }
-.pillars-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
-.pp { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 1rem; }
-.pp-loc { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--clay); margin-bottom: 0.3rem; }
-.pp h5 { font-family: var(--sans); font-size: 0.82rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
-.pp p { font-size: 0.78rem; color: var(--ink-muted); line-height: 1.6; }
-.highlight-box { background: #fffbf5; border: 1px solid rgba(212,148,58,0.3); border-radius: 4px; padding: 1.2rem; font-size: 0.88rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 1.5rem; }
-.highlight-box strong { color: var(--ink); }
-.site-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
-.site-chip { font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.08em; padding: 0.25rem 0.55rem; border: 1px solid var(--border); border-radius: 2px; color: var(--ink-muted); background: var(--bg-warm); }
-.pcard-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
-.pa { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 0.5rem 0.9rem; border-radius: 2px; transition: all 0.2s; }
-.oa1 { background: var(--clay); color: #fff; }
-.oa2 { border: 1px solid var(--clay); color: var(--clay-deep); }
-.oa2:hover { background: var(--clay); color: #fff; }
-.ma1 { background: var(--green); color: #fff; }
-.ma2 { border: 1px solid var(--green); color: var(--green); }
-.ma2:hover { background: var(--green); color: #fff; }
-
-/* ======================================================
-   PAGE 6 — RESEARCH / ZANKALON
-   ====================================================== */
-.thesis-card {
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 2rem;
-  background: var(--bg);
-}
-.tc-label { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay); margin-bottom: 0.8rem; }
-.thesis-card h3 { font-family: var(--serif); font-size: 1.05rem; font-weight: 300; font-style: italic; color: var(--ink); line-height: 1.5; margin-bottom: 1.5rem; }
-.findings { display: flex; flex-direction: column; gap: 1rem; }
-.finding { display: flex; gap: 0.8rem; align-items: flex-start; }
-.fi { font-size: 1.1rem; flex-shrink: 0; padding-top: 0.1rem; }
-.finding p { font-size: 0.84rem; color: var(--ink-muted); line-height: 1.65; }
-.finding strong { color: var(--ink); }
-
-/* Chart */
-.chart-card, .policy-card { border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; background: var(--bg); }
-.chart-title { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 1.2rem; }
-.bar-rows { display: flex; flex-direction: column; gap: 0.9rem; }
-.bar-row { display: flex; align-items: center; gap: 0.8rem; }
-.bar-lbl { font-size: 0.78rem; color: var(--ink-muted); width: 60px; flex-shrink: 0; }
-.bar-track { flex: 1; background: var(--bg-warm); height: 12px; border-radius: 2px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 2px; width: 0; transition: width 1.4s cubic-bezier(0.4,0,0.2,1); }
-.bar-fill.up { background: linear-gradient(90deg, #ef4444, #f87171); }
-.bar-fill.nt { background: linear-gradient(90deg, var(--amber), #e8a952); }
-.bar-fill.dn { background: linear-gradient(90deg, var(--teal), var(--teal-light)); }
-.bar-val { font-family: var(--mono); font-size: 0.72rem; width: 48px; text-align: right; }
-.bar-val.up { color: #ef4444; }
-.bar-val.nt { color: var(--amber); }
-.bar-val.dn { color: var(--teal); }
-.policy-row { display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 0; border-bottom: 1px solid var(--border); }
-.policy-row:last-of-type { border-bottom: none; }
-.policy-lbl { font-size: 0.88rem; color: var(--ink-muted); }
-.policy-val { font-family: var(--mono); font-size: 1.2rem; }
-.policy-val.v1 { color: var(--amber); }
-.policy-val.v2 { color: #ef4444; }
-.policy-note { font-size: 0.78rem; color: var(--ink-muted); line-height: 1.65; margin-top: 1rem; }
-
-/* Pubs */
-.pubs { display: flex; flex-direction: column; gap: 1rem; }
-.pub { border: 1px solid var(--border); border-radius: 4px; padding: 1.2rem 1.5rem; background: var(--bg); }
-.pub.rv { border-left: 3px solid var(--clay); }
-.pub.eng { border-left: 3px solid var(--teal); }
-.pub-badge { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--clay); display: block; margin-bottom: 0.5rem; }
-.pub p { font-size: 0.86rem; color: var(--ink-muted); line-height: 1.65; margin-bottom: 0.5rem; }
-.pub a { font-family: var(--mono); font-size: 0.66rem; color: var(--teal); text-decoration: none; }
-.pub a:hover { text-decoration: underline; }
-
-/* ======================================================
-   PAGE 7 — MAB / DRYLANDS
-   ====================================================== */
-.insight-box { background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; margin: 1.5rem 0; }
-.insight-box h4 { font-family: var(--sans); font-size: 0.82rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--clay-deep); margin-bottom: 0.7rem; }
-.insight-box p { font-size: 0.88rem; color: var(--ink-muted); line-height: 1.7; }
-.pillars-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
-.pill2 { background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 1.2rem; }
-.pill2-n { font-family: var(--mono); font-size: 0.65rem; color: var(--clay); margin-bottom: 0.4rem; }
-.pill2 h4 { font-family: var(--sans); font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
-.pill2 p { font-size: 0.8rem; color: var(--ink-muted); line-height: 1.6; }
-.case-list { display: flex; flex-direction: column; gap: 0.9rem; }
-.cs { display: flex; gap: 0.8rem; align-items: flex-start; }
-.cs-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 0.35rem; }
-.cs h5 { font-family: var(--sans); font-size: 0.82rem; font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; }
-.cs p { font-size: 0.8rem; color: var(--ink-muted); line-height: 1.5; }
-
-/* Map gallery */
-.map-gallery { display: grid; grid-template-columns: repeat(3,1fr); grid-auto-rows: 320px; gap: 1.2rem; }
-.map-exhibit { position: relative; overflow: hidden; border-radius: 4px; cursor: pointer; border: 1px solid rgba(196,149,106,0.15); }
-.map-exhibit.wide { grid-column: span 2; }
-.map-exhibit img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(80%) brightness(0.75); transition: filter 0.5s ease, transform 0.5s ease; }
-.map-exhibit:hover img { filter: grayscale(0%) brightness(1); transform: scale(1.03); }
-.map-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,8,4,0.88) 0%, rgba(10,8,4,0.25) 55%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; transition: opacity 0.4s; }
-.map-exhibit:hover .map-overlay { opacity: 0; }
-.map-label { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay); margin-bottom: 0.4rem; }
-.map-hook { font-family: var(--serif); font-size: 1.05rem; color: #fff; font-weight: 300; }
-.map-info { position: absolute; inset: 0; background: rgba(10,8,4,0.94); display: flex; flex-direction: column; justify-content: center; padding: 2rem; opacity: 0; transition: opacity 0.4s; }
-.map-exhibit:hover .map-info { opacity: 1; }
-.map-info h4 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; color: #fff; margin-bottom: 0.8rem; }
-.map-info p { font-size: 0.84rem; color: rgba(255,255,255,0.68); line-height: 1.65; margin-bottom: 0.8rem; }
-.map-hint { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.1em; color: var(--clay); text-transform: uppercase; }
-
-/* ======================================================
-   PAGE 8 — UHF
-   ====================================================== */
-.uhf-themes { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
-.tc { background: rgba(255,255,255,0.03); border: 1px solid rgba(196,149,106,0.18); border-radius: 4px; padding: 1.5rem; transition: background var(--transition); }
-.tc:hover { background: rgba(255,255,255,0.06); }
-.tc-num { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay); margin-bottom: 0.5rem; }
-.tc h4 { font-family: var(--serif); font-size: 1rem; font-weight: 400; color: #fff; margin-bottom: 0.6rem; }
-.tc p { font-size: 0.82rem; color: rgba(255,255,255,0.58); line-height: 1.6; margin-bottom: 0.8rem; }
-.tc-output { font-size: 0.76rem; color: rgba(255,255,255,0.42); border-top: 1px solid rgba(196,149,106,0.15); padding-top: 0.8rem; line-height: 1.5; font-style: italic; }
-.pdf-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 0.8rem; margin-bottom: 1.5rem; }
-.pdf-card { display: flex; gap: 0.6rem; align-items: flex-start; background: rgba(255,255,255,0.03); border: 1px solid rgba(196,149,106,0.18); border-radius: 4px; padding: 0.9rem; text-decoration: none; transition: background 0.2s; }
-.pdf-card:hover { background: rgba(255,255,255,0.07); }
-.pdf-ico { font-size: 1.3rem; flex-shrink: 0; }
-.pdf-card p { font-size: 0.74rem; color: rgba(255,255,255,0.78); line-height: 1.4; margin-bottom: 0.2rem; }
-.pdf-card span { font-family: var(--mono); font-size: 0.54rem; color: rgba(255,255,255,0.38); letter-spacing: 0.06em; }
-
-/* ======================================================
-   SKILLS & CONTACT
-   ====================================================== */
-.skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
-.sg { background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; }
-.sg h4 { font-family: var(--sans); font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 0.8rem; }
-.sg ul { list-style: none; }
-.sg ul li { font-family: var(--mono); font-size: 0.7rem; color: var(--ink-muted); padding: 0.3rem 0; border-bottom: 1px solid rgba(196,149,106,0.1); letter-spacing: 0.04em; }
-.sg ul li:last-child { border-bottom: none; }
-
-/* ===== CONTACT FOOTER ===== */
-.contact-section {
-  background: var(--dark-3);
-  padding: 5rem 5%;
-  text-align: center;
-  border-top: 1px solid rgba(196,149,106,0.1);
-}
-.contact-section h2 { font-family: var(--serif); font-size: clamp(2rem,4vw,3.5rem); font-weight: 300; color: #fff; margin-bottom: 1rem; }
-.contact-sub { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--clay); margin-bottom: 0.8rem; }
-.contact-meta { font-size: 0.88rem; color: rgba(255,255,255,0.45); margin-bottom: 2rem; font-family: var(--mono); letter-spacing: 0.04em; }
-.contact-links { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; }
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 1200px) {
-  .page-nav-cards { grid-template-columns: repeat(2,1fr); }
-}
-@media (max-width: 1000px) {
-  nav { padding: 0 1.5rem; }
-  .nav-links { display: none; }
-  .nav-mobile-toggle { display: block; }
-  nav.menu-open .nav-links {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: var(--nav-h);
-    left: 0; right: 0;
-    background: rgba(17,16,8,0.98);
-    padding: 1.5rem;
-    gap: 0.4rem;
-    border-bottom: 1px solid rgba(196,149,106,0.15);
-  }
-  nav.menu-open .nav-links li button { width: 100%; text-align: left; font-size: 0.72rem; padding: 0.7rem 0.8rem; }
-  .grid-2, .grid-2-asym { grid-template-columns: 1fr; gap: 2rem; }
-  .grid-3 { grid-template-columns: repeat(2,1fr); }
-  .stat-row { grid-template-columns: repeat(2,1fr); }
-  .workstream-grid { grid-template-columns: repeat(2,1fr); }
-  .uhf-themes { grid-template-columns: repeat(2,1fr); }
-  .pdf-grid { grid-template-columns: repeat(3,1fr); }
-  .skills-grid { grid-template-columns: repeat(2,1fr); }
-  .map-gallery { grid-template-columns: 1fr 1fr; }
-  .map-exhibit.wide { grid-column: span 2; }
-  .pillars-grid { grid-template-columns: 1fr; }
-  .et-item { grid-template-columns: 1fr; gap: 0.5rem; }
-  .page-nav-cards { grid-template-columns: 1fr; }
-  .wn-row { grid-template-columns: repeat(2,1fr); }
-}
-@media (max-width: 650px) {
-  .grid-3, .skills-grid, .uhf-themes { grid-template-columns: 1fr; }
-  .pdf-grid { grid-template-columns: repeat(2,1fr); }
-  .map-gallery { grid-template-columns: 1fr; }
-  .map-exhibit.wide { grid-column: span 1; }
-  .stat-row, .wn-row, .pillars-2x2 { grid-template-columns: 1fr 1fr; }
-  .workstream-grid { grid-template-columns: 1fr; }
-  section { padding: 4rem 1.5rem; }
-  nav { padding: 0 1.2rem; }
-  .page-hero-inner { padding: 0 1.5rem; }
-}
-
-/* ===== FADE IN ANIMATION ===== */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-</style>
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
@@ -1097,14 +22,20 @@ section { padding: 5rem 5%; }
   <div class="nav-logo" onclick="showPage('home')">Ahmed <span>Sakna</span></div>
   <ul class="nav-links" id="nav-links">
     <li><button onclick="showPage('home')" data-page="home">Home</button></li>
-    <li><button onclick="showPage('story')" data-page="story">My Story</button></li>
-    <li><button onclick="showPage('unesco')" data-page="unesco">UNESCO</button></li>
-    <li><button onclick="showPage('wefe')" data-page="wefe">WEFE+C</button></li>
-    <li><button onclick="showPage('projects')" data-page="projects">Projects</button></li>
+    <li><button onclick="showPage('story')" data-page="story">About</button></li>
     <li><button onclick="showPage('research')" data-page="research">Research</button></li>
-    <li><button onclick="showPage('drylands')" data-page="drylands">Drylands</button></li>
-    <li><button onclick="showPage('uhf')" data-page="uhf">Historic Cairo</button></li>
-    <li><button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</button></li>
+    <li class="nav-group">
+      <button class="nav-group-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleGroup(this)">Work ▾</button>
+      <ul class="nav-sub">
+        <li><button onclick="showPage('unesco')" data-page="unesco">UNESCO Journey</button></li>
+        <li><button onclick="showPage('wefe')" data-page="wefe">WEFE+C Competition</button></li>
+        <li><button onclick="showPage('projects')" data-page="projects">AECID Projects</button></li>
+        <li><button onclick="showPage('drylands')" data-page="drylands">Drylands &amp; Oases</button></li>
+        <li><button onclick="showPage('uhf')" data-page="uhf">Historic Cairo</button></li>
+      </ul>
+    </li>
+    <li><button onclick="showPage('field')" data-page="field">Field Notes</button></li>
+    <li><button class="nav-cta" onclick="goContact()">Contact</button></li>
   </ul>
   <button class="nav-mobile-toggle" id="mobile-toggle" onclick="toggleMenu()">☰</button>
 </nav>
@@ -1118,32 +49,39 @@ section { padding: 5rem 5%; }
     <div class="hero-grid-lines"></div>
     <div class="hero-radial"></div>
     <div class="hero-content">
-      <div class="hero-eyebrow">Environmental Engineer &amp; UNESCO Consultant</div>
+      <div class="hero-top">
+      <div class="hero-intro">
+      <div class="hero-eyebrow">PhD Student, Johns Hopkins University · UNESCO Consultant</div>
       <p class="hero-name">Ahmed Saber Sakna</p>
       <h1>Water,<br><em>Heritage,</em><br>Resilience.</h1>
       <p class="hero-thesis">
-        I build the bridge between ancient wisdom and modern science — using machine learning, remote sensing,
-        and cultural heritage frameworks to secure water futures across the Arab world. From nuclear power
-        infrastructure to the oases of the Western Desert, every step of my career has been shaped by a single
-        question: what does responsible water stewardship actually look like?
+        I build the bridge between ancient wisdom and modern science — using satellites, machine learning,
+        and cultural heritage frameworks to secure water futures. From nuclear power infrastructure to the
+        oases of the Western Desert, and now to satellite hydrology at Johns Hopkins, every step of my career
+        has been shaped by a single question: what does responsible water stewardship actually look like?
       </p>
       <div class="hero-creds">
+        <div class="cred"><div class="cred-dot" style="background:#2a5f7a"></div><span><strong>PhD</strong> Johns Hopkins University — satellite hydrology &amp; remote sensing</span></div>
         <div class="cred"><div class="cred-dot" style="background:#c4956a"></div><span><strong>UNESCO</strong> Regional Office for Egypt &amp; Sudan</span></div>
-        <div class="cred"><div class="cred-dot" style="background:#2a5f7a"></div><span><strong>MSc</strong> IHE Delft Institute for Water Education, 2024</span></div>
-        <div class="cred"><div class="cred-dot" style="background:#3d7a5f"></div><span><strong>€1M+</strong> in climate adaptation funding secured</span></div>
-        <div class="cred"><div class="cred-dot" style="background:#d4943a"></div><span><strong>Cairo, Egypt</strong> — Working across 12+ countries</span></div>
+        <div class="cred"><div class="cred-dot" style="background:#3d7a5f"></div><span><strong>FAO &amp; WUR</strong> WaPOR Egypt project consultant</span></div>
+        <div class="cred"><div class="cred-dot" style="background:#d4943a"></div><span><strong>€1M+</strong> in climate adaptation funding secured</span></div>
       </div>
       <div style="display:flex;gap:0.8rem;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="showPage('story')">Read My Story</button>
-        <a href="Ahmed_Sakna_Resume_2026.pdf" class="btn btn-ghost" target="_blank">Download CV</a>
+        <a href="assets/docs/Ahmed_Sakna_Resume_2027.pdf" class="btn btn-ghost" target="_blank">Download CV</a>
         <a href="https://github.com/sadow999/IHE-Thesis" class="btn btn-ghost" target="_blank">GitHub ↗</a>
+      </div>
+      </div>
+      <figure class="hero-portrait">
+        <img src="assets/photos/ahmed_portrait.jpg" alt="Portrait of Ahmed Saber Sakna">
+      </figure>
       </div>
 
       <div class="page-nav-cards">
         <div class="pnc" onclick="showPage('story')">
           <div class="pnc-num">01 / Origin</div>
           <h3>My Story</h3>
-          <p>ERU Teaching Assistant → El Dabaa Nuclear Site → IHE Delft → UNESCO Cairo</p>
+          <p>ERU Teaching Assistant → El Dabaa Nuclear Site → IHE Delft → UNESCO Cairo → Johns Hopkins</p>
           <div class="pnc-arrow">Explore →</div>
         </div>
         <div class="pnc" onclick="showPage('unesco')">
@@ -1166,8 +104,8 @@ section { padding: 5rem 5%; }
         </div>
         <div class="pnc" onclick="showPage('research')">
           <div class="pnc-num">05 / Science</div>
-          <h3>The Zankalon Forecast</h3>
-          <p>ML + remote sensing + CMIP6 ensemble — the Nile Delta through 2099</p>
+          <h3>Research</h3>
+          <p>PhD work on flash-drought forecasting &amp; irrigation salinity, plus the Zankalon forecast</p>
           <div class="pnc-arrow">Explore →</div>
         </div>
         <div class="pnc" onclick="showPage('drylands')">
@@ -1182,11 +120,11 @@ section { padding: 5rem 5%; }
           <p>University Heritage Forum — 7 thematic conservation strategies, 85 participants</p>
           <div class="pnc-arrow">Explore →</div>
         </div>
-        <div class="pnc" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-          <div class="pnc-num">08 / Connect</div>
-          <h3>Get In Touch</h3>
-          <p>Open to international development, consultancy & research collaborations</p>
-          <div class="pnc-arrow">Contact →</div>
+        <div class="pnc" onclick="showPage('field')">
+          <div class="pnc-num">08 / Field Notes</div>
+          <h3>Schist &amp; Serpentine</h3>
+          <p>A Piedmont field day with Prof. Ciaran Harman: two rocks, one climate, two landscapes</p>
+          <div class="pnc-arrow">Explore →</div>
         </div>
       </div>
     </div>
@@ -1194,13 +132,13 @@ section { padding: 5rem 5%; }
   <!-- Contact on home page -->
   <div id="contact" class="contact-section">
     <h2>Let's Build Something<br>That Lasts</h2>
-    <p class="contact-sub">Environmental Consultant · Water Resource Specialist · Cairo, Egypt</p>
-    <p class="contact-meta">a.sakna@unesco.org · Ahmadsakna96@gmail.com · +20 112 586 5035</p>
+    <p class="contact-sub">PhD Student · Water Resources &amp; Remote Sensing · Baltimore, MD &amp; Cairo</p>
+    <p class="contact-meta">Ahmadsakna96@gmail.com · +1 (443) 925-9676</p>
     <div class="contact-links">
       <a class="btn btn-primary" href="mailto:Ahmadsakna96@gmail.com">Email Me</a>
       <a class="btn btn-primary" href="https://linkedin.com/in/ahmad-sakna" target="_blank">LinkedIn</a>
       <a class="btn btn-primary" href="https://github.com/sadow999/IHE-Thesis" target="_blank">GitHub</a>
-      <a class="btn btn-ghost" href="Ahmed_Sakna_Resume_2026.pdf" target="_blank">Download CV</a>
+      <a class="btn btn-ghost" href="assets/docs/Ahmed_Sakna_Resume_2027.pdf" target="_blank">Download CV</a>
     </div>
   </div>
 </div>
@@ -1266,6 +204,24 @@ section { padding: 5rem 5%; }
               <p>Critical water infrastructure for Africa's largest nuclear project. 15% reduction in cost overruns. 5 multinational stakeholders coordinated. The Mediterranean basin raises the question that redirects a career.</p>
             </div>
           </div>
+          <div class="tl-item">
+            <div class="tl-year">2024–</div>
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-tag">MSc IHE Delft · UNESCO Cairo · FAO &amp; WUR</div>
+              <h4>From Thesis to Policy</h4>
+              <p>MSc at IHE Delft, then UNESCO's Regional Office for Egypt &amp; Sudan: €1M in AECID climate adaptation funding, a 12-country expert group, and the WEFE+C competition. Since Nov 2026, consultant to Wageningen University on the FAO WaPOR Egypt project.</p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2026–</div>
+            <div class="tl-dot"></div>
+            <div>
+              <div class="tl-tag">PhD · Johns Hopkins University</div>
+              <h4>Satellite Hydrology in Baltimore</h4>
+              <p>PhD in Environmental Health and Engineering with Prof. Venkataraman Lakshmi. Working on flash-drought forecast skill and on sensing irrigation water salinity from space.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1276,6 +232,16 @@ section { padding: 5rem 5%; }
     <div class="section-label">Academic Formation</div>
     <h2 class="section-title">Built on Two Disciplines,<br><em>United by Water</em></h2>
     <div class="grid-2" style="margin-top:2rem">
+      <div class="edu-card ihe fade-in" style="grid-column:1/-1">
+        <div class="edu-tag-line">PhD — Aug 2026 to Present · Johns Hopkins University · Baltimore, MD</div>
+        <h3>Environmental Health &amp; Engineering<br>Geography &amp; Environmental Engineering Track</h3>
+        <div class="edu-inst">Whiting School of Engineering · Advisor: Prof. Venkataraman Lakshmi</div>
+        <div class="edu-thesis">Remote sensing, satellite-based hydrology, and terrestrial water storage.</div>
+        <p class="edu-body">Two research threads: (1) how the quality of the initial soil-moisture state limits 2–4 week flash-drought forecast skill, and (2) the detection limits of radar–thermal fusion for sensing irrigation water salinity in California's San Joaquin Valley. Both were submitted as abstracts to AGU Fall Meeting 2026.</p>
+        <div class="chips">
+          <span class="chip">SMAP</span><span class="chip">Sentinel-1</span><span class="chip">NISAR</span><span class="chip">GRACE-FO</span><span class="chip">Google Earth Engine</span><span class="chip">Python</span>
+        </div>
+      </div>
       <div class="edu-card eru fade-in">
         <div class="edu-tag-line">BSc — 2018 · Ranked 1st · GPA 3.93/4.00 · Cairo</div>
         <h3>Construction Engineering</h3>
@@ -1392,12 +358,12 @@ section { padding: 5rem 5%; }
     <div class="section-label">Technical Toolkit</div>
     <h2 class="section-title">Instruments of <em>Analysis</em></h2>
     <div class="skills-grid" style="margin-top:2rem">
-      <div class="sg fade-in"><h4>GIS &amp; Remote Sensing</h4><ul><li>QGIS · ArcGIS Pro</li><li>WaPOR v2 (FAO)</li><li>AgERA5 reanalysis</li><li>Google Earth Engine</li><li>NDVI · EO Monitoring</li><li>Spatial Analysis</li></ul></div>
+      <div class="sg fade-in"><h4>GIS &amp; Remote Sensing</h4><ul><li>Google Earth Engine</li><li>QGIS · ArcGIS Pro</li><li>WaPOR · AgERA5</li><li>SMAP · Sentinel-1 · NISAR</li><li>GRACE-FO · CMIP6</li><li>Spatial Analysis</li></ul></div>
       <div class="sg fade-in"><h4>Data Science &amp; ML</h4><ul><li>Python (Pandas, GeoPandas)</li><li>Scikit-learn · Random Forest</li><li>SVR · Ridge · MLP</li><li>CMIP6 ensemble analysis</li><li>R (ggplot2)</li><li>Mann-Kendall trend analysis</li></ul></div>
       <div class="sg fade-in"><h4>Data &amp; Visualization</h4><ul><li>SQL (SQL Server, SQLite)</li><li>Power BI · Tableau</li><li>Matplotlib · GeoPandas</li><li>Advanced Excel</li><li>Publication-quality cartography</li></ul></div>
-      <div class="sg fade-in"><h4>Project Controls</h4><ul><li>Primavera P6</li><li>Risk Management</li><li>Nuclear QA/QC standards</li><li>Budget Oversight</li><li>Multi-ministry Coordination</li><li>PMP (2026)</li></ul></div>
+      <div class="sg fade-in"><h4>Project Controls</h4><ul><li>Primavera P6</li><li>Risk Management</li><li>Nuclear QA/QC standards</li><li>Budget Oversight</li><li>Multi-ministry Coordination</li><li>SAP (ERP) · MS Project · EVM</li><li>PMP (expected 2026)</li></ul></div>
       <div class="sg fade-in"><h4>Engineering Tools</h4><ul><li>SAP2000 · ETABS</li><li>AutoCAD</li><li>HEC-HMS · HEC-RAS</li><li>Concrete plant management</li></ul></div>
-      <div class="sg fade-in"><h4>Languages</h4><ul><li>Arabic (Native)</li><li>English — IELTS Band 8.0</li><li>Russian (Intermediate)</li><li>French (Elementary)</li></ul></div>
+      <div class="sg fade-in"><h4>Languages</h4><ul><li>Arabic (Native)</li><li>English — IELTS Band 8.0</li><li>Russian (Intermediate)</li><li>French (Intermediate)</li></ul></div>
     </div>
   </section>
 
@@ -1946,19 +912,54 @@ section { padding: 5rem 5%; }
     <div class="page-hero-grain"></div>
     <div class="page-hero-accent"></div>
     <div class="page-hero-inner">
-      <div class="page-label">Peer-Reviewed Research · MSc Thesis · IHE Delft 2024</div>
-      <h1>The Zankalon<br><em>Forecast</em></h1>
+      <div class="page-label">PhD Research · Johns Hopkins · MSc Thesis · IHE Delft · Publications</div>
+      <h1>Reading Water<br><em>from Orbit</em></h1>
     </div>
   </div>
 
+  <!-- PhD research -->
+  <section class="on-dark">
+    <div class="section-label">PhD · Johns Hopkins University · 2026–Present</div>
+    <h2 class="section-title">What Satellites Can <em>(and Can't)</em><br>Tell Us About Water</h2>
+    <p class="section-lead">At Johns Hopkins I work with Prof. Venkataraman Lakshmi on satellite-based hydrology and terrestrial water storage. My current projects are about the limits of what we can see from space, and of what we can forecast from it.</p>
+    <div class="grid-3">
+      <div class="event-card fade-in">
+        <div class="event-icon">🌵</div>
+        <div>
+          <div class="event-tag">Flash Drought · AGU Fall Meeting 2026 · H074</div>
+          <h4>Initial Soil-Moisture State &amp; Forecast Skill</h4>
+          <p>Flash droughts develop over weeks, which leaves little time to act. This project asks how much the quality of the initial soil-moisture state limits 2–4 week flash-drought forecast skill.</p>
+        </div>
+      </div>
+      <div class="event-card fade-in">
+        <div class="event-icon">🛰</div>
+        <div>
+          <div class="event-tag">Irrigation Salinity · AGU Fall Meeting 2026 · H106</div>
+          <h4>Radar–Thermal Fusion in the San Joaquin Valley</h4>
+          <p>Can satellites detect the quality of irrigation water, not just its quantity? I am testing the detection limits of combining radar and thermal observations to sense irrigation water salinity in California's San Joaquin Valley.</p>
+        </div>
+      </div>
+      <div class="event-card fade-in">
+        <div class="event-icon">🌾</div>
+        <div>
+          <div class="event-tag">FAO &amp; Wageningen University · Nov 2026–Present</div>
+          <h4>WaPOR Egypt: Irrigation Performance from Space</h4>
+          <p>As local consultant to WUR on the FAO WaPOR Egypt project, I assess satellite-derived irrigation performance across Nile Delta pilot sites. I built a multi-site Python/Earth Engine difference-in-differences pipeline, wrote the master technical report and the D1.1/D1.2 literature review, and lead learning sessions for Egyptian water-sector partners.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="on-white">
+    <div class="section-label">MSc Thesis · IHE Delft · 2024</div>
+    <h2 class="section-title">The Zankalon <em>Forecast</em></h2>
     <p style="font-size:1rem;line-height:1.8;color:var(--ink-muted);max-width:800px;margin-bottom:3rem;border-left:3px solid var(--clay);padding-left:1.5rem">
       My MSc thesis produced a counterintuitive finding that challenges standard assumptions about how climate warming affects crop water demand — and revealed that <strong style="color:var(--ink)">national land-use policy, not climate change itself, is the dominant driver of Egypt's future agricultural water crisis.</strong>
     </p>
     <div class="grid-2" style="align-items:start">
       <div>
         <div class="thesis-card fade-in">
-          <div class="tc-label">MSc Thesis · Under Peer Review · 2026 · IHE Delft</div>
+          <div class="tc-label">MSc Thesis · Under Review, Journal of Hydrology · IHE Delft</div>
           <h3>"Assessing the Impact of Climate Change on Agricultural Water Consumption Using Remote Sensing Data and Machine Learning: A Case Study of Zankalon, Nile Delta, Egypt"</h3>
           <div class="findings">
             <div class="finding"><div class="fi">🛰</div><p><strong>Data:</strong> WaPOR v2 (30m resolution AETI, 2009–2023), AgERA5 climate reanalysis, ensemble of 23 CMIP6 General Circulation Models. Six major irrigated crops. Projections through 2099 under SSP2-4.5 and SSP5-8.5.</p></div>
@@ -2020,11 +1021,19 @@ section { padding: 5rem 5%; }
   <!-- Publications -->
   <section class="on-warm">
     <div class="section-label">Publication Record</div>
-    <h2 class="section-title">Peer-Reviewed <em>Work</em></h2>
+    <h2 class="section-title">Publications &amp; <em>Abstracts</em></h2>
     <div class="pubs" style="margin-top:2rem">
       <div class="pub rv fade-in">
-        <span class="pub-badge">Under Review · 2026</span>
-        <p>Sakna, A., Mul, M., Tran, B., &amp; Seyoum, S. "Assessing the Impact of Climate Change on Water Consumption Using Remote Sensing Data and Machine Learning: A Case Study of the Nile Delta, Egypt." Submitted for peer review, 2026.</p>
+        <span class="pub-badge">Abstract Submitted · AGU Fall Meeting 2026 · H074</span>
+        <p><strong>Sakna, A.S.</strong>, &amp; Lakshmi, V. "Initial soil-moisture state quality and flash-drought forecast predictability." AGU Fall Meeting 2026.</p>
+      </div>
+      <div class="pub rv fade-in">
+        <span class="pub-badge">Abstract Submitted · AGU Fall Meeting 2026 · H106</span>
+        <p><strong>Sakna, A.S.</strong>, &amp; Lakshmi, V. "Satellite detection limits for irrigation water quality via radar–thermal fusion." AGU Fall Meeting 2026.</p>
+      </div>
+      <div class="pub rv fade-in">
+        <span class="pub-badge">Under Review · Journal of Hydrology · 2026</span>
+        <p>Sakna, A., Mul, M., Tran, B., &amp; Seyoum, S. "Assessing the impact of climate change on agricultural water consumption using earth observations and machine learning: a case study of Zankalon, Nile Delta, Egypt." <em>Journal of Hydrology</em> (under review).</p>
         <a href="https://github.com/sadow999/IHE-Thesis" target="_blank">→ Code &amp; data: github.com/sadow999/IHE-Thesis</a>
       </div>
       <div class="pub fade-in">
@@ -2226,10 +1235,10 @@ section { padding: 5rem 5%; }
       <a class="pdf-card" href="assets/docs/UHF/Theme 1 - Zero-Energy Cities - Citadel.pdf" target="_blank"><div class="pdf-ico">🗺</div><div><p>Theme 1 — Zero-Energy Citadel</p><span>PDF · Thematic Map</span></div></a>
       <a class="pdf-card" href="assets/docs/UHF/Theme 2.pdf" target="_blank"><div class="pdf-ico">🗺</div><div><p>Theme 2 — Green Infrastructure</p><span>PDF · Thematic Map</span></div></a>
       <a class="pdf-card" href="assets/docs/UHF/Theme 3.pdf" target="_blank"><div class="pdf-ico">🗺</div><div><p>Theme 3 — Cultural Economy (A)</p><span>PDF · Thematic Map</span></div></a>
-      <a class="pdf-card" href="assets/docs/UHF/Theme 3-2.pdf" target="_blank"><div class="pdf-ico">🗺</div><div><p>Theme 3 — Cultural Economy (B)</p><span>PDF · Thematic Map</span></div></a>
-      <a class="pdf-card" href="assets/docs/UHF/Theme 4 - Urban Finance_Creative Financing Mechanisms at Darb Al-Ahmar.pdf" target="_blank"><div class="pdf-ico">🗺</div><div><p>Theme 4 — Urban Finance</p><span>PDF · Thematic Map</span></div></a>
+      <a class="pdf-card" href="assets/docs/UHF/Theme 3 - 2.pdf" target="_blank"><div class="pdf-ico">🗺</div><div><p>Theme 3 — Cultural Economy (B)</p><span>PDF · Thematic Map</span></div></a>
+      <a class="pdf-card" href="assets/docs/UHF/Theme 4 - Urban Finance_ Creative Financing Mechanisms at Darb Al-Ahmar.pdf" target="_blank"><div class="pdf-ico">🗺</div><div><p>Theme 4 — Urban Finance</p><span>PDF · Thematic Map</span></div></a>
       <a class="pdf-card" href="assets/docs/UHF/Theme 5 - Documentation and Conservation Assessment of Built Heritage in Eastern Historic Cairo.pdf" target="_blank"><div class="pdf-ico">🗺</div><div><p>Theme 5 — Documentation</p><span>PDF · Thematic Map</span></div></a>
-      <a class="pdf-card" href="assets/docs/UHF/Theme 6 - Climate Hazards and Historic Urban Landscape at Imam Al-Shafi'i Area.pdf" target="_blank"><div class="pdf-ico">🗺</div><div><p>Theme 6 — Climate Hazards</p><span>PDF · Thematic Map</span></div></a>
+      <a class="pdf-card" href="assets/docs/UHF/Theme 6 - Climate Hazards and Historic Urban Landscape at Imam Al-Shafi’i Area.pdf" target="_blank"><div class="pdf-ico">🗺</div><div><p>Theme 6 — Climate Hazards</p><span>PDF · Thematic Map</span></div></a>
       <a class="pdf-card" href="assets/docs/UHF/Theme 7 - Living Heritage - The Role of Local Communities - Al Azhar.pdf" target="_blank"><div class="pdf-ico">🗺</div><div><p>Theme 7 — Living Heritage</p><span>PDF · Thematic Map</span></div></a>
     </div>
     <a class="btn btn-primary" href="assets/docs/01_Harnessing_Heritage_for_a_Resilient_Future.pdf" target="_blank" style="text-decoration:none;display:inline-block;margin-top:1rem">📖 Read the Full MAB Strategic Narrative →</a>
@@ -2237,132 +1246,238 @@ section { padding: 5rem 5%; }
 
   <div class="contact-section" id="contact-uhf">
     <h2>Let's Build Something<br>That Lasts</h2>
-    <p class="contact-sub">Environmental Consultant · Water Resource Specialist · Cairo, Egypt</p>
-    <p class="contact-meta">a.sakna@unesco.org · Ahmadsakna96@gmail.com · +20 112 586 5035</p>
+    <p class="contact-sub">PhD Student · Water Resources &amp; Remote Sensing · Baltimore, MD &amp; Cairo</p>
+    <p class="contact-meta">Ahmadsakna96@gmail.com · +1 (443) 925-9676</p>
     <div class="contact-links">
+      <button class="btn btn-primary" onclick="showPage('field')">Field Notes →</button>
       <a class="btn btn-primary" href="mailto:Ahmadsakna96@gmail.com">Email Me</a>
       <a class="btn btn-primary" href="https://linkedin.com/in/ahmad-sakna" target="_blank">LinkedIn</a>
-      <a class="btn btn-ghost" href="Ahmed_Sakna_Resume_2026.pdf" target="_blank">Download CV</a>
+      <a class="btn btn-ghost" href="assets/docs/Ahmed_Sakna_Resume_2027.pdf" target="_blank">Download CV</a>
       <button class="btn btn-ghost" onclick="showPage('home')">← Home</button>
     </div>
   </div>
 </div>
 
-<script>
-// ===== PAGE ROUTING =====
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+<!-- ================================================================
+     PAGE: FIELD NOTES — PIEDMONT FIELD TRIP
+     ================================================================ -->
+<div class="page" id="page-field">
+  <div class="page-hero field-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-grain"></div>
+    <div class="page-hero-inner">
+      <div class="page-label">Field Notes · Maryland Piedmont · 17 October 2026</div>
+      <h1>Schist &amp;<br><em>Serpentine</em></h1>
+      <p class="hero-sub">A day in the field with Dr. Ciaran Harman (JHU Environmental Health &amp; Engineering), walking two watersheds 16 km apart that share a climate and almost nothing else.</p>
+    </div>
+  </div>
 
-  // Update nav active state
-  document.querySelectorAll('.nav-links button[data-page]').forEach(b => {
-    b.classList.toggle('active', b.dataset.page === id);
-  });
+  <!-- Intro -->
+  <section class="on-white">
+    <div class="grid-2-asym">
+      <div>
+        <div class="section-label">Two Rocks, One Climate</div>
+        <h2 class="section-title">Same Rain,<br><em>Different Ground</em></h2>
+        <p style="font-size:1rem;line-height:1.8;color:var(--ink-muted);margin-bottom:1.2rem">
+          The trip started at <strong style="color:var(--ink)">Baisman Run and Pond Branch</strong> in Oregon Ridge Park, on the Loch Raven Schist, and ended at <strong style="color:var(--ink)">Soldiers Delight</strong>, on serpentinite: a slice of ancient ocean mantle pushed onto the continent. Both get about 1,150 mm of rain a year, and both are being lowered at about 2.4 m per million years.
+        </p>
+        <p style="font-size:1rem;line-height:1.8;color:var(--ink-muted)">
+          What differs is the rock. That one difference decides how deep the <strong style="color:var(--ink)">critical zone</strong> goes, how much water the ground can store, how flashy the streams are, what the water tastes of, what grows, and what shape the hills take.
+        </p>
+      </div>
+      <div>
+        <div class="pull-quote pull-quote-light" style="margin-top:0">
+          <p>"Landscape morphology is an emergent property of the critical zone."</p>
+        </div>
+        <p style="font-family:var(--mono);font-size:0.62rem;letter-spacing:0.08em;color:var(--ink-faint)">The field day's central idea, from the trip reader</p>
+      </div>
+    </div>
+  </section>
 
-  // Close mobile menu
-  document.getElementById('main-nav').classList.remove('menu-open');
+  <!-- Two sites -->
+  <section class="on-warm">
+    <div class="site-pair">
+      <div class="site-card schist fade-in">
+        <div class="site-tag">Part I · Oregon Ridge Park, Cockeysville</div>
+        <h3>Pond Branch &amp; Baisman Run</h3>
+        <p>Quartz-rich mica schist weathers into <strong>saprolite</strong>, "rotten rock" that keeps the rock's texture but crumbles in your hand. It forms a porous sponge 15–20 m thick under the ridges. Most of the rain soaks in and leaves slowly as base flow.</p>
+        <ul class="site-facts">
+          <li>Bedrock <b>Loch Raven Schist</b></li>
+          <li>Weathered zone <b>~15 m saprolite, &gt;45 m fractured rock</b></li>
+          <li>Base flow share of runoff <b>~85–87%</b></li>
+          <li>Stream dissolved solids <b>25 mg/L</b></li>
+          <li>Median hillslope length <b>177 m</b></li>
+        </ul>
+      </div>
+      <div class="site-card serp fade-in">
+        <div class="site-tag">Part II · Owings Mills</div>
+        <h3>Soldiers Delight &amp; Druids Run</h3>
+        <p>Serpentinite has almost no quartz, so it dissolves away rather than rotting in place. There is <strong>no saprolite</strong>: a thin silty soil sits right on hard rock. Rain saturates whole hillslopes quickly and the streams respond fast.</p>
+        <ul class="site-facts">
+          <li>Bedrock <b>Antigorite serpentinite</b></li>
+          <li>Weathered zone <b>soil ≤1 m, rock at 1–3 m</b></li>
+          <li>Base flow share of runoff <b>~63%</b></li>
+          <li>Stream dissolved solids <b>205 mg/L</b></li>
+          <li>Median hillslope length <b>88 m</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-  // Trigger bar animation if research page
-  if (id === 'research') {
-    setTimeout(animateBars, 400);
-  }
+  <!-- The route -->
+  <section class="on-dark">
+    <div class="section-label">The Route</div>
+    <h2 class="section-title">Six Stops,<br><em>Top to Bedrock</em></h2>
+    <p class="section-lead">What we saw along the way, and the research behind each stop.</p>
+    <div class="stop-list">
+      <div class="stop fade-in">
+        <div class="photo-slot" onclick="openLb('assets/photos/field/baisman_run_crossing.jpg','Crossing Baisman Run at the start of the day.')">
+          <img src="assets/photos/field/baisman_run_crossing.jpg" alt="Students crossing Baisman Run" loading="lazy">
+        </div>
+        <div>
+          <div class="stop-num">Stop 01 · Lower Baisman Run</div>
+          <h3>The Fall Zone &amp; Wolman's Legacy</h3>
+          <p>Baisman Run sits on the <strong>Fall Zone</strong>, where the hard Piedmont drops to the soft Coastal Plain. Ships could sail inland to the fall line and these steep streams powered mills, which is a large part of why Baltimore grew where it did. The streambed glitters with mica, and you can find red almandine garnet.</p>
+          <p>In the 1960s, M. Gordon "Reds" Wolman instrumented this stream and found that floods and sediment are <strong>decoupled</strong>. Sediment moves through the channel in fits and starts, and can leave months or years after the water that brought it.</p>
+        </div>
+      </div>
 
-  // Trigger fade-ins
-  setTimeout(triggerFadeIns, 100);
-}
+      <div class="stop flip fade-in">
+        <div class="photo-slot" onclick="openLb('assets/photos/field/pond_branch_weir.jpg','Stream gauging on Pond Branch.')">
+          <img src="assets/photos/field/pond_branch_weir.jpg" alt="Stream gauge on Pond Branch" loading="lazy">
+        </div>
+        <div>
+          <div class="stop-num">Stop 02 · Pond Branch</div>
+          <h3>A Dam Full of Sediment, a Textbook Rewritten</h3>
+          <p>A small estate dam built around 1910 filled up with sediment. In the late 1960s, Cleaves, Godfrey and Bricker surveyed that trapped sediment and measured what the stream carried in solution. The result was one of the first complete geochemical mass balances of a watershed.</p>
+          <p>Their surprise: water was carrying away about <strong>5× more rock in solution</strong> than as sediment. Chemical weathering was a major force in crystalline landscapes, not something that mattered only in limestone.</p>
+        </div>
+      </div>
 
-// ===== MOBILE MENU =====
-function toggleMenu() {
-  document.getElementById('main-nav').classList.toggle('menu-open');
-}
+      <div class="stop fade-in">
+        <div class="photo-slot" onclick="openLb('assets/photos/field/riparian_well.jpg','A monitoring well in the Pond Branch riparian zone.')">
+          <img src="assets/photos/field/riparian_well.jpg" alt="Monitoring well in the riparian zone" loading="lazy">
+        </div>
+        <div>
+          <div class="stop-num">Stop 03 · The Riparian Well Transect</div>
+          <h3>Where Storm Runoff Really Comes From</h3>
+          <p>The flat riparian strip along the stream is only <strong>3.7%</strong> of the 37-hectare Pond Branch catchment. Wells there show the water table within 10–20 cm of the surface all year, even in drought.</p>
+          <p>When it storms, the hillslopes soak up almost everything. More than 90% of storm quickflow can be explained by rain falling directly on that narrow strip. The hillslopes act like rechargeable batteries, releasing water through toe-slope seeps over hundreds of days.</p>
+        </div>
+      </div>
 
-// ===== LIGHTBOX =====
-function openLb(src, cap) {
-  document.getElementById('lb-img').src = src;
-  document.getElementById('lb-cap').textContent = cap;
-  document.getElementById('lb').classList.add('open');
-}
-function closeLb() {
-  document.getElementById('lb').classList.remove('open');
-  document.getElementById('lb-img').src = '';
-}
-document.getElementById('lb').addEventListener('click', function(e) {
-  if (e.target === this) closeLb();
-});
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeLb();
-});
+      <div class="stop flip fade-in">
+        <div class="photo-slot" onclick="openLb('assets/photos/field/saprolite_cutbank.jpg','Dr. Ciaran Harman at a saprolite cutbank on the Pond Branch hillslope.')">
+          <img src="assets/photos/field/saprolite_cutbank.jpg" alt="Dr. Ciaran Harman at a saprolite exposure" loading="lazy">
+        </div>
+        <div>
+          <div class="stop-num">Stop 04 · Saprolite Cutbank &amp; Ridge</div>
+          <h3>Rotten Rock and the "Bow-Tie"</h3>
+          <p>In the cutbank, the saprolite still shows the schist's banding and quartz lenses but crumbles to sand between your fingers. A 2019 borehole on the ridge went past <strong>45 m</strong> without reaching fresh rock. Base flow after Baltimore's record-wet 2018 peaked a full year later, in 2019, because the water first had to percolate through about 10 m of unsaturated ground.</p>
+          <p>Seismic surveys found fresh rock just 2–10 m under the valley but about 40 m under the ridges, a <strong>"bow-tie"</strong> shape. Regional tectonic compression squeezes fractures shut under valleys, while under ridges they open up and let water weather the rock deeply.</p>
+        </div>
+      </div>
 
-// ===== BAR CHART ANIMATION =====
-function animateBars() {
-  document.querySelectorAll('.bar-fill[data-w]').forEach(function(bar) {
-    bar.style.width = bar.getAttribute('data-w');
-  });
-}
+      <div class="stop fade-in">
+        <div class="photo-slot" onclick="openLb('assets/photos/field/pipeline_corridor.jpg','Discussion at the gas-pipeline right-of-way.')">
+          <img src="assets/photos/field/pipeline_corridor.jpg" alt="Group at the pipeline right-of-way" loading="lazy">
+        </div>
+        <div>
+          <div class="stop-num">Stop 05 · Upper Swale &amp; Pipeline Right-of-Way</div>
+          <h3>Land-Use Legacies &amp; the Nitrogen Puzzle</h3>
+          <p>The forest hides a farming past: 18th-century tobacco clearing stripped soils and eroded about 5 cm from the uplands, and the valley bottoms are buried under post-settlement sediment.</p>
+          <p>Pond Branch keeps about <strong>95% of the nitrogen</strong> it receives from the atmosphere. Small hollows only 10–20 cm deep, under 1% of the area, account for over 99% of denitrification. In midsummer they dry out, and nitrate is flushed into the stream.</p>
+        </div>
+      </div>
 
-// ===== FADE IN OBSERVER =====
-function triggerFadeIns() {
-  const fadeEls = document.querySelectorAll('#page-' + getCurrentPage() + ' .fade-in');
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry, i) {
-      if (entry.isIntersecting) {
-        setTimeout(function() {
-          entry.target.classList.add('visible');
-        }, i * 60);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
-  fadeEls.forEach(el => observer.observe(el));
-}
+      <div class="stop solo fade-in">
+        <div>
+          <div class="stop-num">Stop 06 · Soldiers Delight &amp; Druids Run</div>
+          <h3>A Window into the Mantle</h3>
+          <p>Just 16 km west, the forest gives way to golden grass, stunted blackjack oak and Virginia pine. This is serpentinite: mantle rock that formed about <strong>489 million years ago</strong> beneath the ancient Iapetus Ocean and was shoved onto North America. It is rich in magnetite, so a strong magnet sticks to it.</p>
+          <p>The soils are low in calcium and very high in nickel and chromium, which is why the vegetation is so sparse. The streams carry about eight times more dissolved solids than Pond Branch. Because the permeable layer is only about 0.46 m thick (versus about 4 m at Pond Branch), storms saturate entire hillslopes, and channels start much closer to the ridges. Litwin &amp; Harman (2024) showed that subsurface transmissivity, not surface erodibility, is what halves hillslope length here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-function getCurrentPage() {
-  const active = document.querySelector('.page.active');
-  return active ? active.id.replace('page-', '') : 'home';
-}
+  <!-- Comparison table -->
+  <section class="on-warm">
+    <div class="section-label">Side by Side</div>
+    <h2 class="section-title">Schist vs. <em>Serpentinite</em></h2>
+    <p class="section-lead">Same climate and same base-level lowering (~2.4 m per million years). Everything else follows from the rock.</p>
+    <div class="cmp-wrap fade-in">
+      <table class="cmp-table">
+        <thead>
+          <tr><th></th><th>Pond Branch &amp; Baisman Run</th><th>Soldiers Delight &amp; Druids Run</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>Bedrock</th><td>Loch Raven Schist (40–50% quartz)</td><td>Antigorite serpentinite (no quartz)</td></tr>
+          <tr><th>Critical-zone depth</th><td>~15 m saprolite; fractured rock &gt;45 m</td><td>Soil ≤1 m; bedrock at 1–3 m</td></tr>
+          <tr><th>Weathering</th><td>Rots in place to clay and quartz; ~50% chemical</td><td>Dissolves almost completely; ~90% chemical</td></tr>
+          <tr><th>Stream chemistry</th><td>25 mg/L dissolved solids, Na-Ca-HCO₃</td><td>205 mg/L dissolved solids, Mg-HCO₃</td></tr>
+          <tr><th>Base flow share</th><td>~85–87% of annual runoff</td><td>~63% of annual runoff</td></tr>
+          <tr><th>Storm response</th><td>Damped; runoff from a 3.7% riparian fringe</td><td>Flashy; saturation spreads across hillslopes</td></tr>
+          <tr><th>Quickflow exponent (Q<sub>f</sub> ∝ P<sup>a</sup>)</th><td>a = 1.89</td><td>a = 3.17</td></tr>
+          <tr><th>Permeable layer</th><td>~4 m thick, T ≈ 3.9 m²/d</td><td>~0.46 m thick, T ≈ 1.1 m²/d</td></tr>
+          <tr><th>Hillslope length</th><td>Median 177 m</td><td>Median 88 m</td></tr>
+          <tr><th>Vegetation</th><td>Closed deciduous forest</td><td>Serpentine grassland &amp; oak savanna</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
-// ===== RESPONSIVE PROJECTS GRID =====
-function fixProjectsGrid() {
-  const grid = document.querySelector('.projects-grid-resp');
-  if (grid) {
-    if (window.innerWidth < 900) {
-      grid.style.gridTemplateColumns = '1fr';
-    } else {
-      grid.style.gridTemplateColumns = '1fr 1fr';
-    }
-  }
-}
-window.addEventListener('resize', fixProjectsGrid);
+  <!-- Why it matters -->
+  <section class="on-white">
+    <div class="grid-2-asym">
+      <div>
+        <div class="section-label">Why It Matters to My Research</div>
+        <h2 class="section-title">Storage Has <em>Memory</em></h2>
+        <p style="font-size:1rem;line-height:1.8;color:var(--ink-muted);margin-bottom:1.2rem">
+          My PhD work uses satellites to track soil moisture and terrestrial water storage. This field day was a reminder of what sits underneath those pixels. At Pond Branch, a wet year shows up in the stream a year later. Sulfate in base flow is still at its 1968 level even though acid-rain deposition has dropped more than threefold, because the deep saprolite stores and slowly releases it.
+        </p>
+        <p style="font-size:1rem;line-height:1.8;color:var(--ink-muted)">
+          At Soldiers Delight, with storage measured in days to weeks, the same signal would pass through almost at once. Two places with the same rain can need very different models of memory, and that matters for anything we try to forecast from space.
+        </p>
+      </div>
+      <div>
+        <div class="insight-box" style="margin-top:0">
+          <h4>Three Takeaways</h4>
+          <p><strong style="color:var(--ink)">1.</strong> Below-ground storage capacity, not surface erosion, sets how finely a landscape is dissected.</p>
+          <p style="margin-top:0.6rem"><strong style="color:var(--ink)">2.</strong> A thin riparian strip can generate most of a catchment's storm runoff.</p>
+          <p style="margin-top:0.6rem"><strong style="color:var(--ink)">3.</strong> Deep critical zones carry multi-year and multi-decade memory of what fell on them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-// ===== INIT =====
-window.addEventListener('load', function() {
-  triggerFadeIns();
-  fixProjectsGrid();
+  <!-- Gallery -->
+  <section class="on-dark-2">
+    <div class="section-label">Photo Log · 17 October 2026</div>
+    <h2 class="section-title">From the <em>Field</em></h2>
+    <div class="field-gallery">
+      <div class="photo-slot wide" onclick="openLb('assets/photos/field/forest_traverse.jpg','Bushwhacking through the forest understory.')"><img src="assets/photos/field/forest_traverse.jpg" alt="Hiking through forest understory" loading="lazy"><div class="ph-overlay"><div class="ph-tag">Oregon Ridge</div><h4>Off-trail</h4></div></div>
+      <div class="photo-slot tall" onclick="openLb('assets/photos/field/trail_specimen.jpg','A rock specimen along the trail.')"><img src="assets/photos/field/trail_specimen.jpg" alt="Rock specimen on the trail" loading="lazy"><div class="ph-overlay"><div class="ph-tag">Specimen</div><h4>Hand sample</h4></div></div>
+      <div class="photo-slot tall" onclick="openLb('assets/photos/field/pond_branch_weir.jpg','Stream gauging on Pond Branch.')"><img src="assets/photos/field/pond_branch_weir.jpg" alt="Stream gauge" loading="lazy"><div class="ph-overlay"><div class="ph-tag">Pond Branch</div><h4>Gauging the stream</h4></div></div>
+      <div class="photo-slot wide" onclick="openLb('assets/photos/field/monitoring_station.jpg','A solar-powered monitoring station beside the stream.')"><img src="assets/photos/field/monitoring_station.jpg" alt="Solar-powered monitoring station" loading="lazy"><div class="ph-overlay"><div class="ph-tag">Instrumentation</div><h4>Monitoring station</h4></div></div>
+      <div class="photo-slot wide" onclick="openLb('assets/photos/field/hillslope_hollow.jpg','Reading the hillslope and its hollows.')"><img src="assets/photos/field/hillslope_hollow.jpg" alt="Hillslope with hollows" loading="lazy"><div class="ph-overlay"><div class="ph-tag">Hillslope</div><h4>Swales &amp; hollows</h4></div></div>
+      <div class="photo-slot tall" onclick="openLb('assets/photos/field/riparian_well.jpg','A monitoring well in the riparian zone.')"><img src="assets/photos/field/riparian_well.jpg" alt="Riparian monitoring well" loading="lazy"><div class="ph-overlay"><div class="ph-tag">Riparian zone</div><h4>Well head</h4></div></div>
+      <div class="photo-slot" onclick="openLb('assets/photos/field/saprolite_cutbank.jpg','Saprolite cutbank on the Pond Branch hillslope.')"><img src="assets/photos/field/saprolite_cutbank.jpg" alt="Saprolite cutbank" loading="lazy"><div class="ph-overlay"><div class="ph-tag">Saprolite</div><h4>Rotten rock</h4></div></div>
+      <div class="photo-slot" onclick="openLb('assets/photos/field/pipeline_corridor.jpg','Discussion at the gas-pipeline right-of-way.')"><img src="assets/photos/field/pipeline_corridor.jpg" alt="Pipeline right-of-way" loading="lazy"><div class="ph-overlay"><div class="ph-tag">Land use</div><h4>Pipeline corridor</h4></div></div>
+      <div class="photo-slot wide" onclick="openLb('assets/photos/field/group_soldiers_delight.jpg','The group with Dr. Ciaran Harman on the Soldiers Delight serpentine barrens.')"><img src="assets/photos/field/group_soldiers_delight.jpg" alt="Group photo at Soldiers Delight" loading="lazy"><div class="ph-overlay"><div class="ph-tag">Soldiers Delight</div><h4>The serpentine barrens</h4></div></div>
+    </div>
+  </section>
 
-  // Staggered hero animations
-  const heroContent = document.querySelector('#page-home .hero-content');
-  if (heroContent) {
-    heroContent.style.opacity = '0';
-    heroContent.style.transform = 'translateY(24px)';
-    heroContent.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-    setTimeout(function() {
-      heroContent.style.opacity = '1';
-      heroContent.style.transform = 'translateY(0)';
-    }, 200);
-  }
+  <div class="contact-section">
+    <h2>Continue Exploring</h2>
+    <p class="contact-sub">Navigate to any section</p>
+    <div class="contact-links">
+      <button class="btn btn-primary" onclick="showPage('research')">My Research →</button>
+      <button class="btn btn-ghost" onclick="showPage('home')">← Home</button>
+    </div>
+  </div>
+</div>
 
-  // Scroll-triggered fade-ins for active page
-  document.addEventListener('scroll', function() {
-    const fadeEls = document.querySelectorAll('.page.active .fade-in:not(.visible)');
-    fadeEls.forEach(function(el) {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 50) {
-        el.classList.add('visible');
-      }
-    });
-  }, { passive: true });
-});
-</script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
